@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { navItems } from "../../data.js/data";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { CgMenu } from "react-icons/cg";
+import { RxCross2 } from "react-icons/rx";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,9 +61,9 @@ export default function Navbar() {
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 focus:outline-none"
               >
                 {isMobileMenuOpen ? (
-                  <X className="h-6 w-6" />
+                  <RxCross2 className="h-6 w-6" />
                 ) : (
-                  <Menu className="h-6 w-6" />
+                  <CgMenu className="h-6 w-6" />
                 )}
               </button>
             </div>

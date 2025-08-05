@@ -6,12 +6,14 @@ import About from "./Pages/About";
 import PageNot from "./Pages/PageNot";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import Contact from "./Pages/Contact";
+import Userdashoard from "./Pages/userdashoard/Userdashoard";
+import Job from "./Pages/userdashoard/Job";
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
-      // errorElement: <NotFound />,
       children: [
         {
           index: true,
@@ -25,9 +27,21 @@ function App() {
           path: "/login",
           element: <Login />,
         },
-         {
+        {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/contact",
+          element: <Contact />,
+        },
+        {
+          path: "/userdashboard",
+          element: <Userdashoard />,
+        },
+        {
+          path: "/userdashboard/all-jobs",
+          element: <Job />,
         },
         {
           path: "*",

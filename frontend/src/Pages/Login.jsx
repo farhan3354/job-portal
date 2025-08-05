@@ -1,12 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { register, handleSubmit } = useForm();
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log("Login Data Submitted:", data);
+    navigate("/userdashboard");
   };
 
   return (
@@ -44,11 +49,22 @@ export default function Login() {
               </label>
               <input
                 id="email"
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Invalid email address",
+                  },
+                })}
                 type="text"
                 placeholder="Username or email address"
                 className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -60,14 +76,19 @@ export default function Login() {
               </label>
               <input
                 id="password"
-                {...register("password", { required: true })}
+                {...register("password", { required: "password is required" })}
                 type="password"
                 placeholder="Password"
                 className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
               <Link
                 to="/forgot-password"
-                className="text-blue-500 text-sm float-right mt-2"
+                className="text-blue-500 text-sm float-left mt-2 mb-3"
               >
                 Forgot Password?
               </Link>
@@ -83,8 +104,8 @@ export default function Login() {
 
           <div className="text-left mt-4">
             <span className="text-gray-500">No Account?</span>{" "}
-            <Link to="/signup" className="text-blue-500 font-medium">
-              Sign up
+            <Link to="/register" className="text-blue-500 font-medium">
+              Register
             </Link>
           </div>
         </div>
