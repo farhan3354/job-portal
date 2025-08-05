@@ -1,14 +1,18 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Pages/Home";
+import Home from "./pages/Home";
 import Layout from "./component/comman/Layout";
-import About from "./Pages/About";
-import PageNot from "./Pages/PageNot";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import Contact from "./Pages/Contact";
-import Userdashoard from "./Pages/userdashoard/Userdashoard";
-import Job from "./Pages/userdashoard/Job";
+import About from "./pages/About";
+import PageNotFound from "./pages/PageNotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Contact from "./pages/Contact";
+import UserLayout from "./component/comman/userlayout/Userlayout";
+import Userdashboard from "./pages/userpages/Userdashboard";
+import Job from "./pages/userpages/Job";
+import Alljobs from "./pages/userpages/Alljobs";
+import Saved from "./pages/userpages/Saved";
+import ApplyJob from "./pages/userpages/ApplyJob";
 function App() {
   const router = createBrowserRouter([
     {
@@ -36,17 +40,20 @@ function App() {
           element: <Contact />,
         },
         {
-          path: "/userdashboard",
-          element: <Userdashoard />,
-        },
-        {
-          path: "/userdashboard/all-jobs",
-          element: <Job />,
-        },
-        {
           path: "*",
-          element: <PageNot />,
+          element: <PageNotFound />,
         },
+      ],
+    },
+    {
+      path: "/userdashboard",
+      element: <UserLayout />,
+      children: [
+        { path: "", element: <Job /> },
+        { path: "jobs", element: <Userdashboard /> },
+        { path: "all-jobs", element: <Alljobs /> },
+        { path: "saved", element: <Saved /> },
+        { path: "apply", element: <ApplyJob /> },
       ],
     },
   ]);
