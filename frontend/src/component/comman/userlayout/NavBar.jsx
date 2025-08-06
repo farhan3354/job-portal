@@ -3,6 +3,7 @@ import { navItems } from "../../../data/data";
 import { Link } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
+import { IoMdContact } from "react-icons/io";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -83,6 +84,12 @@ export default function Navbar() {
               className="block w-full text-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium"
             >
               Logout
+            </Link>
+            <Link
+              to={"/"}
+              className="block w-full text-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium"
+            >
+              <IoMdContact></IoMdContact>
             </Link>
           </div>
         </div>
