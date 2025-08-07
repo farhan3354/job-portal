@@ -13,6 +13,7 @@ import Job from "./pages/userpages/Job";
 import Alljobs from "./pages/userpages/Alljobs";
 import Saved from "./pages/userpages/Saved";
 import ApplyJob from "./pages/userpages/ApplyJob";
+import Profile from "./pages/userpages/Profile";
 function App() {
   const router = createBrowserRouter([
     {
@@ -54,6 +55,7 @@ function App() {
         { path: "all-jobs", element: <Alljobs /> },
         { path: "saved", element: <Saved /> },
         { path: "apply", element: <ApplyJob /> },
+        { path: "profile", element: <Profile /> },
       ],
     },
   ]);

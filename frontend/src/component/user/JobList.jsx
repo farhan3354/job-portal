@@ -6,6 +6,7 @@ import {
   FaClock,
   FaBuilding,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const JobList = () => {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -164,9 +165,11 @@ const JobList = () => {
                     </>
                   ))}
                 </ul>
-                <button className="bg-blue-500 text-white border rounded">
-                  Apply Now
-                </button>
+                <Link to={"/userdashboard/apply"}>
+                  <button className="bg-blue-500 text-white border rounded">
+                    Apply Now
+                  </button>
+                </Link>
               </div>
             </div>
           ) : (

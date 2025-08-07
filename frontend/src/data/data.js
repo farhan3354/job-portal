@@ -74,6 +74,6 @@ export const menuItems = [
   {
     title: "Profile",
     icon: "IoIosContact",
-    to: "/userdashboard/all-jobs",
+    to: "/userdashboard/profile",
   },
 ];
