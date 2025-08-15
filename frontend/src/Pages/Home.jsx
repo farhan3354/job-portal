@@ -7,9 +7,7 @@ import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
 
 const Home = () => {
-  const [savedJobs, setSavedJobs] = useState([
-    
-  ]);
+  const [savedJobs, setSavedJobs] = useState([]);
 
   // Featured jobs data
   const featuredJobs = [
@@ -20,6 +18,7 @@ const Home = () => {
       location: "Remote",
       salary: "$120,000 - $150,000",
       type: "Full-time",
+
       posted: "2 days ago",
       isSaved: false,
       logo: "https://via.placeholder.com/50",
