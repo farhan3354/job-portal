@@ -7,7 +7,9 @@ import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
 
 const Home = () => {
-  const [savedJobs, setSavedJobs] = useState([]);
+  const [savedJobs, setSavedJobs] = useState([
+    
+  ]);
 
   // Featured jobs data
   const featuredJobs = [
