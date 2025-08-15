@@ -78,50 +78,6 @@ const UserSidebar = () => {
                   </div>
                 );
               })}
-
-              {/* <Link
-                to={"/userdashboard/apply"}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <MdSend className="text-gray-800 text-2xl" />
-                <span className="text-sm font-medium">Apply</span>
-              </Link>
-
-              <Link
-                to={"/userdashboard/jobs"}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <MdWork className="text-gray-800 text-2xl" />
-                <span className="text-sm font-medium">My Jobs</span>
-              </Link>
-
-              <Link
-                to={"/userdashboard/saved"}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <MdBookmark className="text-gray-800 text-2xl" />
-                <span className="text-sm font-medium">Saved Jobs</span>
-              </Link>
-
-              <Link
-                to={"/userdashboard/all-jobs"}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <MdOutlineWorkOutline className="text-gray-800 text-2xl" />
-                <span className="text-sm font-medium">All Jobs</span>
-              </Link>
-              <Link
-                to={"/userdashboard/all-jobs"}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <IoIosContact className="text-gray-800 text-2xl" />
-                <span className="text-sm font-medium">Profile</span>
-              </Link> */}
             </div>
           </nav>
         </div>

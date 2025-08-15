@@ -52,9 +52,9 @@ export const menuItems = [
     to: "/userdashboard",
   },
   {
-    title: "Apply",
+    title: "Applied jobs",
     icon: "MdSend",
-    to: "/userdashboard/apply",
+    to: "/userdashboard/applied",
   },
   {
     title: "My Jobs",
