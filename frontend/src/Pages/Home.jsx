@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import HeroSection from "../component/home/HeroSection";
 import StatsSection from "../component/home/StatsSection";
 import FeaturedJobs from "../component/home/FeaturedJobs";
+
 import Categories from "../component/home/Categories";
 import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
