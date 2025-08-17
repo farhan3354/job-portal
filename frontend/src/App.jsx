@@ -14,7 +14,7 @@ import Alljobs from "./pages/userpages/Alljobs";
 import Saved from "./pages/userpages/Saved";
 import ApplyJob from "./pages/userpages/ApplyJob";
 import Profile from "./pages/userpages/Profile";
-import Appliedalljobs from "./component/user/Appliedalljobs";
+import Appliedjob from "./pages/userpages/Appliedjob";
 function App() {
   const router = createBrowserRouter([
     {
@@ -56,7 +56,7 @@ function App() {
         { path: "all-jobs", element: <Alljobs /> },
         { path: "saved", element: <Saved /> },
         { path: "apply", element: <ApplyJob /> },
-        { path: "applied", element: <Appliedalljobs /> },
+        { path: "applied", element: <Appliedjob /> },
         { path: "profile", element: <Profile /> },
       ],
     },
