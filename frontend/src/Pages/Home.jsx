@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import HeroSection from "../component/home/HeroSection";
 import StatsSection from "../component/home/StatsSection";
 import FeaturedJobs from "../component/home/FeaturedJobs";
@@ -8,7 +8,6 @@ import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
 
 const Home = () => {
-  const [savedJobs, setSavedJobs] = useState([]);
 
   // Featured jobs data
   const featuredJobs = [
@@ -24,21 +23,15 @@ const Home = () => {
       isSaved: false,
       logo: "https://via.placeholder.com/50",
     },
-    // ... other jobs
   ];
 
-  const toggleSaved = (id) => {
-    const updatedJobs = featuredJobs.map((job) =>
-      job.id === id ? { ...job, isSaved: !job.isSaved } : job
-    );
-    setSavedJobs(updatedJobs.filter((job) => job.isSaved));
-  };
+
 
   return (
     <div className="min-h-screen bg-gray-50">
       <HeroSection />
       <StatsSection />
-      <FeaturedJobs jobs={featuredJobs} toggleSaved={toggleSaved} />
+      <FeaturedJobs jobs={featuredJobs} />
       <Categories />
       <Testimonials />
       <CTASection />

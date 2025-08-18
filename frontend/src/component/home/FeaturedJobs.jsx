@@ -3,7 +3,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import JobCard from './JobCard';
 import { Link } from 'react-router-dom';
 
-const FeaturedJobs = ({ jobs, toggleSaved }) => {
+const FeaturedJobs = ({ jobs }) => {
   return (
     <div className="bg-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
@@ -19,7 +19,6 @@ const FeaturedJobs = ({ jobs, toggleSaved }) => {
             <JobCard 
               key={job.id} 
               job={job} 
-              toggleSaved={toggleSaved} 
             />
           ))}
         </div>

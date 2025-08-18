@@ -5,8 +5,8 @@ import RegisterForm from "../component/Login/RegisterForm";
 export default function Register() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
-      <Bannerlogin></Bannerlogin>
-      <RegisterForm></RegisterForm>
+      <Bannerlogin />
+      <RegisterForm />
     </div>
   );
 }

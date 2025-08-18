@@ -42,6 +42,13 @@ export default function Navbar() {
             </div>
 
             <div className="hidden lg:flex lg:items-center lg:space-x-4 ml-8">
+              <Link to={"/userdashboard/profile"} className="px-4 py-2">
+                <img
+                  src="https://randomuser.me/api/portraits/men/1.jpg"
+                  alt="Profile"
+                  className="w-full h-14 object-cover rounded-full"
+                />
+              </Link>
               <Link
                 to={"/"}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"

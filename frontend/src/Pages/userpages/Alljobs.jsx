@@ -4,7 +4,7 @@ import JobsList from "../../component/user/JobList";
 export default function Alljobs() {
   return (
     <>
-      <JobsList></JobsList>
+      <JobsList />
     </>
   );
 }

@@ -9,8 +9,10 @@ import {
   FaFilter,
   FaBookmark,
   FaShareAlt,
+  FaArrowLeft,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import LeftSidejob from "./LeftSidejob";
 
 const JobList = () => {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -21,8 +23,9 @@ const JobList = () => {
     salaryRange: "",
   });
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
+  const [isMobileView, setIsMobileView] = useState(false);
 
-  // Sample job data - in a real app, this would come from an API
+  // Sample job data
   const jobs = [
     {
       id: 1,
@@ -103,6 +106,18 @@ const JobList = () => {
     },
   ];
 
+  // Check screen size on resize and initial load
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobileView(window.innerWidth < 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   // Filter jobs based on search and filters
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
@@ -127,15 +142,15 @@ const JobList = () => {
 
   // Auto-select first job if none selected on mobile
   useEffect(() => {
-    if (window.innerWidth < 1024 && filteredJobs.length > 0 && !selectedJob) {
+    if (isMobileView && filteredJobs.length > 0 && !selectedJob) {
       setSelectedJob(filteredJobs[0]);
     }
-  }, [filteredJobs, selectedJob]);
+  }, [filteredJobs, selectedJob, isMobileView]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto px-4 py-8">
-        {/* Search and Filter Bar */}
+        {/* Search and Filter Bar - Improved for mobile */}
         <div className="bg-white rounded-lg shadow-md p-4 mb-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -149,9 +164,9 @@ const JobList = () => {
               />
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <select
-                className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 min-w-[150px] border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={filters.jobType}
                 onChange={(e) =>
                   setFilters({ ...filters, jobType: e.target.value })
@@ -165,7 +180,7 @@ const JobList = () => {
               </select>
 
               <select
-                className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 min-w-[150px] border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={filters.location}
                 onChange={(e) =>
                   setFilters({ ...filters, location: e.target.value })
@@ -177,7 +192,7 @@ const JobList = () => {
                 <option value="New York">New York</option>
               </select>
 
-              <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">
                 <FaFilter /> Filters
               </button>
             </div>
@@ -185,125 +200,41 @@ const JobList = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Left Side - Job Listings */}
-          <div className={`${selectedJob ? "lg:w-1/2" : "w-full"}`}>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-800">
-                {filteredJobs.length} Available Positions
-              </h2>
-              <p className="text-gray-600">Sorted by: Most recent</p>
-            </div>
-
-            {filteredJobs.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-md p-8 text-center">
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">
-                  No jobs found
-                </h3>
-                <p className="text-gray-500">
-                  Try adjusting your search or filters
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {filteredJobs.map((job) => (
-                  <div
-                    key={job.id}
-                    className={`bg-white rounded-lg shadow-md p-6 cursor-pointer transition-all hover:shadow-lg ${
-                      selectedJob?.id === job.id
-                        ? "border-l-4 border-blue-500"
-                        : ""
-                    }`}
-                    onClick={() => setSelectedJob(job)}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-xl font-semibold text-blue-600 hover:text-blue-800">
-                          {job.title}
-                        </h3>
-                        <p className="text-gray-700 font-medium">
-                          {job.company}
-                        </p>
-                      </div>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleBookmark(job.id);
-                        }}
-                        className="text-gray-400 hover:text-yellow-500 transition"
-                      >
-                        <FaBookmark
-                          className={
-                            bookmarkedJobs.includes(job.id)
-                              ? "text-yellow-500 fill-current"
-                              : ""
-                          }
-                        />
-                      </button>
-                    </div>
-
-                    <div className="flex flex-wrap gap-4 mt-3 text-sm text-gray-600">
-                      <div className="flex items-center">
-                        <FaMapMarkerAlt className="mr-2" />
-                        <span>{job.location}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <FaBriefcase className="mr-2" />
-                        <span>{job.type}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <FaMoneyBillWave className="mr-2" />
-                        <span>{job.salary}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <FaClock className="mr-2" />
-                        <span>{job.posted}</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {job.skills?.map((skill, index) => (
-                        <span
-                          key={index}
-                          className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 flex justify-between items-center">
-                      <button
-                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedJob(job);
-                        }}
-                      >
-                        View Details
-                      </button>
-                      {job.remote && (
-                        <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
-                          Remote Available
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <LeftSidejob
+            selectedJob={selectedJob}
+            isMobileView={isMobileView}
+            filteredJobs={filteredJobs}
+            setSelectedJob={setSelectedJob}
+            bookmarkedJobs={bookmarkedJobs}
+            toggleBookmark={toggleBookmark}
+          ></LeftSidejob>
 
           {/* Right Side - Job Details */}
           {selectedJob && (
-            <div className="lg:w-1/2">
-              <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-800">
+            <div
+              className={`${isMobileView ? "w-full" : "lg:w-1/2"} ${
+                !isMobileView || (isMobileView && selectedJob)
+                  ? "block"
+                  : "hidden"
+              }`}
+            >
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 sticky top-4">
+                {isMobileView && (
+                  <button
+                    className="flex items-center gap-2 mb-4 text-blue-600 hover:text-blue-800"
+                    onClick={() => setSelectedJob(null)}
+                  >
+                    <FaArrowLeft /> Back to listings
+                  </button>
+                )}
+
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start gap-4 mb-4">
+                  <div className="flex-1">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                       {selectedJob.title}
                     </h2>
-                    <div className="flex items-center mt-2">
-                      <FaBuilding className="text-gray-500 mr-2" />
+                    <div className="flex items-center mt-1 sm:mt-2">
+                      <FaBuilding className="text-gray-500 mr-2 flex-shrink-0" />
                       <span className="text-gray-700 font-medium">
                         {selectedJob.company}
                       </span>
@@ -330,44 +261,38 @@ const JobList = () => {
                     >
                       <FaShareAlt className="text-gray-500" />
                     </button>
-                    <button
-                      className="lg:hidden bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm transition"
-                      onClick={() => setSelectedJob(null)}
-                    >
-                      Back
-                    </button>
                   </div>
                 </div>
 
-                <div className="border-t border-b border-gray-200 py-4 my-4">
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                <div className="border-t border-b border-gray-200 py-3 sm:py-4 my-3 sm:my-4">
+                  <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
                     <div className="flex items-center">
-                      <FaMapMarkerAlt className="mr-2" />
+                      <FaMapMarkerAlt className="mr-2 flex-shrink-0" />
                       <span>{selectedJob.location}</span>
                     </div>
                     <div className="flex items-center">
-                      <FaBriefcase className="mr-2" />
+                      <FaBriefcase className="mr-2 flex-shrink-0" />
                       <span>{selectedJob.type}</span>
                     </div>
                     <div className="flex items-center">
-                      <FaMoneyBillWave className="mr-2" />
+                      <FaMoneyBillWave className="mr-2 flex-shrink-0" />
                       <span>{selectedJob.salary}</span>
                     </div>
                     <div className="flex items-center">
-                      <FaClock className="mr-2" />
+                      <FaClock className="mr-2 flex-shrink-0" />
                       <span>{selectedJob.posted}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                   <h3 className="text-lg font-semibold mb-2">
                     Job Description
                   </h3>
                   <p className="text-gray-700">{selectedJob.description}</p>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                   <h3 className="text-lg font-semibold mb-2">Requirements</h3>
                   <ul className="list-disc pl-5 text-gray-700 space-y-1">
                     {selectedJob.requirements.map((req, index) => (
@@ -376,7 +301,7 @@ const JobList = () => {
                   </ul>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                   <h3 className="text-lg font-semibold mb-2">
                     Responsibilities
                   </h3>
@@ -388,13 +313,13 @@ const JobList = () => {
                 </div>
 
                 {selectedJob.skills?.length > 0 && (
-                  <div className="mb-6">
+                  <div className="mb-4 sm:mb-6">
                     <h3 className="text-lg font-semibold mb-2">Skills</h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedJob.skills.map((skill, index) => (
                         <span
                           key={index}
-                          className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+                          className="bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm"
                         >
                           {skill}
                         </span>
@@ -403,14 +328,14 @@ const JobList = () => {
                   </div>
                 )}
 
-                <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 border-t border-gray-200">
                   <Link
                     to={`/userdashboard/apply/${selectedJob.id}`}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-medium"
+                    className="w-full sm:w-auto bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition font-medium text-center"
                   >
                     Apply Now
                   </Link>
-                  <button className="text-blue-600 hover:text-blue-800 font-medium">
+                  <button className="w-full sm:w-auto text-blue-600 hover:text-blue-800 font-medium text-center sm:text-right">
                     Save for Later
                   </button>
                 </div>

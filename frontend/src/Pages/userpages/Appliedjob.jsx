@@ -1,10 +1,10 @@
 import React from "react";
-import Appliedalljobs from "../../component/user/Appliedalljobs";
+import Appliedalljobs from "../../component/userDashbord/Appliedalljobs";
 
 export default function Appliedjob() {
   return (
     <>
-      <Appliedalljobs></Appliedalljobs>
+      <Appliedalljobs />
     </>
   );
 }

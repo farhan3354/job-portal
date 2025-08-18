@@ -1,10 +1,10 @@
 import React from "react";
-import UserHome from "../../component/user/UserHome";
+import UserHome from "../../component/userDashbord/UserHome";
 
 const Userdashboard = () => {
   return (
     <>
-      <UserHome></UserHome>
+      <UserHome />
     </>
   );
 };

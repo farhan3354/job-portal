@@ -5,8 +5,8 @@ import LoginForm from "../component/Login/LoginForm";
 export default function Login() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
-      <Bannerlogin></Bannerlogin>
-      <LoginForm></LoginForm>
+      <Bannerlogin />
+      <LoginForm />
     </div>
   );
 }

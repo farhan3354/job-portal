@@ -1,5 +1,5 @@
 import React from "react";
-import Apply from "../../component/user/Apply";
+import Apply from "../../component/userDashbord/ApplyJob";
 
 export default function ApplyJob() {
   return (

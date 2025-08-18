@@ -57,11 +57,6 @@ export const menuItems = [
     to: "/userdashboard/applied",
   },
   {
-    title: "My Jobs",
-    icon: "MdWork",
-    to: "/userdashboard/jobs",
-  },
-  {
     title: "Saved Jobs",
     icon: "MdBookmark",
     to: "/userdashboard/saved",
@@ -69,11 +64,18 @@ export const menuItems = [
   {
     title: "All Jobs",
     icon: "MdOutlineWorkOutline",
-    to: "/userdashboard/all-jobs",
+    to: "/userdashboard/jobs",
   },
   {
     title: "Profile",
     icon: "IoIosContact",
     to: "/userdashboard/profile",
   },
+];
+
+export const statsofhome = [
+  { value: "50,000+", label: "Jobs Available" },
+  { value: "8,000+", label: "Companies Hiring" },
+  { value: "1M+", label: "Candidates Hired" },
+  { value: "95%", label: "Satisfaction Rate" },
 ];

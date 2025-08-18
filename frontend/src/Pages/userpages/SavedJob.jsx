@@ -1,9 +1,9 @@
 import React from "react";
-import JobSaved from "../../component/user/JobSaved";
+import JobSaved from "../../component/userDashbord/JobSaved";
 export default function Saved() {
   return (
     <>
-      <JobSaved></JobSaved>
+      <JobSaved />
     </>
   );
 }
