@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import HeroSection from "../component/home/HeroSection";
 import StatsSection from "../component/home/StatsSection";
 import FeaturedJobs from "../component/home/FeaturedJobs";
@@ -7,8 +7,7 @@ import Categories from "../component/home/Categories";
 import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
 
-const Home = () => {
-
+export default function Home() {
   // Featured jobs data
   const featuredJobs = [
     {
@@ -25,8 +24,6 @@ const Home = () => {
     },
   ];
 
-
-
   return (
     <div className="min-h-screen bg-gray-50">
       <HeroSection />
@@ -37,6 +34,4 @@ const Home = () => {
       <CTASection />
     </div>
   );
-};
-
-export default Home;
+}
