@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaSearch, FaMapMarkerAlt } from "react-icons/fa";
 
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [location, setLocation] = useState('');
+export default function SearchBar() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 max-w-4xl mx-auto">
@@ -38,6 +38,4 @@ const SearchBar = () => {
       </div>
     </div>
   );
-};
-
-export default SearchBar;
+}

@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { MdWork, MdSchool } from "react-icons/md";
 
-const ProfileSetting = () => {
+export default function ProfileSetting  ()  {
   const profile = {
     name: "John Doe",
     email: "john.doe@example.com",
@@ -268,4 +268,3 @@ const ProfileSetting = () => {
   );
 };
 
-export default ProfileSetting;

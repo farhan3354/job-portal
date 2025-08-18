@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CTASection = () => {
+export default function CTASection() {
   return (
     <div className="bg-blue-600 text-white py-16 px-4">
       <div className="max-w-4xl mx-auto text-center">
@@ -12,7 +12,10 @@ const CTASection = () => {
           Create a free account and get matched with your perfect job today.
         </p>
         <div className="space-x-4">
-          <Link to={'/login'} className="bg-white text-blue-600 hover:bg-gray-100 py-3 px-8 rounded-md font-medium transition-colors">
+          <Link
+            to={"/login"}
+            className="bg-white text-blue-600 hover:bg-gray-100 py-3 px-8 rounded-md font-medium transition-colors"
+          >
             Sign Up Now
           </Link>
           <Link className="border border-white text-white hover:bg-blue-700 py-3 px-8 rounded-md font-medium transition-colors">
@@ -22,6 +25,4 @@ const CTASection = () => {
       </div>
     </div>
   );
-};
-
-export default CTASection;
+}

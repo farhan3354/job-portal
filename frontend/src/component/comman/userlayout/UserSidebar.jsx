@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { IoIosContact } from "react-icons/io";
 import { menuItems } from "../../../data/data";
 
-const UserSidebar = () => {
+export default function UserSidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const iconsComponent = {
     IoHome: IoHome,
@@ -84,6 +84,4 @@ const UserSidebar = () => {
       </div>
     </>
   );
-};
-
-export default UserSidebar;
+}

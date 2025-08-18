@@ -9,7 +9,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 
-const JobSaved = () => {
+export default function JobSaved() {
   // Sample saved jobs data (static)
   const savedJobs = [
     {
@@ -160,6 +160,4 @@ const JobSaved = () => {
       </div>
     </div>
   );
-};
-
-export default JobSaved;
+}

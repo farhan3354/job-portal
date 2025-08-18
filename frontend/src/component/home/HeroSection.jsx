@@ -2,7 +2,7 @@ import React from "react";
 import { FaSearch, FaMapMarkerAlt } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 
-const HeroSection = () => {
+export default function HeroSection() {
   return (
     <div className="bg-blue-600 text-white py-20 px-4">
       <div className="max-w-6xl mx-auto text-center">
@@ -17,6 +17,4 @@ const HeroSection = () => {
       </div>
     </div>
   );
-};
-
-export default HeroSection;
+}

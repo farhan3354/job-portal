@@ -1,14 +1,16 @@
-import React from 'react';
-import { FaStar } from 'react-icons/fa';
+import React from "react";
+import { FaStar } from "react-icons/fa";
 
-const TestimonialCard = ({ testimonial }) => {
+export default function TestimonialCard({ testimonial }) {
   return (
     <div className="border border-gray-200 rounded-lg p-6">
       <div className="flex mb-4">
         {[...Array(5)].map((_, i) => (
-          <FaStar 
-            key={i} 
-            className={`${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`} 
+          <FaStar
+            key={i}
+            className={`${
+              i < testimonial.rating ? "text-yellow-400" : "text-gray-300"
+            }`}
           />
         ))}
       </div>
@@ -19,6 +21,4 @@ const TestimonialCard = ({ testimonial }) => {
       </div>
     </div>
   );
-};
-
-export default TestimonialCard;
+}

@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import LeftSidejob from "./LeftSidejob";
 
-const JobList = () => {
+export default function JobList() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
@@ -346,6 +346,4 @@ const JobList = () => {
       </div>
     </div>
   );
-};
-
-export default JobList;
+}

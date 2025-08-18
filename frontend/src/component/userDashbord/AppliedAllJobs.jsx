@@ -10,7 +10,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 
-const AppliedAllJobs = () => {
+export default function AppliedAllJobs() {
   // Sample applied jobs data (static)
   const appliedJobs = [
     {
@@ -228,6 +228,4 @@ const AppliedAllJobs = () => {
       </div>
     </div>
   );
-};
-
-export default AppliedAllJobs;
+}

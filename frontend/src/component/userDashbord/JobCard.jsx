@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 
-const JobCard = ({ job }) => {
+export default function JobCard({ job }) {
   const [isSaved, setIsSaved] = useState(false);
 
   const toggleSave = () => {
@@ -71,6 +71,4 @@ const JobCard = ({ job }) => {
       </div>
     </div>
   );
-};
-
-export default JobCard;
+}

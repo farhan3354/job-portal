@@ -2,7 +2,8 @@ import React from "react";
 import { FaHistory } from "react-icons/fa";
 import DashboardHeading from "./DashboardHeading";
 import RecommendedJobs from "./RecommendedJobs";
-const UserHome = () => {
+
+export default function UserHome() {
   const userStats = {
     applications: 12,
     interviews: 3,
@@ -129,6 +130,4 @@ const UserHome = () => {
       </div>
     </div>
   );
-};
-
-export default UserHome;
+}

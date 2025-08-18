@@ -1,6 +1,6 @@
 import React from "react";
 import {stats} from "../../data/data";
-const StatsSection = () => {
+export default function StatsSection  () {
   return (
     <div className="bg-blue-500 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -32,4 +32,3 @@ const StatsSection = () => {
   );
 };
 
-export default StatsSection;

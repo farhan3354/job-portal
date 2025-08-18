@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const JobCard = ({ job, toggleSaved }) => {
+export default function JobCard({ job, toggleSaved }) {
   return (
     <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
       <div className="flex justify-between">
@@ -58,6 +58,4 @@ const JobCard = ({ job, toggleSaved }) => {
       </div>
     </div>
   );
-};
-
-export default JobCard;
+}
