@@ -74,7 +74,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./component/comman/Layout";
-import Home from "./pages/Home";
+import Home from "./pages/Home.jsx";
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
