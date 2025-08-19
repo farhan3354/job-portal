@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const Layout = lazy(() => import("./component/comman/Layout"));
+const Layout = lazy(() => import("./component/common/Layout"));
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
@@ -10,7 +10,7 @@ const Register = lazy(() => import("./pages/Register"));
 const Contact = lazy(() => import("./pages/Contact"));
 
 const UserLayout = lazy(() =>
-  import("./component/comman/userLayout/UserLayout")
+  import("./component/common/userLayout/UserLayout")
 );
 const Userdashboard = lazy(() => import("./pages/userPages/UserDashboard"));
 const Job = lazy(() => import("./pages/userPages/Job"));
