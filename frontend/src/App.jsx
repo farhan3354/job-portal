@@ -2,22 +2,22 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Layout = lazy(() => import("./component/common/Layout"));
-const Home = lazy(() => import("./pages/home"));
-const About = lazy(() => import("./pages/about"));
-const PageNotFound = lazy(() => import("./pages/pageNotFound"));
-const Login = lazy(() => import("./pages/login"));
-const Register = lazy(() => import("./pages/register"));
-const Contact = lazy(() => import("./pages/contact"));
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 const UserLayout = lazy(() =>
-  import("./component/common/userLayout/userlayout")
+  import("./component/common/userLayout/UserLayout")
 );
-const Userdashboard = lazy(() => import("./pages/userPages/userDashboard"));
-const Job = lazy(() => import("./pages/userPages/job"));
-const Saved = lazy(() => import("./pages/userPages/savedJob"));
-const ApplyJob = lazy(() => import("./pages/userPages/applyJob"));
-const Profile = lazy(() => import("./pages/userPages/profile"));
-const Appliedjob = lazy(() => import("./pages/userPages/appliedJob"));
+const Userdashboard = lazy(() => import("./pages/userPages/UserDashboard"));
+const Job = lazy(() => import("./pages/userPages/Job"));
+const Saved = lazy(() => import("./pages/userPages/SavedJob"));
+const ApplyJob = lazy(() => import("./pages/userPages/ApplyJob"));
+const Profile = lazy(() => import("./pages/userPages/Profile"));
+const Appliedjob = lazy(() => import("./pages/userPages/AppliedJob"));
 
 function App() {
   const router = createBrowserRouter([
