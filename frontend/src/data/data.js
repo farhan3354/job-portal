@@ -49,27 +49,27 @@ export const menuItems = [
   {
     title: "Home",
     icon: "IoHome",
-    to: "/userdashboard",
+    to: "/user-dashboard",
   },
   {
     title: "Applied jobs",
     icon: "MdSend",
-    to: "/userdashboard/applied",
+    to: "/user-dashboard/applied",
   },
   {
     title: "Saved Jobs",
     icon: "MdBookmark",
-    to: "/userdashboard/saved",
+    to: "/user-dashboard/saved",
   },
   {
     title: "All Jobs",
     icon: "MdOutlineWorkOutline",
-    to: "/userdashboard/jobs",
+    to: "/user-dashboard/jobs",
   },
   {
     title: "Profile",
     icon: "IoIosContact",
-    to: "/userdashboard/profile",
+    to: "/user-dashboard/profile",
   },
 ];
 

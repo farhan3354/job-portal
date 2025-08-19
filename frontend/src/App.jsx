@@ -1,23 +1,23 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const Layout = lazy(() => import("./component/common/Layout"));
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const Login = lazy(() => import("./pages/Login"));
-const Register = lazy(() => import("./pages/Register"));
-const Contact = lazy(() => import("./pages/Contact"));
+const Layout = lazy(() => import("./component/common/layout"));
+const Home = lazy(() => import("./pages/home"));
+const About = lazy(() => import("./pages/about"));
+const PageNotFound = lazy(() => import("./pages/pageNotFound"));
+const Login = lazy(() => import("./pages/login"));
+const Register = lazy(() => import("./pages/register"));
+const Contact = lazy(() => import("./pages/contact"));
 
 const UserLayout = lazy(() =>
-  import("./component/common/userLayout/UserLayout")
+  import("./component/common/userLayout/userlayout")
 );
-const Userdashboard = lazy(() => import("./pages/userPages/UserDashboard"));
-const Job = lazy(() => import("./pages/userPages/Job"));
-const Saved = lazy(() => import("./pages/userPages/SavedJob"));
-const ApplyJob = lazy(() => import("./pages/userPages/ApplyJob"));
-const Profile = lazy(() => import("./pages/userPages/Profile"));
-const Appliedjob = lazy(() => import("./pages/userPages/AppliedJob"));
+const Userdashboard = lazy(() => import("./pages/userPages/userDashboard"));
+const Job = lazy(() => import("./pages/userPages/job"));
+const Saved = lazy(() => import("./pages/userPages/savedJob"));
+const ApplyJob = lazy(() => import("./pages/userPages/applyJob"));
+const Profile = lazy(() => import("./pages/userPages/profile"));
+const Appliedjob = lazy(() => import("./pages/userPages/appliedJob"));
 
 function App() {
   const router = createBrowserRouter([
@@ -44,7 +44,7 @@ function App() {
       ],
     },
     {
-      path: "/userdashboard",
+      path: "/user-dashboard",
       element: (
         <Suspense
           fallback={

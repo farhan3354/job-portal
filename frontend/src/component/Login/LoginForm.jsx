@@ -11,7 +11,7 @@ export default function Form() {
   const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log("Login Data Submitted:", data);
-    navigate("/userdashboard");
+    navigate("/user-dashboard");
   };
   return (
     <>
