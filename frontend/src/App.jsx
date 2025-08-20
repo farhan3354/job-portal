@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Direct imports (no lazy)
 import Layout from "./component/common/Layout";
-import Home from "../src/pages/Home";
+// import Home from "../src/pages/Home";
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
@@ -26,7 +26,6 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-        { path: "/", element: <Home /> },
         { path: "/about", element: <About /> },
         { path: "/login", element: <Login /> },
         { path: "/register", element: <Register /> },
