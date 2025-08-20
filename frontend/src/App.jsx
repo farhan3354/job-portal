@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Direct imports (no lazy)
 import Layout from "./component/common/Layout";
-import Home from "./pages/Home";
+import Home from "./pages/Home.jsx"
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
