@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { navItems } from "../../../data/data";
 import { Link } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdContact } from "react-icons/io";
+import img from "./../../../assets/music.svg";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,34 +15,15 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="flex items-center">
-                <img
-                  src="https://www.svgrepo.com/show/499962/music.svg"
-                  className="h-8 w-8"
-                  alt="Logo"
-                />
+                <img src={img} className="h-8 w-8" alt="Logo" />
                 <span className="ml-2 text-xl font-semibold dark:text-white">
                   Jobzy
                 </span>
               </Link>
             </div>
 
-            <div className="hidden lg:flex lg:items-center lg:space-x-8">
-              <ul className="flex space-x-8">
-                {navItems.map((item, index) => (
-                  <li key={index}>
-                    <Link
-                      to={item.path}
-                      className="text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             <div className="hidden lg:flex lg:items-center lg:space-x-4 ml-8">
-              <Link to={"/userdashboard/profile"} className="px-4 py-2">
+              <Link to={"/user-dashboard/profile"} className="px-4 py-2">
                 <img
                   src="https://randomuser.me/api/portraits/men/1.jpg"
                   alt="Profile"
@@ -74,17 +55,6 @@ export default function Navbar() {
 
         {/* Mobile Menu (shown when toggled) */}
         <div className={`lg:hidden ${isMobileMenuOpen ? "block" : "hidden"}`}>
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.path}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
           <div className="px-2 pt-2 pb-4 space-y-2">
             <Link
               to={"/"}

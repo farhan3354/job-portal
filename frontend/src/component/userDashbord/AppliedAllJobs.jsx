@@ -9,61 +9,9 @@ import {
   FaSpinner,
   FaTimesCircle,
 } from "react-icons/fa";
+import {appliedJobs} from "./../../data/data";
 
 export default function AppliedAllJobs() {
-  // Sample applied jobs data (static)
-  const appliedJobs = [
-    {
-      id: 1,
-      title: "Senior Frontend Developer",
-      company: "TechCorp Inc.",
-      location: "San Francisco, CA (Remote)",
-      appliedDate: "2023-05-15",
-      status: "interview", // 'applied', 'interview', 'offer', 'rejected'
-      type: "Full-time",
-      salary: "$120,000 - $150,000",
-      description:
-        "We are looking for an experienced frontend developer to join our team working with React and TypeScript.",
-      interviewDate: "2023-06-10",
-    },
-    {
-      id: 2,
-      title: "Backend Engineer",
-      company: "DataSystems LLC",
-      location: "New York, NY",
-      appliedDate: "2023-05-20",
-      status: "applied",
-      type: "Full-time",
-      salary: "$110,000 - $140,000",
-      description:
-        "Join our backend team to build scalable APIs and microservices using Node.js and Python.",
-    },
-    {
-      id: 3,
-      title: "UX Designer",
-      company: "CreativeMinds",
-      location: "Austin, TX (Hybrid)",
-      appliedDate: "2023-05-10",
-      status: "offer",
-      type: "Contract",
-      salary: "$90 - $120/hr",
-      description:
-        "Looking for a talented UX designer to revamp our customer-facing applications.",
-    },
-    {
-      id: 4,
-      title: "DevOps Specialist",
-      company: "CloudSolutions",
-      location: "Remote",
-      appliedDate: "2023-05-05",
-      status: "rejected",
-      type: "Full-time",
-      salary: "$130,000 - $160,000",
-      description:
-        "Seeking a DevOps engineer to manage our AWS infrastructure and CI/CD pipelines.",
-    },
-  ];
-
   // Get status icon and color
   const getStatusInfo = (status) => {
     switch (status) {

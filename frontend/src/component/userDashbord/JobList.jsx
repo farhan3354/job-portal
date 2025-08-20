@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LeftSidejob from "./LeftSidejob";
+import { alljobs } from "./../../data/data";
 
 export default function JobList() {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -24,87 +25,6 @@ export default function JobList() {
   });
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
   const [isMobileView, setIsMobileView] = useState(false);
-
-  // Sample job data
-  const jobs = [
-    {
-      id: 1,
-      title: "Senior Frontend Developer",
-      company: "TechCorp Inc.",
-      location: "San Francisco, CA",
-      type: "Full-time",
-      salary: "$120,000 - $150,000",
-      posted: "2 days ago",
-      description:
-        "We are looking for an experienced Frontend Developer to join our team. You will be responsible for building user interfaces and implementing features for our web applications.",
-      requirements: [
-        "5+ years of experience with React.js",
-        "Strong knowledge of JavaScript, HTML5, and CSS3",
-        "Experience with Redux or similar state management libraries",
-        "Familiarity with RESTful APIs",
-        "Bachelor's degree in Computer Science or related field",
-      ],
-      responsibilities: [
-        "Develop new user-facing features",
-        "Build reusable components and front-end libraries",
-        "Optimize components for maximum performance",
-        "Collaborate with UX/UI designers",
-        "Participate in code reviews",
-      ],
-      skills: ["React", "JavaScript", "Redux", "HTML/CSS"],
-      remote: true,
-    },
-    {
-      id: 2,
-      title: "UX/UI Designer",
-      company: "Creative Solutions",
-      location: "Remote",
-      type: "Contract",
-      salary: "$80 - $100 per hour",
-      posted: "1 week ago",
-      description:
-        "Join our design team to create beautiful and functional user experiences for our clients.",
-      requirements: [
-        "3+ years of UX/UI design experience",
-        "Portfolio demonstrating design skills",
-        "Proficiency in Figma or Sketch",
-        "Understanding of user-centered design",
-      ],
-      responsibilities: [
-        "Create wireframes and prototypes",
-        "Conduct user research",
-        "Collaborate with developers",
-        "Maintain design systems",
-      ],
-      skills: ["Figma", "UI Design", "UX Research", "Prototyping"],
-      remote: true,
-    },
-    {
-      id: 3,
-      title: "Backend Engineer",
-      company: "DataSystems LLC",
-      location: "New York, NY",
-      type: "Full-time",
-      salary: "$130,000 - $160,000",
-      posted: "3 days ago",
-      description:
-        "We need a skilled Backend Engineer to develop and maintain our server infrastructure.",
-      requirements: [
-        "Experience with Node.js and Python",
-        "Knowledge of database systems",
-        "Understanding of RESTful API design",
-        "Familiarity with cloud services",
-      ],
-      responsibilities: [
-        "Develop server-side logic",
-        "Optimize database queries",
-        "Implement security measures",
-        "Monitor system performance",
-      ],
-      skills: ["Node.js", "Python", "SQL", "AWS"],
-      remote: false,
-    },
-  ];
 
   // Check screen size on resize and initial load
   useEffect(() => {
@@ -119,7 +39,7 @@ export default function JobList() {
   }, []);
 
   // Filter jobs based on search and filters
-  const filteredJobs = jobs.filter((job) => {
+  const filteredJobs = alljobs.filter((job) => {
     const matchesSearch =
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.company.toLowerCase().includes(searchTerm.toLowerCase());

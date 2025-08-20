@@ -3,6 +3,7 @@ import { navItems } from "../../data/data";
 import { Link } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
+import img from './../../assets/music.svg'
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="flex items-center">
                 <img
-                  src="https://www.svgrepo.com/show/499962/music.svg"
+                  src={img}
                   className="h-8 w-8"
                   alt="Logo"
                 />
