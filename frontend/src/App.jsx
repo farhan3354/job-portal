@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Direct imports (no lazy)
@@ -27,7 +26,7 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-        { index: true, element: <Home /> },
+        { path: "/", element: <Home /> },
         { path: "/about", element: <About /> },
         { path: "/login", element: <Login /> },
         { path: "/register", element: <Register /> },
