@@ -250,7 +250,7 @@ export default function JobList() {
 
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 border-t border-gray-200">
                   <Link
-                    to={`/userdashboard/apply/${selectedJob.id}`}
+                    to={`/user-dashboard/apply/${selectedJob.id}`}
                     className="w-full sm:w-auto bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition font-medium text-center"
                   >
                     Apply Now

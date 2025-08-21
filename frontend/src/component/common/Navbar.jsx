@@ -3,7 +3,7 @@ import { navItems } from "../../data/data";
 import { Link } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
-import img from './../../assets/music.svg'
+import img from "./../../assets/music.svg";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,11 +15,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="flex items-center">
-                <img
-                  src={img}
-                  className="h-8 w-8"
-                  alt="Logo"
-                />
+                <img src={img} className="h-8 w-8" alt="Logo" />
                 <span className="ml-2 text-xl font-semibold dark:text-white">
                   Jobzy
                 </span>
@@ -43,7 +39,7 @@ export default function Navbar() {
 
             <div className="hidden lg:flex lg:items-center lg:space-x-4 ml-8">
               <Link
-                to={"/register"}
+                to={"/chose-register"}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
               >
                 Register
@@ -53,12 +49,6 @@ export default function Navbar() {
                 className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-white rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 text-sm font-medium"
               >
                 Login
-              </Link>
-              <Link
-                to={"/postajob"}
-                className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-white rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 text-sm font-medium"
-              >
-                Post a Job
               </Link>
             </div>
 

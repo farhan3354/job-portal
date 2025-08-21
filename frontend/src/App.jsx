@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Direct imports (no lazy)
 import Layout from "./component/common/Layout";
-// import Home from "../src/pages/Home";
+import Home from "../src/pages/Home";
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
@@ -19,6 +19,16 @@ import EmployerLayout from "./component/common/employerLayout/EmployerLayout";
 import EmployerHome from "./pages/employerDashboardPages/EmployerHome";
 import PostJob from "./pages/employerDashboardPages/PostJob";
 import EmployerProfile from "./pages/employerDashboardPages/EmployerProfile";
+import Applicant from "./pages/employerDashboardPages/Applicant";
+import AllPostedJob from "./pages/employerDashboardPages/AllPostedJob";
+import JobApplicant from "./pages/employerDashboardPages/JobApplicant";
+import AdminLayout from "./component/common/admin/AdminLayout";
+import AdminHome from "./pages/adminDashboardPages/AdminHome";
+import AdminProfile from "./pages/adminDashboardPages/AdminProfile";
+import ManageUser from "./pages/adminDashboardPages/ManageUser";
+import ManageEmployer from "./pages/adminDashboardPages/ManageEmployer";
+import ManageJobs from "./pages/adminDashboardPages/ManageJobs";
+import ChoseRole from "./pages/ChoseRole";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,9 +36,12 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
+        { path: "/", element: <Home /> },
         { path: "/about", element: <About /> },
         { path: "/login", element: <Login /> },
-        { path: "/register", element: <Register /> },
+        { path: "/chose-register", element: <ChoseRole /> },
+        { path: "/register/job-seeker", element: <Register /> },
+        { path: "/register/employer", element: <Register /> },
         { path: "/contact", element: <Contact /> },
         { path: "*", element: <PageNotFound /> },
       ],
@@ -52,6 +65,20 @@ function App() {
         { path: "", element: <EmployerHome /> },
         { path: "posta-job", element: <PostJob /> },
         { path: "profile", element: <EmployerProfile /> },
+        { path: "applicants", element: <Applicant /> },
+        { path: "applicant/:id", element: <JobApplicant /> },
+        { path: "all-job", element: <AllPostedJob /> },
+      ],
+    },
+    {
+      path: "/admin-dashboard",
+      element: <AdminLayout />,
+      children: [
+        { path: "", element: <AdminHome /> },
+        { path: "profile", element: <AdminProfile /> },
+        { path: "manage-users", element: <ManageUser /> },
+        { path: "manage-employers", element: <ManageEmployer /> },
+        { path: "manage-jobs", element: <ManageJobs /> },
       ],
     },
   ]);
