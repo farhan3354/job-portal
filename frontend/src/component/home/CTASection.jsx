@@ -13,7 +13,7 @@ export default function CTASection() {
         </p>
         <div className="space-x-4">
           <Link
-            to={"/login"}
+            to={"/chose-register"}
             className="bg-white text-blue-600 hover:bg-gray-100 py-3 px-8 rounded-md font-medium transition-colors"
           >
             Sign Up Now

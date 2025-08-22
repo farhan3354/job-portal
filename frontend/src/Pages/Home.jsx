@@ -5,6 +5,7 @@ import FeaturedJobs from "../component/home/FeaturedJobs";
 import Categories from "../component/home/Categories";
 import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
+import EmployerBanner from "../component/home/EmployerBanner";
 
 export default function Home() {
   // Featured jobs data
@@ -31,6 +32,7 @@ export default function Home() {
       <Categories />
       <Testimonials />
       <CTASection />
+      <EmployerBanner />
     </div>
   );
 }

@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// Direct imports
 import Layout from "./component/common/Layout";
-import Home from "../src/pages/Home";
+import Home from "./pages/Home";
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
@@ -34,7 +33,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public Layout */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
@@ -46,7 +44,6 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Route>
 
-        {/* User Dashboard */}
         <Route path="/user-dashboard" element={<UserLayout />}>
           <Route index element={<Userdashboard />} />
           <Route path="jobs" element={<Job />} />
@@ -56,7 +53,6 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
 
-        {/* Employer Dashboard */}
         <Route path="/employer-dashboard" element={<EmployerLayout />}>
           <Route index element={<EmployerHome />} />
           <Route path="posta-job" element={<PostJob />} />
@@ -66,7 +62,6 @@ function App() {
           <Route path="all-job" element={<AllPostedJob />} />
         </Route>
 
-        {/* Admin Dashboard */}
         <Route path="/admin-dashboard" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
           <Route path="profile" element={<AdminProfile />} />

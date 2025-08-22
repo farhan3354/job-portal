@@ -82,7 +82,7 @@ export default function Navbar() {
           </div>
           <div className="px-2 pt-2 pb-4 space-y-2">
             <Link
-              to={"/register"}
+              to={"/chose-register"}
               className="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
             >
               Register

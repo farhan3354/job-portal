@@ -25,10 +25,8 @@ export default function RegistrationSelectionPage() {
               match your goals
             </p>
           </div>
-        
-          {/* Registration Cards */}
+
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Job Seeker Card */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <FaUser className="text-white" size={32} />
@@ -62,9 +60,8 @@ export default function RegistrationSelectionPage() {
                 </div>
               </div>
 
-              {/* Navigate to Job Seeker Registration */}
               <Link to="/register/job-seeker">
-                <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 group-hover:scale-105">
+                <button className="cursor-pointer w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 group-hover:scale-105">
                   Get Started as Job Seeker
                   <FaArrowRight
                     size={20}
@@ -74,8 +71,7 @@ export default function RegistrationSelectionPage() {
               </Link>
             </div>
 
-            {/* Employer Card */}
-            <div className=" bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+            <div className=" bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-6 transition-all duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <FaBuilding className="text-white" size={32} />
               </div>
@@ -103,9 +99,8 @@ export default function RegistrationSelectionPage() {
                 </div>
               </div>
 
-              {/* Navigate to Employer Registration */}
               <Link to="/register/employer">
-                <button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 hover:from-purple-600 hover:to-purple-700 transition-all duration-300 group-hover:scale-105">
+                <button className="cursor-pointer w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 hover:from-purple-600 hover:to-purple-700 transition-all duration-300 group-hover:scale-105">
                   Get Started as Employer
                   <FaArrowRight
                     size={20}
@@ -116,7 +111,6 @@ export default function RegistrationSelectionPage() {
             </div>
           </div>
 
-          {/* Bottom Text */}
           <div className="text-center mt-12">
             <p className="text-gray-500">
               Already have an account?

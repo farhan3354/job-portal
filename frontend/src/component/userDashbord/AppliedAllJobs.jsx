@@ -53,7 +53,6 @@ export default function AppliedAllJobs() {
         </p>
       </div>
 
-      {/* Search and Filters */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Search */}
@@ -92,7 +91,6 @@ export default function AppliedAllJobs() {
         </div>
       </div>
 
-      {/* Applied Jobs List */}
       <div className="space-y-6">
         {appliedJobs.map((job) => (
           <div
