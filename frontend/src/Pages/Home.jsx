@@ -7,7 +7,7 @@ import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
 import EmployerBanner from "../component/home/EmployerBanner";
 
-export default function HomePage() {
+export default function Home() {
   const featuredJobs = [
     {
       id: 1,
