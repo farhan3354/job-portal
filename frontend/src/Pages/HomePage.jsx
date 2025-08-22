@@ -7,8 +7,7 @@ import Testimonials from "../component/home/Testimonials";
 import CTASection from "../component/home/CTASection";
 import EmployerBanner from "../component/home/EmployerBanner";
 
-export default function Home() {
-  // Featured jobs data
+export default function HomePage() {
   const featuredJobs = [
     {
       id: 1,
@@ -17,7 +16,6 @@ export default function Home() {
       location: "Remote",
       salary: "$120,000 - $150,000",
       type: "Full-time",
-
       posted: "2 days ago",
       isSaved: false,
       logo: "https://via.placeholder.com/50",
@@ -36,3 +34,5 @@ export default function Home() {
     </div>
   );
 }
+
+
