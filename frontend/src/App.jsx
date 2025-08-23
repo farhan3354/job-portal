@@ -28,6 +28,7 @@ import ManageUser from "./pages/adminDashboardPages/ManageUser.jsx";
 import ManageEmployer from "./pages/adminDashboardPages/ManageEmployer.jsx";
 import ManageJobs from "./pages/adminDashboardPages/ManageJobs.jsx";
 import ChoseRole from "./pages/ChoseRole.jsx";
+import ScheduleInterview from "./component/employerDashboard/ScheduleInterview.jsx";
 
 function App() {
   return (
@@ -59,6 +60,11 @@ function App() {
           <Route path="profile" element={<EmployerProfile />} />
           <Route path="applicants" element={<Applicant />} />
           <Route path="applicant/:id" element={<JobApplicant />} />
+          <Route
+            path="applicant/:id/schedule-interview"
+            element={<ScheduleInterview />}
+          />
+
           <Route path="all-job" element={<AllPostedJob />} />
         </Route>
 

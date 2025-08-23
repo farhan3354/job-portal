@@ -35,12 +35,14 @@ export default function AdminHeader() {
                 className="w-10 h-10 object-cover rounded-full"
               />
             </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
-            >
-              <FiLogOut className="mr-2" /> Logout
-            </button>
+            <Link to={"/"}>
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+              >
+                <FiLogOut className="mr-2" /> Logout
+              </button>
+            </Link>
           </div>
 
           <div className="lg:hidden flex items-center">

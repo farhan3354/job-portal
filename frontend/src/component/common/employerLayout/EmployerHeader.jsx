@@ -102,13 +102,13 @@ export default function EmployerHeader() {
           <div className="flex-shrink-0 flex items-center ml-4">
             <FiBriefcase className="h-7 w-7 text-blue-600" />
             <span className="ml-2 text-xl font-bold text-gray-900 hidden sm:block">
-              JobPortal Employer 
+              JobPortal Employer
             </span>
           </div>
 
           <div className="hidden lg:flex lg:items-center lg:space-x-4">
             <Link
-              to={"/user-dashboard/profile"}
+              to={"/employer-dashboard/profile"}
               className="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <img
@@ -117,12 +117,14 @@ export default function EmployerHeader() {
                 className="w-10 h-10 object-cover rounded-full"
               />
             </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
-            >
-              <FiLogOut className="mr-2" /> Logout
-            </button>
+            <Link to={"/"}>
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+              >
+                <FiLogOut className="mr-2" /> Logout
+              </button>
+            </Link>
           </div>
 
           <div className="lg:hidden flex items-center">

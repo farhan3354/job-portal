@@ -69,12 +69,6 @@ export default function Form() {
                   {errors.password.message}
                 </p>
               )}
-              <Link
-                to="/forgot-password"
-                className="text-blue-500 text-sm float-left mt-2 mb-3"
-              >
-                Forgot Password?
-              </Link>
             </div>
 
             <button
@@ -87,7 +81,7 @@ export default function Form() {
 
           <div className="text-left mt-4">
             <span className="text-gray-500">No Account?</span>{" "}
-            <Link to="/register" className="text-blue-500 font-medium">
+            <Link to="/chose-register" className="text-blue-500 font-medium">
               Register
             </Link>
           </div>
