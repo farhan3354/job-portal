@@ -72,7 +72,6 @@ export default function ProfileSetting() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Personal Info */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Profile Sidebar */}
@@ -119,7 +118,6 @@ export default function ProfileSetting() {
         </div>
       </div>
 
-      {/* Grid Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold flex items-center mb-4">
@@ -177,7 +175,6 @@ export default function ProfileSetting() {
     </div>
   );
 }
-
 
 // src/components/profile/ProfileSetting.jsx
 // import React, { useState } from "react";
@@ -417,14 +414,14 @@ export default function ProfileSetting() {
 //               </button>
 //             )}
 //           </div>
-          
+
 //           {profile.experience.map((exp) => (
 //             <div key={exp.id} className="mb-6 pb-6 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0 group relative">
 //               <h4 className="font-semibold text-lg">{exp.title}</h4>
 //               <p className="text-gray-600">{exp.company} • {exp.location}</p>
 //               <p className="text-gray-500 text-sm mb-2">{exp.startDate} - {exp.endDate}</p>
 //               <p className="text-gray-700">{exp.description}</p>
-              
+
 //               {isEditing && (
 //                 <button
 //                   onClick={() => removeExperience(exp.id)}
@@ -512,13 +509,13 @@ export default function ProfileSetting() {
 //               </button>
 //             )}
 //           </div>
-          
+
 //           {profile.education.map((edu) => (
 //             <div key={edu.id} className="mb-6 pb-6 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0 group relative">
 //               <h4 className="font-semibold text-lg">{edu.degree}</h4>
 //               <p className="text-gray-600">{edu.institution}</p>
 //               <p className="text-gray-500 text-sm">{edu.year}</p>
-              
+
 //               {isEditing && (
 //                 <button
 //                   onClick={() => removeEducation(edu.id)}
@@ -593,7 +590,7 @@ export default function ProfileSetting() {
 //               </div>
 //             )}
 //           </div>
-          
+
 //           <div className="flex flex-wrap gap-2">
 //             {profile.skills.map((skill, index) => (
 //               <span
@@ -617,8 +614,6 @@ export default function ProfileSetting() {
 //     </div>
 //   );
 // }
-
-
 
 // // src/components/profile/ProfileSetting.jsx
 // import React, { useState } from "react";
