@@ -49,41 +49,43 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Navigation */}
             <div>
               <h4 className="text-lg font-semibold text-blue-800 mb-4">
                 Quick Links
               </h4>
               <ul className="space-y-2 text-gray-600">
                 <li>
-                  <a href="#" className="hover:text-blue-700 transition">
+                  <Link to={"/"} className="hover:text-blue-700 transition">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-blue-700 transition">
+                  <Link
+                    to={"/chose-register"}
+                    className="hover:text-blue-700 transition"
+                  >
                     Find Jobs
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-blue-700 transition">
+                  <Link
+                    to={"/chose-register"}
+                    className="hover:text-blue-700 transition"
+                  >
                     Post a Job
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-blue-700 transition">
+                  <Link
+                    to={"/about"}
+                    className="hover:text-blue-700 transition"
+                  >
                     About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-blue-700 transition">
-                    Blog
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Resources */}
             <div>
               <h4 className="text-lg font-semibold text-blue-800 mb-4">
                 Resources

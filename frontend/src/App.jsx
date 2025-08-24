@@ -29,6 +29,7 @@ import ManageEmployer from "./pages/adminDashboardPages/ManageEmployer.jsx";
 import ManageJobs from "./pages/adminDashboardPages/ManageJobs.jsx";
 import ChoseRole from "./pages/ChoseRole.jsx";
 import ScheduleInterview from "./component/employerDashboard/ScheduleInterview.jsx";
+import Careers from "./pages/Carrier.jsx";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
+          <Route path="carrier" element={<Careers />} />
           <Route path="chose-register" element={<ChoseRole />} />
           <Route path="register/job-seeker" element={<Register />} />
           <Route path="register/employer" element={<Register />} />
