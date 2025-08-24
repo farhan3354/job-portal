@@ -13,7 +13,6 @@ const JobSeekerDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Sample applicant data (in a real app, this would come from an API)
   const applicants = [
     {
       id: 1,
@@ -125,7 +124,6 @@ const JobSeekerDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header with Back Button */}
         <div className="mb-6">
           <button
             onClick={() => navigate(-1)}
@@ -152,9 +150,7 @@ const JobSeekerDetail = () => {
           </div>
         </div>
 
-        {/* Content */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          {/* Applicant Header */}
           <div className="px-6 py-5 border-b border-gray-200">
             <div className="flex items-center">
               <div className="flex-shrink-0 h-16 w-16">
@@ -172,7 +168,6 @@ const JobSeekerDetail = () => {
           </div>
 
           <div className="px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Left Column - Personal Info */}
             <div className="md:col-span-1">
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -256,7 +251,6 @@ const JobSeekerDetail = () => {
               </div>
             </div>
 
-            {/* Right Column - Professional Info */}
             <div className="md:col-span-2">
               <div className="mb-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -305,7 +299,6 @@ const JobSeekerDetail = () => {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end space-x-3">
             <button
               onClick={() => navigate(-1)}

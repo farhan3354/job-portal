@@ -34,6 +34,11 @@ export const menuItems = [
     to: "/user-dashboard/jobs",
   },
   {
+    title: "See Interview",
+    to: "/user-dashboard/interview",
+    icon: "MdWork",
+  },
+  {
     title: "Profile",
     icon: "IoIosContact",
     to: "/user-dashboard/profile",
@@ -59,11 +64,11 @@ export const employersidebarmenu = [
     to: "/employer-dashboard/applicants",
     icon: "FaUsers",
   },
-  // {
-  //   title: "Messages",
-  //   to: "/employer-dashboard/messages",
-  //   icon: "HiOutlineMail",
-  // },
+  {
+    title: "See Interview",
+    to: "/employer-dashboard/view-interviews",
+    icon: "MdWork",
+  },
 ];
 
 export const adminsidebarmenu = [

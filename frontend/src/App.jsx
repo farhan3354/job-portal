@@ -30,6 +30,8 @@ import ManageJobs from "./pages/adminDashboardPages/ManageJobs.jsx";
 import ChoseRole from "./pages/ChoseRole.jsx";
 import ScheduleInterview from "./component/employerDashboard/ScheduleInterview.jsx";
 import Careers from "./pages/Carrier.jsx";
+import Interview from "./pages/userDashboardPages/Interview.jsx";
+import SeeInterviews from "./pages/employerDashboardPages/SeeInterviews.jsx";
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
           <Route path="apply/:id" element={<ApplyJob />} />
           <Route path="applied" element={<Appliedjob />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="interview" element={<Interview />} />
         </Route>
 
         <Route path="/employer-dashboard" element={<EmployerLayout />}>
@@ -62,6 +65,7 @@ function App() {
           <Route path="profile" element={<EmployerProfile />} />
           <Route path="applicants" element={<Applicant />} />
           <Route path="applicant/:id" element={<JobApplicant />} />
+          <Route path="view-interviews" element={<SeeInterviews />} />
           <Route
             path="applicant/:id/schedule-interview"
             element={<ScheduleInterview />}

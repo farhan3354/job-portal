@@ -37,9 +37,8 @@ const ScheduleInterview = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real application, you would save this data to your backend
     alert(`Interview scheduled for ${formData.date} at ${formData.time}`);
-    navigate(`/applicant/${id}`);
+    navigate(`/employer-dashboard/view-interviews`);
   };
 
   return (

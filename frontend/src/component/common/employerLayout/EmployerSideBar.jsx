@@ -3,7 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 import { MdWorkOutline } from "react-icons/md";
 import { BsCardChecklist } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
+import { MdWork } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { employersidebarmenu } from "../../../data/data";
@@ -19,6 +19,7 @@ export default function EmployerSideBar() {
     FaUsers: FaUsers,
     // HiOutlineMail: HiOutlineMail,
     CgProfile: CgProfile,
+    MdWork: MdWork,
   };
 
   return (
