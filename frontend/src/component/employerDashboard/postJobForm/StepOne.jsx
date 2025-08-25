@@ -18,6 +18,7 @@ export default function StepOne({ register, errors }) {
             })}
             placeholder="e.g. Senior Frontend Developer"
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+            required
           />
           {errors.jobTitle && (
             <p className="text-red-500 text-sm mt-1">
@@ -36,6 +37,7 @@ export default function StepOne({ register, errors }) {
             })}
             placeholder="Enter your company name"
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+            required
           />
           {errors.companyName && (
             <p className="text-red-500 text-sm mt-1">
@@ -58,6 +60,7 @@ export default function StepOne({ register, errors }) {
             rows="5"
             placeholder="Describe the role, responsibilities, and requirements..."
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+            required
           ></textarea>
           {errors.jobDescription && (
             <p className="text-red-500 text-sm mt-1">
