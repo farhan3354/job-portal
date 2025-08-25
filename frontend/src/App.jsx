@@ -31,6 +31,7 @@ import ChoseRole from "./pages/ChoseRole.jsx";
 import ScheduleInterview from "./component/employerDashboard/ScheduleInterview.jsx";
 import Careers from "./pages/Carrier.jsx";
 
+
 function App() {
   return (
     <Router>
@@ -44,6 +45,7 @@ function App() {
           <Route path="register/job-seeker" element={<Register />} />
           <Route path="register/employer" element={<Register />} />
           <Route path="contact" element={<Contact />} />
+
           <Route path="*" element={<PageNotFound />} />
         </Route>
 
@@ -54,6 +56,7 @@ function App() {
           <Route path="apply/:id" element={<ApplyJob />} />
           <Route path="applied" element={<Appliedjob />} />
           <Route path="profile" element={<Profile />} />
+
         </Route>
 
         <Route path="/employer-dashboard" element={<EmployerLayout />}>
