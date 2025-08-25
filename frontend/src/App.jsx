@@ -30,7 +30,9 @@ import ManageJobs from "./pages/adminDashboardPages/ManageJobs.jsx";
 import ChoseRole from "./pages/ChoseRole.jsx";
 import ScheduleInterview from "./component/employerDashboard/ScheduleInterview.jsx";
 import Careers from "./pages/Carrier.jsx";
-
+import ViewInterview from "./pages/employerDashboardPages/SeeInterviews.jsx";
+import Interview from "./pages/userDashboardPages/Interview.jsx";
+import EditJob from "./component/employerDashboard/EditJob.jsx";
 function App() {
   return (
     <Router>
@@ -44,6 +46,7 @@ function App() {
           <Route path="register/job-seeker" element={<Register />} />
           <Route path="register/employer" element={<Register />} />
           <Route path="contact" element={<Contact />} />
+
           <Route path="*" element={<PageNotFound />} />
         </Route>
 
@@ -54,6 +57,7 @@ function App() {
           <Route path="apply/:id" element={<ApplyJob />} />
           <Route path="applied" element={<Appliedjob />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="interview" element={<Interview />} />
         </Route>
 
         <Route path="/employer-dashboard" element={<EmployerLayout />}>
@@ -66,8 +70,9 @@ function App() {
             path="applicant/:id/schedule-interview"
             element={<ScheduleInterview />}
           />
-
+          <Route path="edit-job/:id" element={<EditJob />} />
           <Route path="all-job" element={<AllPostedJob />} />
+          <Route path="view-interviews" element={<ViewInterview />} />
         </Route>
 
         <Route path="/admin-dashboard" element={<AdminLayout />}>
