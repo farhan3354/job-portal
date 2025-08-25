@@ -9,6 +9,7 @@ export default function EmployerPostJob() {
   const {
     register,
     handleSubmit,
+    trigger,
     formState: { errors },
   } = useForm();
 
@@ -20,7 +21,22 @@ export default function EmployerPostJob() {
     navigate("/employer-dashboard");
   };
 
-  const nextStep = () => setCount((prev) => prev + 1);
+  const nextStep = async () => {
+    let valid = false;
+
+    if (count === 1) {
+      valid = await trigger(["jobTitle", "companyName", "jobDescription"]);
+    } else if (count === 2) {
+      valid = await trigger(["requirements", "experienceLevel", "industry"]);
+    } else {
+      valid = true;
+    }
+
+    if (valid) {
+      setCount((prev) => prev + 1);
+    }
+  };
+
   const prevStep = () => setCount((prev) => prev - 1);
 
   return (
@@ -28,7 +44,6 @@ export default function EmployerPostJob() {
       <h2 className="text-2xl font-semibold mb-6">Post a Job</h2>
 
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-        {/* Step Rendering */}
         {count === 1 && <StepOne register={register} errors={errors} />}
         {count === 2 && <StepTwo register={register} errors={errors} />}
         {count === 3 && <StepThree register={register} errors={errors} />}
@@ -48,7 +63,7 @@ export default function EmployerPostJob() {
           {count < 3 ? (
             <button
               type="button"
-              onClick={nextStep}
+              onClick={nextStep} // 👈 validate before going next
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
             >
               Next

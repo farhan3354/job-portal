@@ -1,3 +1,113 @@
+import React from "react";
+import { MdWorkOutline, MdPeople, MdOutlineBarChart } from "react-icons/md";
+import { FaUserTie } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+export default function EmployerDashboard() {
+  const stats = [
+    {
+      title: "Active Jobs",
+      value: 12,
+      to: "all-job",
+      icon: <MdWorkOutline />,
+      color: "text-blue-500",
+      bg: "bg-blue-100",
+    },
+    {
+      title: "Applicants",
+      value: 87,
+      to: "applicants",
+      icon: <MdPeople />,
+      color: "text-green-500",
+      bg: "bg-green-100",
+    },
+    {
+      title: "Interviews Scheduled",
+      to: "view-interviews",
+      value: 5,
+      icon: <MdOutlineBarChart />,
+      color: "text-purple-500",
+      bg: "bg-purple-100",
+    },
+  ];
+
+  const jobs = [
+    { title: "Frontend Developer", date: "Posted 2 days ago", status: "Open" },
+    { title: "UI/UX Designer", date: "Posted 1 week ago", status: "Closed" },
+  ];
+
+  const applicants = [
+    { name: "Ali Khan", role: "Frontend Developer" },
+    { name: "Sara Ahmed", role: "UI/UX Designer" },
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold mb-8">Employer Dashboard</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {stats.map((stat, index) => (
+            <Link
+              key={index}
+              to={stat.to}
+              className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition flex items-center gap-4"
+            >
+              <div
+                className={`p-3 rounded-full text-3xl ${stat.bg} ${stat.color}`}
+              >
+                {stat.icon}
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold">{stat.title}</h4>
+                <p className="text-gray-600">{stat.value}</p>
+              </div>
+            </Link>
+          ))}
+      </div>
+
+      {/* Recent Job Postings */}
+      <div className="bg-white p-6 rounded-2xl shadow mb-8">
+        <h3 className="text-xl font-bold mb-4">Recent Job Postings</h3>
+        <ul className="divide-y divide-gray-200">
+          {jobs.map((job, index) => (
+            <li key={index} className="py-3 flex justify-between items-center">
+              <div>
+                <h4 className="font-semibold">{job.title}</h4>
+                <p className="text-gray-600 text-sm">{job.date}</p>
+              </div>
+              <span
+                className={`text-sm font-medium ${
+                  job.status === "Open" ? "text-blue-500" : "text-red-500"
+                }`}
+              >
+                {job.status}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Recent Applicants */}
+      <div className="bg-white p-6 rounded-2xl shadow">
+        <h3 className="text-xl font-bold mb-4">Recent Applicants</h3>
+        <ul className="divide-y divide-gray-200">
+          {applicants.map((applicant, index) => (
+            <li key={index} className="py-3 flex items-center gap-4">
+              <FaUserTie className="text-2xl text-gray-500" />
+              <div>
+                <h4 className="font-semibold">{applicant.name}</h4>
+                <p className="text-gray-600 text-sm">
+                  Applied for {applicant.role}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 // import React from "react";
 // import { MdWork, MdPeople, MdMessage } from "react-icons/md";
 
@@ -43,86 +153,3 @@
 //     </>
 //   );
 // }
-import React from "react";
-import {
-  MdWorkOutline,
-  MdPeople,
-  MdOutlineBarChart,
-} from "react-icons/md";
-import { FaUserTie } from "react-icons/fa";
-
-export default function EmployerDashboard() {
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Header */}
-      <h2 className="text-3xl font-bold mb-6">Employer Dashboard</h2>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-2xl shadow flex items-center gap-4">
-          <MdWorkOutline className="text-4xl text-blue-500" />
-          <div>
-            <h4 className="text-lg font-semibold">Active Jobs</h4>
-            <p className="text-gray-600">12</p>
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-2xl shadow flex items-center gap-4">
-          <MdPeople className="text-4xl text-green-500" />
-          <div>
-            <h4 className="text-lg font-semibold">Applicants</h4>
-            <p className="text-gray-600">87</p>
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-2xl shadow flex items-center gap-4">
-          <MdOutlineBarChart className="text-4xl text-purple-500" />
-          <div>
-            <h4 className="text-lg font-semibold">Interviews Scheduled</h4>
-            <p className="text-gray-600">5</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Recent Job Postings */}
-      <div className="bg-white p-6 rounded-2xl shadow mb-8">
-        <h3 className="text-xl font-bold mb-4">Recent Job Postings</h3>
-        <ul className="divide-y divide-gray-200">
-          <li className="py-3 flex justify-between items-center">
-            <div>
-              <h4 className="font-semibold">Frontend Developer</h4>
-              <p className="text-gray-600 text-sm">Posted 2 days ago</p>
-            </div>
-            <span className="text-blue-500 text-sm font-medium">Open</span>
-          </li>
-          <li className="py-3 flex justify-between items-center">
-            <div>
-              <h4 className="font-semibold">UI/UX Designer</h4>
-              <p className="text-gray-600 text-sm">Posted 1 week ago</p>
-            </div>
-            <span className="text-red-500 text-sm font-medium">Closed</span>
-          </li>
-        </ul>
-      </div>
-
-      {/* Recent Applicants */}
-      <div className="bg-white p-6 rounded-2xl shadow">
-        <h3 className="text-xl font-bold mb-4">Recent Applicants</h3>
-        <ul className="divide-y divide-gray-200">
-          <li className="py-3 flex items-center gap-4">
-            <FaUserTie className="text-2xl text-gray-500" />
-            <div>
-              <h4 className="font-semibold">Ali Khan</h4>
-              <p className="text-gray-600 text-sm">Applied for Frontend Developer</p>
-            </div>
-          </li>
-          <li className="py-3 flex items-center gap-4">
-            <FaUserTie className="text-2xl text-gray-500" />
-            <div>
-              <h4 className="font-semibold">Sara Ahmed</h4>
-              <p className="text-gray-600 text-sm">Applied for UI/UX Designer</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-}
