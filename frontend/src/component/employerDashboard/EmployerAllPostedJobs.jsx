@@ -295,11 +295,7 @@ export default function EmployerAllPostedJobs() {
                 {/* Actions */}
                 <div className="flex items-center gap-3">
                   {/* Edit navigates to another component (JobEditForm) */}
-<<<<<<< HEAD
                   <Link to={`/employer-dashboard/all-job/${job.id}`}>
-=======
-                  <Link to={`/employer-dashboard/edit-job/${job.id}`}>
->>>>>>> b5d7717d41a83238a84231b38eb38e8ac6e048ec
                     <button className="p-2 bg-blue-100 rounded-full text-blue-600 hover:bg-blue-200 transition">
                       <FaEdit />
                     </button>
