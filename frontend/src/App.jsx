@@ -30,9 +30,7 @@ import ManageJobs from "./pages/adminDashboardPages/ManageJobs.jsx";
 import ChoseRole from "./pages/ChoseRole.jsx";
 import ScheduleInterview from "./component/employerDashboard/ScheduleInterview.jsx";
 import Careers from "./pages/Carrier.jsx";
-import ViewInterview from "./pages/employerDashboardPages/SeeInterviews.jsx";
-import Interview from "./pages/userDashboardPages/Interview.jsx";
-import EditJob from "./component/employerDashboard/EditJob.jsx";
+
 function App() {
   return (
     <Router>
