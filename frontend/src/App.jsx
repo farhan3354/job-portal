@@ -55,7 +55,6 @@ function App() {
           <Route path="apply/:id" element={<ApplyJob />} />
           <Route path="applied" element={<Appliedjob />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="interview" element={<Interview />} />
         </Route>
 
         <Route path="/employer-dashboard" element={<EmployerLayout />}>
