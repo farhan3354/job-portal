@@ -21,6 +21,7 @@ export default function StepTwo({ register, errors }) {
             rows="3"
             placeholder="List the required skills, education, and experience..."
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+            required
           ></textarea>
           {errors.requirements && (
             <p className="text-red-500 text-sm mt-1">

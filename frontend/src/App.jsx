@@ -69,8 +69,9 @@ function App() {
             path="applicant/:id/schedule-interview"
             element={<ScheduleInterview />}
           />
-
+          <Route path="edit-job/:id" element={<EditJob />} />
           <Route path="all-job" element={<AllPostedJob />} />
+          <Route path="view-interviews" element={<ViewInterview />} />
         </Route>
 
         <Route path="/admin-dashboard" element={<AdminLayout />}>
