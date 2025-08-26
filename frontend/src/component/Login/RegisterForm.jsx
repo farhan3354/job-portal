@@ -163,23 +163,6 @@ export default function RegisterForm() {
                 </div>
               </>
             )}
-
-            {role === "job-seeker" && (
-              <>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Professional Title
-                  </label>
-                  <input
-                    {...register("professionalTitle")}
-                    type="text"
-                    placeholder="e.g. Software Developer, Marketing Manager"
-                    className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </>
-            )}
-
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Password *
