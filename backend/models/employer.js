@@ -9,10 +9,10 @@ const employerProfileSchema = new mongoose.Schema(
     },
     companylogo: { type: String },
     companyName: { type: String, required: true },
-    companyWebsite: { type: String },
+    companyWebsite: { type: String, required: true },
     industry: { type: String },
-    location: { type: String },
-    description: { type: String },
+    location: { type: String, required: true },
+    description: { type: String, required: true },
   },
   { timestamps: true }
 );

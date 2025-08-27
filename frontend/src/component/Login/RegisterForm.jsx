@@ -7,12 +7,10 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
 
-  // Use useEffect to handle navigation when role changes
   useEffect(() => {
     if (role === "employer") {
       navigate("/register/employer");
@@ -31,7 +29,7 @@ export default function RegisterForm() {
     }
   };
 
-  const selectedRole = watch("role");
+  // const selectedRole = watch("role");
 
   return (
     <>
@@ -39,8 +37,8 @@ export default function RegisterForm() {
         <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8">
           <div className="mb-8 text-center">
             <p className="mb-1 text-2xl text-blue-500 font-bold">Register</p>
-            <p className="text-sm text-gray-600">
-              {selectedRole === "employer"
+            <p className="text-gray-600 text-xl">
+              {role === "employer"
                 ? "Create your employer account"
                 : "Create your job seeker account"}
             </p>
@@ -57,7 +55,9 @@ export default function RegisterForm() {
                 onChange={(e) => setRole(e.target.value)}
                 className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" aria-readonly disabled>
+                  Select Role
+                </option>
                 <option value="job-seeker">Job Seeker</option>
                 <option value="employer">Employer</option>
               </select>
@@ -137,32 +137,6 @@ export default function RegisterForm() {
               )}
             </div>
 
-            {role === "employer" && (
-              <>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Company Name *
-                  </label>
-                  <input
-                    {...register("companyName", {
-                      required: "Company name is required for employers",
-                      minLength: {
-                        value: 2,
-                        message: "Company name must be at least 2 characters",
-                      },
-                    })}
-                    type="text"
-                    placeholder="Enter your company name"
-                    className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  {errors.companyName && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.companyName.message}
-                    </p>
-                  )}
-                </div>
-              </>
-            )}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Password *
