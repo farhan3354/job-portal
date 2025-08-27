@@ -7,12 +7,10 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
 
-  // Use useEffect to handle navigation when role changes
   useEffect(() => {
     if (role === "employer") {
       navigate("/register/employer");
@@ -31,16 +29,14 @@ export default function RegisterForm() {
     }
   };
 
-  const selectedRole = watch("role");
-
   return (
     <>
       <div className="p-8 md:p-12 md:w-1/2 flex items-center justify-center">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8">
           <div className="mb-8 text-center">
             <p className="mb-1 text-2xl text-blue-500 font-bold">Register</p>
-            <p className="text-sm text-gray-600">
-              {selectedRole === "employer"
+            <p className="text-xl text-gray-600">
+              {role === "employer"
                 ? "Create your employer account"
                 : "Create your job seeker account"}
             </p>
@@ -137,32 +133,6 @@ export default function RegisterForm() {
               )}
             </div>
 
-            {role === "employer" && (
-              <>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Company Name *
-                  </label>
-                  <input
-                    {...register("companyName", {
-                      required: "Company name is required for employers",
-                      minLength: {
-                        value: 2,
-                        message: "Company name must be at least 2 characters",
-                      },
-                    })}
-                    type="text"
-                    placeholder="Enter your company name"
-                    className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  {errors.companyName && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.companyName.message}
-                    </p>
-                  )}
-                </div>
-              </>
-            )}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Password *
