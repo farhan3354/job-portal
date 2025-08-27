@@ -1,4 +1,4 @@
-import EmployerProfile from "../models/employer.js";
+import jwt from "jsonwebtoken";
 import User from "../models/usermodel.js";
 import bcrypt from "bcrypt";
 

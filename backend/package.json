@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index"
+    "start": "nodemon index",
+    "seeder": "node seeder/adminseeder.js"
   },
   "author": "",
   "license": "ISC",

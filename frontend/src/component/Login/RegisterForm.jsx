@@ -29,13 +29,15 @@ export default function RegisterForm() {
     }
   };
 
+  // const selectedRole = watch("role");
+
   return (
     <>
       <div className="p-8 md:p-12 md:w-1/2 flex items-center justify-center">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8">
           <div className="mb-8 text-center">
             <p className="mb-1 text-2xl text-blue-500 font-bold">Register</p>
-            <p className="text-xl text-gray-600">
+            <p className="text-gray-600 text-xl">
               {role === "employer"
                 ? "Create your employer account"
                 : "Create your job seeker account"}
@@ -53,7 +55,9 @@ export default function RegisterForm() {
                 onChange={(e) => setRole(e.target.value)}
                 className="w-full h-12 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" aria-readonly disabled>
+                  Select Role
+                </option>
                 <option value="job-seeker">Job Seeker</option>
                 <option value="employer">Employer</option>
               </select>
