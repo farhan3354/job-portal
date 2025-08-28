@@ -33,6 +33,7 @@ import Careers from "./pages/Carrier.jsx";
 import SeeInterviews from "./pages/employerDashboardPages/SeeInterviews.jsx";
 import Interview from "./pages/userDashboardPages/Interview.jsx";
 import EditJob from "./component/employerDashboard/EditJob.jsx";
+import ProtectRoute from "./protectedRoutes/ProtectedRoutes.jsx";
 
 function App() {
   return (
@@ -50,38 +51,42 @@ function App() {
 
           <Route path="*" element={<PageNotFound />} />
         </Route>
-
-        <Route path="/user-dashboard" element={<UserLayout />}>
-          <Route index element={<Userdashboard />} />
-          <Route path="jobs" element={<Job />} />
-          <Route path="saved" element={<Saved />} />
-          <Route path="apply/:id" element={<ApplyJob />} />
-          <Route path="applied" element={<Appliedjob />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="interview" element={<Interview />} />
+        <Route element={<ProtectRoute role="job-seeker" />}>
+          <Route path="/user-dashboard" element={<UserLayout />}>
+            <Route index element={<Userdashboard />} />
+            <Route path="jobs" element={<Job />} />
+            <Route path="saved" element={<Saved />} />
+            <Route path="apply/:id" element={<ApplyJob />} />
+            <Route path="applied" element={<Appliedjob />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="interview" element={<Interview />} />
+          </Route>
         </Route>
 
-        <Route path="/employer-dashboard" element={<EmployerLayout />}>
-          <Route index element={<EmployerHome />} />
-          <Route path="posta-job" element={<PostJob />} />
-          <Route path="profile" element={<EmployerProfile />} />
-          <Route path="applicants" element={<Applicant />} />
-          <Route path="applicant/:id" element={<JobApplicant />} />
-          <Route
-            path="applicant/:id/schedule-interview"
-            element={<ScheduleInterview />}
-          />
-          <Route path="all-job/:id" element={<EditJob />} />
-          <Route path="view-interviews" element={<SeeInterviews />} />
-          <Route path="all-job" element={<AllPostedJob />} />
+        <Route element={<ProtectRoute role="employer" />}>
+          <Route path="/employer-dashboard" element={<EmployerLayout />}>
+            <Route index element={<EmployerHome />} />
+            <Route path="posta-job" element={<PostJob />} />
+            <Route path="profile" element={<EmployerProfile />} />
+            <Route path="applicants" element={<Applicant />} />
+            <Route path="applicant/:id" element={<JobApplicant />} />
+            <Route
+              path="applicant/:id/schedule-interview"
+              element={<ScheduleInterview />}
+            />
+            <Route path="all-job/:id" element={<EditJob />} />
+            <Route path="view-interviews" element={<SeeInterviews />} />
+            <Route path="all-job" element={<AllPostedJob />} />
+          </Route>
         </Route>
-
-        <Route path="/admin-dashboard" element={<AdminLayout />}>
-          <Route index element={<AdminHome />} />
-          <Route path="profile" element={<AdminProfile />} />
-          <Route path="manage-users" element={<ManageUser />} />
-          <Route path="manage-employers" element={<ManageEmployer />} />
-          <Route path="manage-jobs" element={<ManageJobs />} />
+        <Route element={<ProtectRoute role="admin" />}>
+          <Route path="/admin-dashboard" element={<AdminLayout />}>
+            <Route index element={<AdminHome />} />
+            <Route path="profile" element={<AdminProfile />} />
+            <Route path="manage-users" element={<ManageUser />} />
+            <Route path="manage-employers" element={<ManageEmployer />} />
+            <Route path="manage-jobs" element={<ManageJobs />} />
+          </Route>
         </Route>
       </Routes>
     </Router>
@@ -89,6 +94,7 @@ function App() {
 }
 
 export default App;
+
 
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -123,57 +129,57 @@ export default App;
 // import ChoseRole from "./pages/ChoseRole";
 
 // function App() {
-//   const router = createBrowserRouter([
-//     {
-//       path: "/",
-//       element: <Layout />,
-//       children: [
-//         { path: "/", element: <Home /> },
-//         { path: "/about", element: <About /> },
-//         { path: "/login", element: <Login /> },
-//         { path: "/chose-register", element: <ChoseRole /> },
-//         { path: "/register/job-seeker", element: <Register /> },
-//         { path: "/register/employer", element: <Register /> },
-//         { path: "/contact", element: <Contact /> },
-//         { path: "*", element: <PageNotFound /> },
-//       ],
-//     },
-//     {
-//       path: "/user-dashboard",
-//       element: <UserLayout />,
-//       children: [
-//         { path: "", element: <Userdashboard /> },
-//         { path: "jobs", element: <Job /> },
-//         { path: "saved", element: <Saved /> },
-//         { path: "apply/:id", element: <ApplyJob /> },
-//         { path: "applied", element: <Appliedjob /> },
-//         { path: "profile", element: <Profile /> },
-//       ],
-//     },
-//     {
-//       path: "/employer-dashboard",
-//       element: <EmployerLayout />,
-//       children: [
-//         { path: "", element: <EmployerHome /> },
-//         { path: "posta-job", element: <PostJob /> },
-//         { path: "profile", element: <EmployerProfile /> },
-//         { path: "applicants", element: <Applicant /> },
-//         { path: "applicant/:id", element: <JobApplicant /> },
-//         { path: "all-job", element: <AllPostedJob /> },
-//       ],
-//     },
-//     {
-//       path: "/admin-dashboard",
-//       element: <AdminLayout />,
-//       children: [
-//         { path: "", element: <AdminHome /> },
-//         { path: "profile", element: <AdminProfile /> },
-//         { path: "manage-users", element: <ManageUser /> },
-//         { path: "manage-employers", element: <ManageEmployer /> },
-//         { path: "manage-jobs", element: <ManageJobs /> },
-//       ],
-//     },
-//   ]);
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <Layout />,
+  //     children: [
+  //       { path: "/", element: <Home /> },
+  //       { path: "/about", element: <About /> },
+  //       { path: "/login", element: <Login /> },
+  //       { path: "/chose-register", element: <ChoseRole /> },
+  //       { path: "/register/job-seeker", element: <Register /> },
+  //       { path: "/register/employer", element: <Register /> },
+  //       { path: "/contact", element: <Contact /> },
+  //       { path: "*", element: <PageNotFound /> },
+  //     ],
+  //   },
+  //   {
+  //     path: "/user-dashboard",
+  //     element: <UserLayout />,
+  //     children: [
+  //       { path: "", element: <Userdashboard /> },
+  //       { path: "jobs", element: <Job /> },
+  //       { path: "saved", element: <Saved /> },
+  //       { path: "apply/:id", element: <ApplyJob /> },
+  //       { path: "applied", element: <Appliedjob /> },
+  //       { path: "profile", element: <Profile /> },
+  //     ],
+  //   },
+  //   {
+  //     path: "/employer-dashboard",
+  //     element: <EmployerLayout />,
+  //     children: [
+  //       { path: "", element: <EmployerHome /> },
+  //       { path: "posta-job", element: <PostJob /> },
+  //       { path: "profile", element: <EmployerProfile /> },
+  //       { path: "applicants", element: <Applicant /> },
+  //       { path: "applicant/:id", element: <JobApplicant /> },
+  //       { path: "all-job", element: <AllPostedJob /> },
+  //     ],
+  //   },
+  //   {
+  //     path: "/admin-dashboard",
+  //     element: <AdminLayout />,
+  //     children: [
+  //       { path: "", element: <AdminHome /> },
+  //       { path: "profile", element: <AdminProfile /> },
+  //       { path: "manage-users", element: <ManageUser /> },
+  //       { path: "manage-employers", element: <ManageEmployer /> },
+  //       { path: "manage-jobs", element: <ManageJobs /> },
+  //     ],
+  //   },
+  // ]);
 
 //   return <RouterProvider router={router} />;
 // }

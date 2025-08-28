@@ -41,13 +41,13 @@ export const loginuser = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({ message: "Fill all the details" });
     }
-    const checkuser = await User.findOne({ email });
 
+    const checkuser = await User.findOne({ email });
     if (!checkuser) {
-      return res.status(400).json({ message: "User do exist " });
+      return res.status(400).json({ message: "User does not exist" });
     }
 
-    const matchpassword = bcrypt.compare(password, checkuser.password);
+    const matchpassword = await bcrypt.compare(password, checkuser.password);
     if (!matchpassword) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -55,9 +55,7 @@ export const loginuser = async (req, res) => {
     const token = jwt.sign(
       { id: checkuser._id, role: checkuser.role },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
+      { expiresIn: "1d" }
     );
 
     res.status(200).json({
@@ -66,14 +64,13 @@ export const loginuser = async (req, res) => {
       user: {
         id: checkuser._id,
         role: checkuser.role,
-        Nmae: checkuser.name,
-        Email: checkuser.email,
-        Phone: checkuser.phone,
+        name: checkuser.name,
+        email: checkuser.email,
+        phone: checkuser.phone,
       },
     });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ message: "Server error" });
   }
-
-  // return res.send("successfull created");
 };

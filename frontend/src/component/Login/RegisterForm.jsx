@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function RegisterForm() {
   const {
@@ -19,18 +21,45 @@ export default function RegisterForm() {
     }
   }, [role, navigate]);
 
-  const onSubmit = (data) => {
-    console.log("Register Data Submitted:", data);
-    alert("Register Data Submitted ✅");
-    if (role === "employer") {
-      navigate("/employer-dashboard");
-    } else {
-      navigate("/user-dashboard");
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:8000/register", data);
+      // console.log("Register Data Submitted:", res.data);
+
+      Swal.fire({
+        title: "Success!",
+        text: "Registration successful!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
+      if (res.data.token && res.data.user) {
+        const userRole = res.data.user.role;
+        if (userRole === "employer") {
+          navigate("/employer-dashboard");
+        } else {
+          navigate("/user-dashboard");
+        }
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("Registration error:", error);
+
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Registration failed. Please try again.";
+
+      Swal.fire({
+        title: "Error!",
+        text: errorMessage,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#d33",
+      });
     }
   };
-
-  // const selectedRole = watch("role");
-
   return (
     <>
       <div className="p-8 md:p-12 md:w-1/2 flex items-center justify-center">
@@ -149,9 +178,8 @@ export default function RegisterForm() {
                     message: "Password must be at least 6 characters",
                   },
                   pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-                    message:
-                      "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+                    value: /^(?=.*[a-z])/,
+                    message: "Password must contain at least one",
                   },
                 })}
                 type="password"
