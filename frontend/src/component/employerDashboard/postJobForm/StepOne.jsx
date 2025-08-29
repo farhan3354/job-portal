@@ -4,7 +4,6 @@ export default function StepOne({ register, errors }) {
   return (
     <>
       <div>
-        {/* Job Title */}
         <div>
           <label className="block text-gray-700 mb-1">Job Title *</label>
           <input
@@ -27,7 +26,6 @@ export default function StepOne({ register, errors }) {
           )}
         </div>
 
-        {/* Company Name */}
         <div>
           <label className="block text-gray-700 mb-1">Company Name *</label>
           <input
@@ -46,15 +44,14 @@ export default function StepOne({ register, errors }) {
           )}
         </div>
 
-        {/* Job Description */}
         <div>
           <label className="block text-gray-700 mb-1">Job Description *</label>
           <textarea
             {...register("jobDescription", {
               required: "Description is required",
               minLength: {
-                value: 50,
-                message: "Description must be at least 50 characters",
+                value: 25,
+                message: "Description must be at least 25 characters",
               },
             })}
             rows="5"

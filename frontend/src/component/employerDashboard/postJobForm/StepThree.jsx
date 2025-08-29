@@ -6,7 +6,6 @@ export default function StepThree({ register, errors }) {
   return (
     <>
       <div>
-        {/* Location */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-gray-700 mb-1">Location *</label>
@@ -39,7 +38,6 @@ export default function StepThree({ register, errors }) {
           </div>
         </div>
 
-        {/* Salary */}
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
           <div>
             <label className="block text-gray-700 mb-1">Salary Range *</label>
@@ -64,7 +62,6 @@ export default function StepThree({ register, errors }) {
           </div>
         </div>
 
-        {/* Application Details */}
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
           <div>
             <label className="block text-gray-700 mb-1">
@@ -78,7 +75,6 @@ export default function StepThree({ register, errors }) {
           </div>
         </div>
 
-        {/* Contact Information */}
         <div className="border-t pt-4 mt-4">
           <h3 className="text-lg font-semibold mb-3">Contact Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

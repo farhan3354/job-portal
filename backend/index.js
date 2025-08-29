@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/authroutes.js";
+import postJob from "./routes/jobPost.js";
 dotenv.config();
 import cors from "cors";
 const app = express();
@@ -16,6 +17,7 @@ app.use(
 app.use(express.json());
 
 app.use("/", userRoutes);
+app.use("/", postJob);
 
 connectDB();
 app.listen(port, () => {

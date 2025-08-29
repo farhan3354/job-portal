@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import StepOne from "./postJobForm/StepOne";
 import StepTwo from "./postJobForm/StepTwo";
 import StepThree from "./postJobForm/StepThree";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 export default function EmployerPostJob() {
   const {
@@ -15,10 +18,40 @@ export default function EmployerPostJob() {
 
   const navigate = useNavigate();
   const [count, setCount] = useState(1);
+  const token = useSelector((state) => state.auth.token);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/post-job",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        Swal.fire({
+          title: "Success!",
+          text: "Job posted successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/employer-dashboard");
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: "Error",
+        text: error.response?.data?.message || "Something went wrong",
+        icon: "error",
+      });
+    }
+
     console.log("Job Data Submitted:", data);
-    navigate("/employer-dashboard");
   };
 
   const nextStep = async () => {
@@ -48,7 +81,6 @@ export default function EmployerPostJob() {
         {count === 2 && <StepTwo register={register} errors={errors} />}
         {count === 3 && <StepThree register={register} errors={errors} />}
 
-        {/* Navigation Buttons */}
         <div className="flex justify-between pt-4">
           {count > 1 && (
             <button
@@ -63,7 +95,7 @@ export default function EmployerPostJob() {
           {count < 3 ? (
             <button
               type="button"
-              onClick={nextStep} // 👈 validate before going next
+              onClick={nextStep}
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
             >
               Next
@@ -90,83 +122,6 @@ export default function EmployerPostJob() {
     </div>
   );
 }
-
-// import React, { useState } from "react";
-// import { useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
-// import StepOne from "./postJobForm/StepOne";
-// import StepTwo from "./postJobForm/StepTwo";
-// import StepThree from "./postJobForm/StepThree";
-
-// export default function EmployerPostJob() {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm();
-
-//   const navigate = useNavigate();
-//   const [count, setCount] = useState(1);
-
-//   const onSubmit = (data) => {
-//     console.log("Job Data Submitted:", data);
-//     navigate("/employer-dashboard");
-//   };
-
-//   const nextStep = () => setCount((prev) => prev + 1);
-//   const prevStep = () => setCount((prev) => prev - 1);
-
-//   return (
-//     <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-//       <h2 className="text-2xl font-semibold mb-6">Post a Job</h2>
-
-//       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-//         {count === 1 && <StepOne register={register} errors={errors} />}
-//         {count === 2 && <StepTwo register={register} errors={errors} />}
-//         {count === 3 && <StepThree register={register} errors={errors} />}
-
-//         {/* Navigation Buttons */}
-//         <div className="flex justify-between pt-4">
-//           {count > 1 && (
-//             <button
-//               type="button"
-//               onClick={prevStep}
-//               className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
-//             >
-//               Back
-//             </button>
-//           )}
-
-//           {count < 3 ? (
-//             <button
-//               type="button"
-//               onClick={nextStep}
-//               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-//             >
-//               Next
-//             </button>
-//           ) : (
-//             <div className="flex space-x-4">
-//               <button
-//                 type="button"
-//                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
-//                 onClick={() => navigate(-1)}
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 type="submit"
-//                 className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
-//               >
-//                 Post Job
-//               </button>
-//             </div>
-//           )}
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
 
 // // import React, { useState } from "react";
 // // import { useForm } from "react-hook-form";

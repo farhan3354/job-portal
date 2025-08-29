@@ -1,15 +1,10 @@
 import React from "react";
-import {
-  employmentTypes,
-  experienceLevels,
-  industries,
-} from "../../../data/data";
+import { industries,employmentTypes } from "../../../data/data";
 
 export default function StepTwo({ register, errors }) {
   return (
     <>
       <div>
-        {/* Requirements */}
         <div>
           <label className="block text-gray-700 mb-1">
             Requirements & Qualifications *
@@ -18,8 +13,8 @@ export default function StepTwo({ register, errors }) {
             {...register("requirements", {
               required: "Requirements are required",
             })}
-            rows="3"
-            placeholder="List the required skills, education, and experience..."
+            rows="5"
+            placeholder={`Enter each requirement on a new line:\n- 5+ years of experience in frontend development\n- Strong proficiency in React.js and its ecosystem\n- Experience with state management (Redux, Context API)`}
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
             required
           ></textarea>
@@ -30,7 +25,6 @@ export default function StepTwo({ register, errors }) {
           )}
         </div>
 
-        {/* Job Type */}
         <div>
           <label className="block text-gray-700 mb-1">Employment Type *</label>
           <select
@@ -53,29 +47,6 @@ export default function StepTwo({ register, errors }) {
           )}
         </div>
 
-        {/* Experience Level */}
-        <div>
-          <label className="block text-gray-700 mb-1">Experience Level *</label>
-          <select
-            {...register("experienceLevel", {
-              required: "Experience level is required",
-            })}
-            className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-          >
-            <option value="">Select experience level</option>
-            {experienceLevels.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-          {errors.experienceLevel && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.experienceLevel.message}
-            </p>
-          )}
-        </div>
-        {/* Industry */}
         <div>
           <label className="block text-gray-700 mb-1">Industry *</label>
           <select
