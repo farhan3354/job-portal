@@ -33,7 +33,7 @@ import Careers from "./pages/Carrier.jsx";
 import SeeInterviews from "./pages/employerDashboardPages/SeeInterviews.jsx";
 import Interview from "./pages/userDashboardPages/Interview.jsx";
 import EditJob from "./component/employerDashboard/EditJob.jsx";
-import ProtectRoute from "./protectedRoutes/ProtectedRoutes.jsx";
+import ProtectRoute from "./utils/ProtectedRoutes.jsx";
 
 function App() {
   return (
@@ -95,7 +95,6 @@ function App() {
 
 export default App;
 
-
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // // Direct imports (no lazy)
@@ -129,57 +128,57 @@ export default App;
 // import ChoseRole from "./pages/ChoseRole";
 
 // function App() {
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Layout />,
-  //     children: [
-  //       { path: "/", element: <Home /> },
-  //       { path: "/about", element: <About /> },
-  //       { path: "/login", element: <Login /> },
-  //       { path: "/chose-register", element: <ChoseRole /> },
-  //       { path: "/register/job-seeker", element: <Register /> },
-  //       { path: "/register/employer", element: <Register /> },
-  //       { path: "/contact", element: <Contact /> },
-  //       { path: "*", element: <PageNotFound /> },
-  //     ],
-  //   },
-  //   {
-  //     path: "/user-dashboard",
-  //     element: <UserLayout />,
-  //     children: [
-  //       { path: "", element: <Userdashboard /> },
-  //       { path: "jobs", element: <Job /> },
-  //       { path: "saved", element: <Saved /> },
-  //       { path: "apply/:id", element: <ApplyJob /> },
-  //       { path: "applied", element: <Appliedjob /> },
-  //       { path: "profile", element: <Profile /> },
-  //     ],
-  //   },
-  //   {
-  //     path: "/employer-dashboard",
-  //     element: <EmployerLayout />,
-  //     children: [
-  //       { path: "", element: <EmployerHome /> },
-  //       { path: "posta-job", element: <PostJob /> },
-  //       { path: "profile", element: <EmployerProfile /> },
-  //       { path: "applicants", element: <Applicant /> },
-  //       { path: "applicant/:id", element: <JobApplicant /> },
-  //       { path: "all-job", element: <AllPostedJob /> },
-  //     ],
-  //   },
-  //   {
-  //     path: "/admin-dashboard",
-  //     element: <AdminLayout />,
-  //     children: [
-  //       { path: "", element: <AdminHome /> },
-  //       { path: "profile", element: <AdminProfile /> },
-  //       { path: "manage-users", element: <ManageUser /> },
-  //       { path: "manage-employers", element: <ManageEmployer /> },
-  //       { path: "manage-jobs", element: <ManageJobs /> },
-  //     ],
-  //   },
-  // ]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Layout />,
+//     children: [
+//       { path: "/", element: <Home /> },
+//       { path: "/about", element: <About /> },
+//       { path: "/login", element: <Login /> },
+//       { path: "/chose-register", element: <ChoseRole /> },
+//       { path: "/register/job-seeker", element: <Register /> },
+//       { path: "/register/employer", element: <Register /> },
+//       { path: "/contact", element: <Contact /> },
+//       { path: "*", element: <PageNotFound /> },
+//     ],
+//   },
+//   {
+//     path: "/user-dashboard",
+//     element: <UserLayout />,
+//     children: [
+//       { path: "", element: <Userdashboard /> },
+//       { path: "jobs", element: <Job /> },
+//       { path: "saved", element: <Saved /> },
+//       { path: "apply/:id", element: <ApplyJob /> },
+//       { path: "applied", element: <Appliedjob /> },
+//       { path: "profile", element: <Profile /> },
+//     ],
+//   },
+//   {
+//     path: "/employer-dashboard",
+//     element: <EmployerLayout />,
+//     children: [
+//       { path: "", element: <EmployerHome /> },
+//       { path: "posta-job", element: <PostJob /> },
+//       { path: "profile", element: <EmployerProfile /> },
+//       { path: "applicants", element: <Applicant /> },
+//       { path: "applicant/:id", element: <JobApplicant /> },
+//       { path: "all-job", element: <AllPostedJob /> },
+//     ],
+//   },
+//   {
+//     path: "/admin-dashboard",
+//     element: <AdminLayout />,
+//     children: [
+//       { path: "", element: <AdminHome /> },
+//       { path: "profile", element: <AdminProfile /> },
+//       { path: "manage-users", element: <ManageUser /> },
+//       { path: "manage-employers", element: <ManageEmployer /> },
+//       { path: "manage-jobs", element: <ManageJobs /> },
+//     ],
+//   },
+// ]);
 
 //   return <RouterProvider router={router} />;
 // }
