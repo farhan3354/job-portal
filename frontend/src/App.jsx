@@ -96,7 +96,6 @@ function App() {
 export default App;
 
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 // // Direct imports (no lazy)
 // import Layout from "./component/common/Layout";
 // import Home from "../src/pages/Home";
