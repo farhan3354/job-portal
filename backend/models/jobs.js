@@ -5,10 +5,9 @@ const jobSchema = new mongoose.Schema(
     jobTitle: { type: String, required: true },
     companyName: { type: String, required: true },
     jobDescription: { type: String, required: true },
-    requirements: { type: String, required: true },
+    requirements: { type: [String], default: [], required: true },
     employmentType: {
       type: String,
-      enum: ["Full-time", "Part-time", "Contract", "Internship", "Remote"],
       required: true,
     },
     industry: {
@@ -20,7 +19,12 @@ const jobSchema = new mongoose.Schema(
     applicationDeadline: { type: Date, required: true },
     contactEmail: { type: String, required: true },
     contactPhone: { type: String },
-
+    status: {
+      type: String,
+      enum: ["Active", "Closed"],
+      default: "Active",
+      required: true,
+    },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

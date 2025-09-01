@@ -1,5 +1,5 @@
 import React from "react";
-import { industries,employmentTypes } from "../../../data/data";
+import { industries, employmentTypes } from "../../../data/data";
 
 export default function StepTwo({ register, errors }) {
   return (
@@ -33,7 +33,9 @@ export default function StepTwo({ register, errors }) {
             })}
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
           >
-            <option value="">Select employment type</option>
+            <option value="" disabled>
+              Select employment type
+            </option>
             {employmentTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -53,7 +55,9 @@ export default function StepTwo({ register, errors }) {
             {...register("industry", { required: "Industry is required" })}
             className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
           >
-            <option value="">Select industry</option>
+            <option value="" disabled>
+              Select industry
+            </option>
             {industries.map((industry) => (
               <option key={industry} value={industry}>
                 {industry}
