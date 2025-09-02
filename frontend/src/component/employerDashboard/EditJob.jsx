@@ -1,129 +1,139 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import EditStepOne from "./editStepForm/EditStepOne";
+import EditStepTwo from "./editStepForm/EditStepTwo";
+import EditStepThree from "./editStepForm/EditStepThree";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const EditJob = () => {
-  // Dummy data (later replace with API/props)
-  const dummyJob = {
-    title: "Frontend Developer",
-    company: "Tech Corp",
-    location: "Remote",
-    salary: "80,000 - 100,000",
-    description: "Work with React, Tailwind, and modern frontend tools.",
-    type: "Full-time",
-  };
-
-  // React Hook Form
   const {
     register,
     handleSubmit,
+    trigger,
     reset,
     formState: { errors },
   } = useForm();
 
-  // Prefill form with dummy data
-  useEffect(() => {
-    reset(dummyJob);
-  }, [reset]);
+  const { id } = useParams();
+  const token = useSelector((state) => state.auth.token);
+  const [count, setCount] = useState(1);
+  const [job, setJob] = useState(null);
+  const navigate = useNavigate();
 
-  // Submit handler
-  const onSubmit = (data) => {
-    console.log("Updated Job Data:", data);
-    alert("Job updated successfully!");
+  const getUpdatedJob = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/get-job/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setJob(res.data.job);
+      reset({
+        ...res.data.job,
+        requirements: res.data.job.requirements.join("\n"), // 👈 convert array → string
+      });
+    } catch (error) {
+      console.log("Error fetching job:", error);
+    }
   };
+
+  useEffect(() => {
+    getUpdatedJob();
+  }, [id]);
+
+  const onSubmit = async (data) => {
+    try {
+      const formattedData = {
+        ...data,
+        requirements: data.requirements
+          .split("\n")
+          .map((r) => r.trim())
+          .filter((r) => r !== ""),
+      };
+
+      const res = await axios.put(
+        `http://localhost:8000/edit-job/${id}`,
+        formattedData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.data.success) {
+        alert("Job updated successfully!");
+        navigate("/employer-dashboard/all-job");
+      }
+    } catch (error) {
+      console.log("Error updating job:", error);
+      alert("Failed to update job");
+    }
+  };
+
+  const nextStep = async () => {
+    let valid = false;
+    if (count === 1) {
+      valid = await trigger(["jobTitle", "companyName", "jobDescription"]);
+    } else if (count === 2) {
+      valid = await trigger([
+        "requirements",
+        "experienceLevel",
+        "industry",
+        "status",
+      ]);
+    } else {
+      valid = true;
+    }
+    if (valid) setCount((prev) => prev + 1);
+  };
+
+  const prevStep = () => setCount((prev) => prev - 1);
+
+  if (!job) return <div className="text-center">Loading job details...</div>;
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6">Edit Job</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">Edit Job</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Job Title */}
-        <div>
-          <label className="block font-semibold mb-1">Job Title</label>
-          <input
-            type="text"
-            {...register("title", { required: "Job Title is required" })}
-            className="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300"
-          />
-          {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
+        {count === 1 && <EditStepOne register={register} errors={errors} />}
+        {count === 2 && <EditStepTwo register={register} errors={errors} />}
+        {count === 3 && <EditStepThree register={register} errors={errors} />}
+
+        <div className="flex justify-between pt-4">
+          {count > 1 && (
+            <button
+              type="button"
+              onClick={prevStep}
+              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
+            >
+              Back
+            </button>
           )}
-        </div>
 
-        {/* Company */}
-        <div>
-          <label className="block font-semibold mb-1">Company</label>
-          <input
-            type="text"
-            {...register("company", { required: "Company name is required" })}
-            className="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300"
-          />
-          {errors.company && (
-            <p className="text-red-500 text-sm">{errors.company.message}</p>
+          {count < 3 ? (
+            <button
+              type="button"
+              onClick={nextStep}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Next
+            </button>
+          ) : (
+            <div className="flex justify-between gap-3">
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Update Job
+              </button>
+              <button
+                type="button"
+                onClick={() => reset(job)}
+                className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition"
+              >
+                Reset
+              </button>
+            </div>
           )}
-        </div>
-
-        {/* Location */}
-        <div>
-          <label className="block font-semibold mb-1">Location</label>
-          <input
-            type="text"
-            {...register("location")}
-            className="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300"
-          />
-        </div>
-
-        {/* Salary */}
-        <div>
-          <label className="block font-semibold mb-1">Salary</label>
-          <input
-            type="text"
-            {...register("salary")}
-            className="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300"
-          />
-        </div>
-
-        {/* Job Type */}
-        <div>
-          <label className="block font-semibold mb-1">Job Type</label>
-          <select
-            {...register("type", { required: "Job Type is required" })}
-            className="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300"
-          >
-            <option value="Full-time">Full-time</option>
-            <option value="Part-time">Part-time</option>
-            <option value="Internship">Internship</option>
-            <option value="Remote">Remote</option>
-          </select>
-          {errors.type && (
-            <p className="text-red-500 text-sm">{errors.type.message}</p>
-          )}
-        </div>
-
-        {/* Description */}
-        <div>
-          <label className="block font-semibold mb-1">Description</label>
-          <textarea
-            {...register("description")}
-            className="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300"
-            rows="4"
-          ></textarea>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex justify-between">
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Update Job
-          </button>
-          <button
-            type="button"
-            onClick={() => reset(dummyJob)}
-            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition"
-          >
-            Reset
-          </button>
         </div>
       </form>
     </div>

@@ -34,6 +34,7 @@ import SeeInterviews from "./pages/employerDashboardPages/SeeInterviews.jsx";
 import Interview from "./pages/userDashboardPages/Interview.jsx";
 import EditJob from "./component/employerDashboard/EditJob.jsx";
 import ProtectRoute from "./utils/ProtectedRoutes.jsx";
+import EmployerJobDetails from "./component/employerDashboard/EmployerJobDetails.jsx";
 
 function App() {
   return (
@@ -77,6 +78,10 @@ function App() {
             <Route path="all-job/:id" element={<EditJob />} />
             <Route path="view-interviews" element={<SeeInterviews />} />
             <Route path="all-job" element={<AllPostedJob />} />
+            <Route
+              path="all-job/details/:id"
+              element={<EmployerJobDetails />}
+            />
           </Route>
         </Route>
         <Route element={<ProtectRoute role="admin" />}>
