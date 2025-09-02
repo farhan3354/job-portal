@@ -21,10 +21,18 @@ export default function EmployerPostJob() {
   const token = useSelector((state) => state.auth.token);
 
   const onSubmit = async (data) => {
+    const formattedData = {
+      ...data,
+      requirements: data.requirements
+        .split("\n")
+        .map((r) => r.trim())
+        .filter((r) => r !== ""),
+    };
+
     try {
       const response = await axios.post(
         "http://localhost:8000/post-job",
-        data,
+        formattedData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -46,12 +54,12 @@ export default function EmployerPostJob() {
       console.error(error);
       Swal.fire({
         title: "Error",
-        text: error.response?.data?.message || "Something went wrong",
+        text: error.response?.formattedData?.message || "Something went wrong",
         icon: "error",
       });
     }
 
-    console.log("Job Data Submitted:", data);
+    console.log("Job Data Submitted:", formattedData);
   };
 
   const nextStep = async () => {
