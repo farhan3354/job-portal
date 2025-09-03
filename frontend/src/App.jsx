@@ -41,6 +41,7 @@ function App() {
   return (
     <Router>
       <ScrollTop/>
+        
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
