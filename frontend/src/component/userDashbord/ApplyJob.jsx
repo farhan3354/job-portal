@@ -20,71 +20,7 @@ export default function Apply() {
       </h3>
 
       <form onSubmit={handleSubmit(applyformdata)} className="space-y-5">
-        <div>
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="name"
-          >
-            Full Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="name"
-            {...register("name", { required: "Full Name is required" })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          {errors.name && (
-            <p className="text-red-600 text-sm mt-1">{errors.name.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="email"
-          >
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^\S+@\S+$/i,
-                message: "Invalid email address",
-              },
-            })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          {errors.email && (
-            <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="phone"
-          >
-            Phone Number <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            {...register("phone", {
-              required: "Phone number is required",
-              pattern: {
-                value: /^[0-9]{10,15}$/,
-                message: "Enter a valid phone number",
-              },
-            })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          {errors.phone && (
-            <p className="text-red-600 text-sm mt-1">{errors.phone.message}</p>
-          )}
-        </div>
+      
 
         <div>
           <label

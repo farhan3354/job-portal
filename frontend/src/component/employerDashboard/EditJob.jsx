@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import EditStepOne from "./editStepForm/EditStepOne";
-import EditStepTwo from "./editStepForm/EditStepTwo";
-import EditStepThree from "./editStepForm/EditStepThree";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import StepOne from "./postJobForm/StepOne";
+import StepTwo from "./postJobForm/StepTwo";
+import StepThree from "./postJobForm/StepThree";
 
 const EditJob = () => {
   const {
@@ -31,7 +31,7 @@ const EditJob = () => {
       setJob(res.data.job);
       reset({
         ...res.data.job,
-        requirements: res.data.job.requirements.join("\n"), // 👈 convert array → string
+        requirements: res.data.job.requirements.join("\n"),
       });
     } catch (error) {
       console.log("Error fetching job:", error);
@@ -50,6 +50,10 @@ const EditJob = () => {
           .split("\n")
           .map((r) => r.trim())
           .filter((r) => r !== ""),
+        skills: data.skills
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s !== ""),
       };
 
       const res = await axios.put(
@@ -94,16 +98,16 @@ const EditJob = () => {
       <h2 className="text-2xl font-bold mb-6 text-center">Edit Job</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {count === 1 && <EditStepOne register={register} errors={errors} />}
-        {count === 2 && <EditStepTwo register={register} errors={errors} />}
-        {count === 3 && <EditStepThree register={register} errors={errors} />}
+        {count === 1 && <StepOne register={register} errors={errors} />}
+        {count === 2 && <StepTwo register={register} errors={errors} />}
+        {count === 3 && <StepThree register={register} errors={errors} />}
 
         <div className="flex justify-between pt-4">
           {count > 1 && (
             <button
               type="button"
               onClick={prevStep}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
+              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition cursor-pointer"
             >
               Back
             </button>
@@ -113,7 +117,7 @@ const EditJob = () => {
             <button
               type="button"
               onClick={nextStep}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
             >
               Next
             </button>
@@ -121,14 +125,14 @@ const EditJob = () => {
             <div className="flex justify-between gap-3">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer "
               >
                 Update Job
               </button>
               <button
                 type="button"
                 onClick={() => reset(job)}
-                className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition"
+                className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer"
               >
                 Reset
               </button>

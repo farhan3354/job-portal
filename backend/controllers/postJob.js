@@ -13,6 +13,7 @@ export const createJob = async (req, res) => {
       industry,
       location,
       salary,
+      skills,
       applicationDeadline,
       contactEmail,
       contactPhone,
@@ -27,6 +28,7 @@ export const createJob = async (req, res) => {
       !industry ||
       !location ||
       !salary ||
+      !skills ||
       !applicationDeadline ||
       !contactEmail
     ) {
@@ -44,6 +46,7 @@ export const createJob = async (req, res) => {
       industry,
       location,
       salary,
+      skills,
       applicationDeadline,
       contactEmail,
       contactPhone,
@@ -68,7 +71,9 @@ export const getalljobs = async (req, res) => {
     if (!jobs) {
       return res.status(400).json({ message: "No jobs in the data base" });
     }
-    return res.status(200).json({ message: "Jobs find successfully", jobs });
+    return res
+      .status(200)
+      .json({ message: "Jobs find successfully", job: jobs });
   } catch (error) {
     return res.status(500).json({ message: "Failed to get jobs" });
   }
@@ -133,53 +138,6 @@ export const deletejob = async (req, res) => {
 
 //  editjobs by the specific employer
 
-// export const editjob = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const {
-//       jobTitle,
-//       companyName,
-//       jobDescription,
-//       requirements,
-//       employmentType,
-//       industry,
-//       location,
-//       salary,
-//       applicationDeadline,
-//       contactEmail,
-//       contactPhone,
-//       status,
-//     } = req.body;
-
-//     const editemployerjob = await Job.findByIdAndUpdate(
-//       id,
-//       {
-//         jobTitle,
-//         companyName,
-//         jobDescription,
-//         requirements,
-//         employmentType,
-//         industry,
-//         location,
-//         salary,
-//         applicationDeadline,
-//         contactEmail,
-//         contactPhone,
-//         status,
-//       },
-//       { new: true }
-//     );
-
-//     return res.status(201).json({
-//       success: true,
-//       success: "Job updated successfully",
-//       editemployerjob,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({ message: "Failed to edit the job " });
-//   }
-// };
-
 export const editjob = async (req, res) => {
   try {
     const { id } = req.params;
@@ -208,18 +166,12 @@ export const editjob = async (req, res) => {
       industry,
       location,
       salary,
+      skills,
       applicationDeadline,
       contactEmail,
       contactPhone,
       status,
     } = req.body;
-
-    if (requirements && !Array.isArray(requirements)) {
-      return res.status(400).json({
-        success: false,
-        message: "Requirements must be an array",
-      });
-    }
 
     const editemployerjob = await Job.findByIdAndUpdate(
       id,
@@ -232,6 +184,7 @@ export const editjob = async (req, res) => {
         industry,
         location,
         salary,
+        skills,
         applicationDeadline,
         contactEmail,
         contactPhone,
@@ -239,7 +192,6 @@ export const editjob = async (req, res) => {
       },
       {
         new: true,
-        runValidators: true,
       }
     );
 

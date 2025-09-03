@@ -70,6 +70,18 @@ export default function StepTwo({ register, errors }) {
             </p>
           )}
         </div>
+        <div>
+          <label className="block text-gray-700 mb-1">Skills *</label>
+
+          <textarea
+            {...register("skills", { required: "Skills are required" })}
+            placeholder="Enter skills separated by commas"
+            className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+          />
+          {errors.skills && (
+            <p className="text-red-500 text-sm mt-1">{errors.skills.message}</p>
+          )}
+        </div>
       </div>
     </>
   );

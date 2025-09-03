@@ -27,6 +27,10 @@ export default function EmployerPostJob() {
         .split("\n")
         .map((r) => r.trim())
         .filter((r) => r !== ""),
+      skills: data.skills
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s !== ""),
     };
 
     try {
@@ -94,7 +98,7 @@ export default function EmployerPostJob() {
             <button
               type="button"
               onClick={prevStep}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
+              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition cursor-pointer"
             >
               Back
             </button>
@@ -104,7 +108,7 @@ export default function EmployerPostJob() {
             <button
               type="button"
               onClick={nextStep}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer "
             >
               Next
             </button>
@@ -112,14 +116,14 @@ export default function EmployerPostJob() {
             <div className="flex space-x-4">
               <button
                 type="button"
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition cursor-pointer"
                 onClick={() => navigate(-1)}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition cursor-pointer"
               >
                 Post Job
               </button>

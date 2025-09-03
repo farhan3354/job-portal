@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function StepThree({ register, errors }) {
-  const [isRemote, setIsRemote] = useState(false);
 
   return (
     <>
@@ -16,7 +15,6 @@ export default function StepThree({ register, errors }) {
               })}
               placeholder="e.g. New York, NY"
               className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-              disabled={isRemote}
             />
             {errors.location && (
               <p className="text-red-500 text-sm mt-1">
@@ -25,17 +23,7 @@ export default function StepThree({ register, errors }) {
             )}
           </div>
 
-          <div className="flex items-center px-6">
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                {...register("isRemote")}
-                onChange={(e) => setIsRemote(e.target.checked)}
-                className="rounded"
-              />
-              <span className="text-gray-700">Remote job</span>
-            </label>
-          </div>
+          
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
