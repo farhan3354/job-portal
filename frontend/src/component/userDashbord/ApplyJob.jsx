@@ -1,5 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Apply() {
   const {
@@ -7,10 +11,39 @@ export default function Apply() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
+  const token = useSelector((state) => state.auth.token);
+  const navigate =useNavigate();
+  const applyformdata = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("lastcompany", data.lastcompany);
+      formData.append("lastsalary", data.lastsalary);
+      formData.append("availability", data.availability);
+      formData.append("coverLetter", data.coverLetter);
 
-  const applyformdata = (data) => {
-    console.log("Form submitted:", data);
-    alert("✅ Application submitted successfully!");
+      if (data.resume && data.resume[0]) {
+        formData.append("resume", data.resume[0]);
+      }
+
+      const respo = await axios.post(
+        `http://localhost:8000/apply/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (respo.data.success) {
+        toast.success("Form submitted successfullly");
+        navigate('')
+      }
+    } catch (error) {
+      toast.error("❌ Error submitting form:", error);
+    }
   };
 
   return (
@@ -20,30 +53,6 @@ export default function Apply() {
       </h3>
 
       <form onSubmit={handleSubmit(applyformdata)} className="space-y-5">
-      
-
-        <div>
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="address"
-          >
-            Address <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="address"
-            {...register("address", {
-              required: "Address is required",
-            })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          {errors.address && (
-            <p className="text-red-600 text-sm mt-1">
-              {errors.address.message}
-            </p>
-          )}
-        </div>
-
         <div>
           <label
             className="block text-gray-700 font-medium mb-2"
@@ -54,7 +63,7 @@ export default function Apply() {
           <input
             type="text"
             id="company"
-            {...register("company")}
+            {...register("lastcompany")}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
@@ -69,23 +78,36 @@ export default function Apply() {
           <input
             type="text"
             id="salary"
-            {...register("salary")}
+            {...register("lastsalary")}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
-
+        <div>
+          <label
+            className="block text-gray-700 font-medium mb-2"
+            htmlFor="availability"
+          >
+            Availability
+          </label>
+          <input
+            type="text"
+            id="availability"
+            {...register("availability")}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
         <div>
           <label
             className="block text-gray-700 font-medium mb-2"
             htmlFor="resume"
           >
-            Resume (PDF or DOCX) <span className="text-red-500">*</span>
+            Resume (PDF) <span className="text-red-500">*</span>
           </label>
           <input
             type="file"
             id="resume"
             {...register("resume", { required: "Resume is required" })}
-            accept=".pdf,.doc,.docx"
+            accept="application/pdf"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           {errors.resume && (

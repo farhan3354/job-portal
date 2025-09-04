@@ -40,63 +40,63 @@ import ScrollTop from "./pages/ScrollTop.jsx";
 function App() {
   return (
     <Router>
-      <ScrollTop/>
-        
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="login" element={<Login />} />
-            <Route path="carrier" element={<Careers />} />
-            <Route path="chose-register" element={<ChoseRole />} />
-            <Route path="register/job-seeker" element={<Register />} />
-            <Route path="register/employer" element={<Register />} />
-            <Route path="contact" element={<Contact />} />
+      <ScrollTop />
 
-            <Route path="*" element={<PageNotFound />} />
-          </Route>
-          <Route element={<ProtectRoute role="job-seeker" />}>
-            <Route path="/user-dashboard" element={<UserLayout />}>
-              <Route index element={<Userdashboard />} />
-              <Route path="jobs" element={<Job />} />
-              <Route path="saved" element={<Saved />} />
-              <Route path="apply/:id" element={<ApplyJob />} />
-              <Route path="applied" element={<Appliedjob />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="interview" element={<Interview />} />
-            </Route>
-          </Route>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="carrier" element={<Careers />} />
+          <Route path="chose-register" element={<ChoseRole />} />
+          <Route path="register/job-seeker" element={<Register />} />
+          <Route path="register/employer" element={<Register />} />
+          <Route path="contact" element={<Contact />} />
 
-          <Route element={<ProtectRoute role="employer" />}>
-            <Route path="/employer-dashboard" element={<EmployerLayout />}>
-              <Route index element={<EmployerHome />} />
-              <Route path="posta-job" element={<PostJob />} />
-              <Route path="profile" element={<EmployerProfile />} />
-              <Route path="applicants" element={<Applicant />} />
-              <Route path="applicant/:id" element={<JobApplicant />} />
-              <Route
-                path="applicant/:id/schedule-interview"
-                element={<ScheduleInterview />}
-              />
-              <Route path="all-job/:id" element={<EditJob />} />
-              <Route path="view-interviews" element={<SeeInterviews />} />
-              <Route path="all-job" element={<AllPostedJob />} />
-              <Route
-                path="all-job/details/:id"
-                element={<EmployerJobDetails />}
-              />
-            </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Route>
+        <Route element={<ProtectRoute role="job-seeker" />}>
+          <Route path="/user-dashboard" element={<UserLayout />}>
+            <Route index element={<Userdashboard />} />
+            <Route path="jobs" element={<Job />} />
+            <Route path="saved" element={<Saved />} />
+            <Route path="apply/:id" element={<ApplyJob />} />
+            <Route path="applied" element={<Appliedjob />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="interview" element={<Interview />} />
           </Route>
-          <Route element={<ProtectRoute role="admin" />}>
-            <Route path="/admin-dashboard" element={<AdminLayout />}>
-              <Route index element={<AdminHome />} />
-              <Route path="profile" element={<AdminProfile />} />
-              <Route path="manage-users" element={<ManageUser />} />
-              <Route path="manage-employers" element={<ManageEmployer />} />
-              <Route path="manage-jobs" element={<ManageJobs />} />
-            </Route>
+        </Route>
+
+        <Route element={<ProtectRoute role="employer" />}>
+          <Route path="/employer-dashboard" element={<EmployerLayout />}>
+            <Route index element={<EmployerHome />} />
+            <Route path="posta-job" element={<PostJob />} />
+            <Route path="profile" element={<EmployerProfile />} />
+            <Route path="applicants" element={<Applicant />} />
+            <Route path="applicant/:id" element={<JobApplicant />} />
+            <Route
+              path="applicant/:id/schedule-interview"
+              element={<ScheduleInterview />}
+            />
+            <Route path="all-job/:id" element={<EditJob />} />
+            <Route path="view-interviews" element={<SeeInterviews />} />
+            <Route path="all-job" element={<AllPostedJob />} />
+            <Route
+              path="all-job/details/:id"
+              element={<EmployerJobDetails />}
+            />
           </Route>
-        </Routes>
+        </Route>
+        <Route element={<ProtectRoute role="admin" />}>
+          <Route path="/admin-dashboard" element={<AdminLayout />}>
+            <Route index element={<AdminHome />} />
+            <Route path="profile" element={<AdminProfile />} />
+            <Route path="manage-users" element={<ManageUser />} />
+            <Route path="manage-employers" element={<ManageEmployer />} />
+            <Route path="manage-jobs" element={<ManageJobs />} />
+          </Route>
+        </Route>
+      </Routes>
     </Router>
   );
 }
