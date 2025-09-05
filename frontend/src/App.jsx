@@ -36,6 +36,7 @@ import EditJob from "./component/employerDashboard/EditJob.jsx";
 import ProtectRoute from "./utils/ProtectedRoutes.jsx";
 import EmployerJobDetails from "./component/employerDashboard/EmployerJobDetails.jsx";
 import ScrollTop from "./pages/ScrollTop.jsx";
+import JobSeekerProfileForm from "./component/userDashbord/profile/ProfileForm.jsx";
 
 function App() {
   return (
@@ -63,6 +64,8 @@ function App() {
             <Route path="apply/:id" element={<ApplyJob />} />
             <Route path="applied" element={<Appliedjob />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="profile/edit" element={<JobSeekerProfileForm />} />
+
             <Route path="interview" element={<Interview />} />
           </Route>
         </Route>
