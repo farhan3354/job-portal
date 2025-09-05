@@ -68,7 +68,7 @@ export const createJob = async (req, res) => {
 export const getalljobs = async (req, res) => {
   try {
     const jobs = await Job.find();
-    if (!jobs) {
+    if (!jobs || jobs.length === 0) {
       return res.status(400).json({ message: "No jobs in the data base" });
     }
     return res

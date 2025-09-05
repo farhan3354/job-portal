@@ -11,30 +11,25 @@ const jobSeekerProfileSchema = new mongoose.Schema(
       type: String,
       default: "https://via.placeholder.com/150",
     },
-    headline: { type: String },
-    about: { type: String },
-    experience: [
-      {
-        title: String,
-        company: String,
-        location: String,
-        startDate: String,
-        endDate: String,
-        description: String,
-      },
-    ],
-    education: [
-      {
-        degree: String,
-        institution: String,
-        year: String,
-      },
-    ],
-    skills: [String],
-    resumeUrl: { type: String },
+    headline: { type: String, required: true },
+    about: { type: String, required: true },
+    location: { type: String, required: true },
+    seekerjobstitle: { type: String, required: true },
+    seekerjobscompany: { type: String, required: true },
+    seekerjobdescripition: { type: String, required: true },
+    seekerexperience: { type: String, required: true },
+    seekerdegree: { type: String, required: true },
+    seekerinsitute: { type: String, required: true },
+    seekereducation: { type: String, required: true },
+    seekerskills: { type: [String], default: [], required: true },
+
+    seekerresumeUrl: { type: String },
   },
   { timestamps: true }
 );
 
-const jobseeker = mongoose.model("JobSeekerProfile", jobSeekerProfileSchema);
-export default jobseeker;
+const JobSeekerProfile = mongoose.model(
+  "JobSeekerProfile",
+  jobSeekerProfileSchema
+);
+export default JobSeekerProfile;

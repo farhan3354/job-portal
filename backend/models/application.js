@@ -2,26 +2,30 @@ import mongoose from "mongoose";
 
 const applicationSchema = new mongoose.Schema(
   {
-    job: {
+    jobId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
       required: true,
     },
-    applicant: {
+    applicantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-
-    address: {
+    // employerId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
+    lastcompany: {
+      type: String,
+    },
+    lastsalary: {
+      type: String,
+    },
+    availability: {
       type: String,
       required: true,
-    },
-    company: {
-      type: String,
-    },
-    salary: {
-      type: String,
     },
     resume: {
       type: String,
