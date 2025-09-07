@@ -26,6 +26,7 @@ export const registeruser = async (req, res) => {
       password: hashedPassword,
     });
     await transporter.sendMail(mailOptions(email, name));
+    
 
     res.status(201).json({
       message:
