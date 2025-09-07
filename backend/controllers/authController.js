@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/usermodel.js";
 import bcrypt from "bcrypt";
+import { mailOptions, transporter } from "../helper/registeremail.js";
 
 export const registeruser = async (req, res) => {
   try {
@@ -24,9 +25,11 @@ export const registeruser = async (req, res) => {
       phone,
       password: hashedPassword,
     });
+    await transporter.sendMail(mailOptions(email, name));
 
     res.status(201).json({
-      message: "User registered successfully",
+      message:
+        "Registration email sent successfully . User registered successfully",
       user,
     });
   } catch (error) {
