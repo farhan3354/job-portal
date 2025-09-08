@@ -2,8 +2,7 @@ import express from "express";
 import upload from "../middlewares/multermiddleware.js";
 import {
   createProfile,
-  getAllProfiles,
-  getProfileById,
+  getProfile,
   updateProfile,
   deleteProfile,
 } from "../controllers/jobseekercontroller.js";
@@ -20,11 +19,8 @@ router.post(
   createProfile
 );
 
-// get all job seeker profile
-router.get("/getprofile", protect, jobSeekerMiddleware, getAllProfiles);
-
-// get the specific profile
-router.get("/getoneuse/:id", protect, jobSeekerMiddleware, getProfileById);
+// get  job seeker profile
+router.get("/getprofile", protect, jobSeekerMiddleware, getProfile);
 
 // update the profile
 

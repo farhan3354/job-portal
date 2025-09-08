@@ -9,7 +9,7 @@ const jobSeekerProfileSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
-      default: "https://via.placeholder.com/150",
+      default: "https://randomuser.me/api/portraits/men/1.jpg",
     },
     headline: { type: String, required: true },
     about: { type: String, required: true },

@@ -185,17 +185,20 @@ import {
 } from "react-icons/fa";
 import { MdWork, MdSchool } from "react-icons/md";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function ProfileSetting() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const token = useSelector((state) => state.auth.token);
   useEffect(() => {
-    // Replace with your backend API route
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/profile/123"); 
-        setProfile(response.data);
+        const response = await axios.get(`http://localhost:8000/getprofile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Fetched profile:", response.data.profile); // 👈 Add this
+        setProfile(response.data.profile);
       } catch (error) {
         console.error("Error fetching profile:", error);
       } finally {
@@ -226,36 +229,34 @@ export default function ProfileSetting() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Profile Sidebar */}
           <div className="md:w-1/4 flex flex-col items-center">
             <div className="w-32 h-32 rounded-full bg-gray-200 mb-4 overflow-hidden">
               <img
-                src={profile.profileImage || "https://via.placeholder.com/150"}
+                src={profile.profileImage || "https://randomuser.me/api/portraits/men/1.jpg"}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
             </div>
             <h2 className="text-2xl font-semibold text-center">
-              {profile.name}
+              {profile.userId?.name}
             </h2>
             <p className="text-gray-600 text-center">{profile.headline}</p>
           </div>
 
-          {/* Profile Info */}
           <div className="md:w-3/4">
             <h3 className="text-3xl font-bold mb-6">Personal Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div className="flex items-center">
                 <FaUser className="text-gray-500 mr-3" />
-                <span>{profile.name}</span>
+                <span>{profile.userId?.name}</span>
               </div>
               <div className="flex items-center">
                 <FaEnvelope className="text-gray-500 mr-3" />
-                <span>{profile.email}</span>
+                <span>{profile.userId?.email}</span>
               </div>
               <div className="flex items-center">
                 <FaPhone className="text-gray-500 mr-3" />
-                <span>{profile.phone}</span>
+                <span> {profile.userId?.phone}</span>
               </div>
               <div className="flex items-center">
                 <FaMapMarkerAlt className="text-gray-500 mr-3" />
@@ -263,7 +264,6 @@ export default function ProfileSetting() {
               </div>
             </div>
 
-            {/* About */}
             <h3 className="text-xl font-semibold mb-4">About</h3>
             <p className="text-gray-700">{profile.about}</p>
           </div>
@@ -271,63 +271,56 @@ export default function ProfileSetting() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Experience */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold flex items-center mb-4">
             <MdWork className="mr-2 text-blue-500" /> Experience
           </h3>
-          {profile.experience?.map((exp) => (
-            <div
-              key={exp.id}
-              className="mb-6 pb-6 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0"
-            >
-              <h4 className="font-semibold text-lg">{exp.title}</h4>
-              <p className="text-gray-600">
-                {exp.company} • {exp.location}
-              </p>
-              <p className="text-gray-500 text-sm mb-2">
-                {exp.startDate} - {exp.endDate}
-              </p>
-              <p className="text-gray-700">{exp.description}</p>
-            </div>
-          ))}
+          <div className="mb-6 pb-6 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
+            <h4 className="font-semibold text-lg">{profile.seekerjobstitle}</h4>
+            <p className="text-gray-600">
+              {profile.seekerjobscompany} • {profile.location}
+            </p>
+            <p className="text-gray-500 text-sm mb-2">
+              {/* {exp.startDate} - {exp.endDate} */}
+            </p>
+            <p className="text-gray-700">{profile.seekerjobdescripition}</p>
+          </div>
         </div>
 
-        {/* Education */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold flex items-center mb-4">
             <MdSchool className="mr-2 text-blue-500" /> Education
           </h3>
-          {profile.education?.map((edu) => (
-            <div
-              key={edu.id}
-              className="mb-6 pb-6 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0"
-            >
-              <h4 className="font-semibold text-lg">{edu.degree}</h4>
-              <p className="text-gray-600">{edu.institution}</p>
-              <p className="text-gray-500 text-sm">{edu.year}</p>
-            </div>
-          ))}
+          <div className="mb-6 pb-6 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
+            <h4 className="font-semibold text-lg">
+              {profile.seekerexperience}
+            </h4>
+            <p className="text-gray-600">{profile.seekerdegree}</p>
+            <p className="text-gray-500 text-sm">{profile.seekerinsitute}</p>
+            <p className="text-gray-500 text-sm">{profile.seekereducation}</p>
+          </div>
         </div>
 
-        {/* Skills */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-4 flex items-center">
             <FaBriefcase className="mr-2 text-blue-500" /> Skills
           </h3>
           <div className="flex flex-wrap gap-2">
-            {profile.skills?.map((skill, index) => (
-              <span
-                key={index}
-                className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
-              >
-                {skill}
-              </span>
-            ))}
+            {profile.seekerskills?.length > 0 ? (
+              profile.seekerskills.map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                >
+                  {skill}
+                </span>
+              ))
+            ) : (
+              <span className="text-gray-500">No skills added</span>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
