@@ -195,7 +195,7 @@ export default function RegisterForm() {
 
             <button
               type="submit"
-              className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition duration-200"
+              className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition duration-200 cursor-pointer"
             >
               Create Account
             </button>
