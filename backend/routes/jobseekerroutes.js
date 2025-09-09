@@ -5,8 +5,13 @@ import {
   getProfile,
   updateProfile,
   deleteProfile,
+  getAllProfiles,
 } from "../controllers/jobseekercontroller.js";
-import { jobSeekerMiddleware, protect } from "../middlewares/authMiddleware.js";
+import {
+  employerMiddleware,
+  jobSeekerMiddleware,
+  protect,
+} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -22,8 +27,10 @@ router.post(
 // get  job seeker profile
 router.get("/getprofile", protect, jobSeekerMiddleware, getProfile);
 
-// update the profile
+// get all job seeker
+router.get("/all-profies", getAllProfiles);
 
+// update the profile
 router.put(
   "/update/:id",
   protect,
@@ -33,7 +40,6 @@ router.put(
 );
 
 // delete the profile
-
 router.delete(
   "/deleteprofile/:id",
   protect,

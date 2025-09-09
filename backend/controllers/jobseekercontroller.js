@@ -17,19 +17,16 @@ export const createProfile = async (req, res) => {
       seekereducation,
     } = req.body;
 
-    // Parse skills safely
     const seekerskills = req.body.seekerskills
       ? JSON.parse(req.body.seekerskills)
       : [];
 
-    // Basic validation (resume optional now)
     if (!headline || !about || !location) {
       return res
         .status(400)
         .json({ message: "Headline, about, and location are required" });
     }
 
-    // Log uploaded file for debugging
     console.log("Uploaded File:", req.file);
 
     const cvurl = req.file?.path || null;
@@ -60,21 +57,22 @@ export const createProfile = async (req, res) => {
   }
 };
 
-// export const getAllProfiles = async (req, res) => {
-//   try {
-//     const profiles = await JobSeekerProfile.find().populate(
-//       "userId",
-//       "name email"
-//     );
-//     if (!profiles || profiles.length === 0) {
-//       return res.status(404).json({ message: "No profile are exist" });
-//     }
+export const getAllProfiles = async (req, res) => {
+  try {
+    const profiles = await JobSeekerProfile.find().populate(
+      "userId",
+      "name email"
+    );
+    if (!profiles || profiles.length === 0) {
+      return res.status(404).json({ message: "No profile are exist" });
+    }
 
-//     return res.status(200).json({ success: true, profiles });
-//   } catch (error) {
-//     return res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+    return res.status(200).json({ success: true, profiles });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 
 export const getProfile = async (req, res) => {
   try {

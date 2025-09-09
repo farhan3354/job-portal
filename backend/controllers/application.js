@@ -1,4 +1,6 @@
 import JobSeekerProfile from "../models/jobseeker.js";
+import Application from "../models/application.js";
+import Job from './../models/jobs.js'
 
 export const apply = async (req, res) => {
   try {
@@ -15,7 +17,7 @@ export const apply = async (req, res) => {
     }
 
     const profile = await JobSeekerProfile.findOne({ userId: applicantId });
-    if (!profile || !profile.resumeUrl) {
+    if (!profile || !profile.seekerresumeUrl) {
       return res
         .status(400)
         .json({ message: "Please upload your CV before applying." });
