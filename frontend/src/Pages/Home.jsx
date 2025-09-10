@@ -23,16 +23,16 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <HeroSection />
-      <StatsSection />
-      <FeaturedJobs jobs={featuredJobs} />
-      <Categories />
-      <Testimonials />
-      <CTASection />
-      <EmployerBanner />
-    </div>
+    <>
+      <div className="min-h-screen bg-gray-50">
+        <HeroSection />
+        <StatsSection />
+        <FeaturedJobs jobs={featuredJobs} />
+        <Categories />
+        <Testimonials />
+        <CTASection />
+        <EmployerBanner />
+      </div>
+    </>
   );
 }
-
-
