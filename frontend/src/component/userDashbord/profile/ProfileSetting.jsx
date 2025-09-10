@@ -11,11 +11,15 @@ import { MdWork, MdSchool } from "react-icons/md";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { togglemode } from "../../../redux/slices/authslices/userslice";
 
 export default function ProfileSetting() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -45,6 +49,12 @@ export default function ProfileSetting() {
   if (!profile) {
     return (
       <div className="flex justify-center items-center h-64">
+        <Link
+          to={"create"}
+          className="bg-blue-600 text-white text-sm md:text-base font-medium rounded-xl px-4 py-2 hover:bg-blue-700"
+        >
+          Add Profile
+        </Link>
         <p className="text-red-600">No profile data found.</p>
       </div>
     );
@@ -54,7 +64,13 @@ export default function ProfileSetting() {
     <>
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex justify-end mb-4">
-          <Link to={''} className="bg-blue-600 text-white text-sm md:text-base font-medium rounded-xl px-4 py-2 hover:bg-blue-700">
+          <Link
+            to={"edit"}
+            onClick={() =>
+              dispatch(togglemode({ mode: "edit", profileId: profile._id }))
+            }
+            className="bg-blue-600 text-white text-sm md:text-base font-medium rounded-xl px-4 py-2 hover:bg-blue-700"
+          >
             Edit Profile
           </Link>
         </div>

@@ -21,9 +21,9 @@ export default function JobList() {
   const fetchAllJobs = async () => {
     try {
       const response = await axios.get("http://localhost:8000/get-alljobs");
-      setJobs(response.data.job || []);
-      if (response.data.job && response.data.job.length > 0) {
-        setSelectedJob(response.data.job[0]);
+      setJobs(response.data.jobs || []);
+      if (response.data.jobs && response.data.jobs.length > 0) {
+        setSelectedJob(response.data.jobs[0]);
       }
     } catch (error) {
       console.log("Server error", error);

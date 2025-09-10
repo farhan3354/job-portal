@@ -8,26 +8,14 @@ import CTASection from "../component/home/CTASection";
 import EmployerBanner from "../component/home/EmployerBanner";
 
 export default function Home() {
-  const featuredJobs = [
-    {
-      id: 1,
-      title: "Senior Frontend Developer",
-      company: "TechCorp Inc.",
-      location: "Remote",
-      salary: "$120,000 - $150,000",
-      type: "Full-time",
-      posted: "2 days ago",
-      isSaved: false,
-      logo: "https://via.placeholder.com/50",
-    },
-  ];
+  
 
   return (
     <>
       <div className="min-h-screen bg-gray-50">
         <HeroSection />
+        <FeaturedJobs />
         <StatsSection />
-        <FeaturedJobs jobs={featuredJobs} />
         <Categories />
         <Testimonials />
         <CTASection />

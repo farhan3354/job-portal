@@ -13,36 +13,29 @@ export default function Apply() {
   } = useForm();
   const { id } = useParams();
   const token = useSelector((state) => state.auth.token);
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const applyformdata = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("lastcompany", data.lastcompany);
-      formData.append("lastsalary", data.lastsalary);
-      formData.append("availability", data.availability);
-      formData.append("coverLetter", data.coverLetter);
-
-      if (data.resume && data.resume[0]) {
-        formData.append("resume", data.resume[0]);
-      }
-
       const respo = await axios.post(
         `http://localhost:8000/apply/${id}`,
-        formData,
+        data,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
           },
         }
       );
 
       if (respo.data.success) {
         toast.success("Form submitted successfullly");
-        navigate('')
+        navigate("");
       }
     } catch (error) {
-      toast.error("❌ Error submitting form:", error);
+      toast.error(
+        `❌ Error submitting form: ${
+          error.response?.data?.message || error.message
+        }`
+      );
     }
   };
 
@@ -92,29 +85,15 @@ export default function Apply() {
           <input
             type="text"
             id="availability"
-            {...register("availability")}
+            {...register("availability", {
+              required: "availability is required",
+            })}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
-        </div>
-        <div>
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="resume"
-          >
-            Resume (PDF) <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="file"
-            id="resume"
-            {...register("resume", { required: "Resume is required" })}
-            accept="application/pdf"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          {errors.resume && (
-            <p className="text-red-600 text-sm mt-1">{errors.resume.message}</p>
+          {errors.availability && (
+            <p className="text-red-500">{errors.availability.message}</p>
           )}
         </div>
-
         <div>
           <label
             className="block text-gray-700 font-medium mb-2"
@@ -129,7 +108,23 @@ export default function Apply() {
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           ></textarea>
         </div>
-
+        <div>
+          <label
+            className="block text-gray-700 font-medium mb-2"
+            htmlFor="experience"
+          >
+            Experience
+          </label>
+          <input
+            type="text"
+            id="experience"
+            {...register("experience", { required: "experience is required" })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+          {errors.experience && (
+            <p className="text-red-600">{errors.experience.message}</p>
+          )}
+        </div>
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition font-medium shadow-md"
