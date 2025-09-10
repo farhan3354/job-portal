@@ -1,44 +1,42 @@
-import {
-  FaBriefcase,
-  FaMoneyBillWave,
-  FaRegBookmark,
-  FaBookmark,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaBriefcase, FaMoneyBillWave, FaBookmark } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export default function JobCard({ job, toggleSaved }) {
+export default function JobCard({ job }) {
+  const token = useSelector((state) => state.auth.token);
+  const navigate = useNavigate();
+  function handleuser() {
+    if (!token) {
+      navigate("/login");
+    } else {
+      navigate("user-dashboard/jobs");
+    }
+  }
   return (
     <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
       <div className="flex justify-between">
         <div className="flex items-start space-x-4">
-          <img
+          {/* <img
             src={job.logo}
-            alt={job.company}
+            alt={job.companyName}
             className="w-12 h-12 object-contain"
-          />
+          /> */}
           <div>
-            <h3 className="font-bold text-lg">{job.title}</h3>
+            <h3 className="font-bold text-lg">{job.jobTitle}</h3>
             <p className="text-gray-600">
-              {job.company} • {job.location}
+              {job.companyName} • {job.location}
             </p>
           </div>
         </div>
-        <button
-          onClick={() => toggleSaved(job.id)}
-          className="text-gray-400 hover:text-blue-600"
-        >
-          {job.isSaved ? (
-            <FaBookmark className="text-blue-600" />
-          ) : (
-            <FaRegBookmark />
-          )}
+        <button className="text-gray-400 hover:text-blue-600">
+          <FaBookmark className="text-blue-600" />
         </button>
       </div>
 
       <div className="flex flex-wrap items-center gap-4 mt-4 text-gray-600">
         <div className="flex items-center">
           <FaBriefcase className="mr-2 text-blue-500" />
-          <span>{job.type}</span>
+          <span>{job.employmentType}</span>
         </div>
         <div className="flex items-center">
           <FaMoneyBillWave className="mr-2 text-blue-500" />
@@ -47,13 +45,15 @@ export default function JobCard({ job, toggleSaved }) {
       </div>
 
       <div className="mt-6 flex justify-between items-center">
-        <span className="text-sm text-gray-500">Posted {job.posted}</span>
-        <Link
-          to={"/login"}
+        <span className="text-sm text-gray-500">
+          Posted on {new Date(job.createdAt).toDateString()}
+        </span>
+        <button
+          onClick={handleuser}
           className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
         >
           Apply Now
-        </Link>
+        </button>
       </div>
     </div>
   );

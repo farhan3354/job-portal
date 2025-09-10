@@ -1,15 +1,16 @@
 import JobSeekerProfile from "../models/jobseeker.js";
 import Application from "../models/application.js";
-import Job from './../models/jobs.js'
+import Job from "./../models/jobs.js";
 
 export const apply = async (req, res) => {
   try {
     const { id: jobId } = req.params;
     const applicantId = req.user?.id;
-    const { lastcompany, lastsalary, availability, coverLetter } = req.body;
+    const { lastcompany, lastsalary, availability, coverLetter, experience } =
+      req.body;
 
-    if (!availability) {
-      return res.status(400).json({ message: "Availability is required" });
+    if (!availability || !experience) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     if (!applicantId) {
@@ -20,7 +21,10 @@ export const apply = async (req, res) => {
     if (!profile || !profile.seekerresumeUrl) {
       return res
         .status(400)
-        .json({ message: "Please upload your CV before applying." });
+        .json({
+          message:
+            "Please complete your profile and upload your CV before applying.",
+        });
     }
 
     const alreadyApplied = await Application.findOne({ jobId, applicantId });
@@ -30,26 +34,14 @@ export const apply = async (req, res) => {
       });
     }
 
-    let resumeUrl = profile.resumeUrl;
-
-    if (req.file) {
-      resumeUrl = req.file.path || req.file.secure_url;
-      profile.resumeUrl = resumeUrl;
-      await JobSeekerProfile.save();
-    }
-
-    if (!resumeUrl) {
-      return res.status(400).json({ message: "Resume is required" });
-    }
-
     const newApplication = await Application.create({
       jobId,
       applicantId,
       lastcompany,
       lastsalary,
       availability,
-      resume: resumeUrl,
       coverLetter,
+      experience,
       status: "Pending",
     });
 
@@ -61,7 +53,6 @@ export const apply = async (req, res) => {
       success: true,
       message: "Application submitted successfully",
       applicationId: newApplication._id,
-      resume: resumeUrl,
     });
   } catch (error) {
     return res.status(500).json({

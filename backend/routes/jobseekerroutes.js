@@ -31,11 +31,12 @@ router.get("/getprofile", protect, jobSeekerMiddleware, getProfile);
 router.get("/all-profies", getAllProfiles);
 
 // update the profile
+
 router.put(
   "/update/:id",
   protect,
   jobSeekerMiddleware,
-  upload.single("resume"),
+  // upload.single("resume"),
   updateProfile
 );
 

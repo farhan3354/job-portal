@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token") || null,
+  mode: "create",
+  profileId: null,
 };
 
 const authslice = createSlice({
@@ -23,8 +25,12 @@ const authslice = createSlice({
       localStorage.removeItem("user");
       localStorage.removeItem("token");
     },
+    togglemode: (state, action) => {
+      state.mode = action.payload.mode;
+      state.profileId = action.payload.profileId || null;
+    },
   },
 });
 
-export const { loginsucc, logout } = authslice.actions;
+export const { loginsucc, logout, togglemode } = authslice.actions;
 export default authslice.reducer;

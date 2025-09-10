@@ -74,6 +74,7 @@ export const getAllProfiles = async (req, res) => {
 };
 
 
+
 export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -95,32 +96,74 @@ export const getProfile = async (req, res) => {
   }
 };
 
+
+// update profile jobseeker
+
 export const updateProfile = async (req, res) => {
   try {
-    const updateData = { ...req.body };
-    if (req.file) {
-      updateData.resumeUrl = req.file.path;
+    const profileId = req.params.id;
+
+    const existingProfile = await JobSeekerProfile.findById(profileId);
+
+    if (!existingProfile) {
+      return res.status(404).json({
+        success: false,
+        message: "Profile not found",
+      });
     }
 
-    const profile = await JobSeekerProfile.findByIdAndUpdate(
-      req.params.id,
-      updateData,
+    const {
+      headline,
+      about,
+      location,
+      profileImage,
+      seekerjobstitle,
+      seekerjobscompany,
+      seekerjobdescripition,
+      seekerexperience,
+      seekerdegree,
+      seekerinsitute,
+      seekereducation,
+      seekerskills,
+    } = req.body;
+
+    if (!headline || !about || !location) {
+      return res
+        .status(400)
+        .json({ message: "Headline, about, and location are required" });
+    }
+
+    const resumeUrl = req.file?.path || existingProfile.seekerresumeUrl;
+
+    const updatedProfile = await JobSeekerProfile.findByIdAndUpdate(
+      profileId,
       {
-        new: true,
-      }
+        profileImage: profileImage || existingProfile.profileImage,
+        headline,
+        about,
+        location,
+        seekerjobstitle,
+        seekerjobscompany,
+        seekerjobdescripition,
+        seekerexperience,
+        seekerdegree,
+        seekerinsitute,
+        seekereducation,
+        seekerskills: seekerskills
+          ? JSON.parse(seekerskills)
+          : existingProfile.seekerskills,
+        seekerresumeUrl: resumeUrl,
+      },
+      { new: true }
     );
 
-    if (!profile) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Profile not found" });
-    }
-
-    return res.status(200).json({ success: true, profile });
+    return res.status(200).json({ success: true, profile: updatedProfile });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
 
 export const deleteProfile = async (req, res) => {
   try {

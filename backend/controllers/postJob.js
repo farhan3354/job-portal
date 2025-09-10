@@ -68,12 +68,12 @@ export const createJob = async (req, res) => {
 export const getalljobs = async (req, res) => {
   try {
     const jobs = await Job.find();
+
     if (!jobs || jobs.length === 0) {
-      return res.status(400).json({ message: "No jobs in the data base" });
+      return res.status(400).json({ message: "No jobs in the database" });
     }
-    return res
-      .status(200)
-      .json({ message: "Jobs find successfully", job: jobs });
+
+    return res.status(200).json({ message: "Jobs fetched successfully", jobs });
   } catch (error) {
     return res.status(500).json({ message: "Failed to get jobs" });
   }
