@@ -34,6 +34,7 @@ app.use("/", userRoutes);
 app.use("/", postJob);
 app.use("/", userApply);
 app.use("/", profile);
+
 app.use("/", apllicant);
 
 connectDB();
