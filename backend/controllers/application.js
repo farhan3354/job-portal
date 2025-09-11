@@ -3,22 +3,29 @@ import Application from "../models/application.js";
 import Job from "./../models/jobs.js";
 
 export const apply = async (req, res) => {
+  
   try {
     const { id: jobId } = req.params;
+
     const applicantId = req.user?.id;
+
     const { lastcompany, lastsalary, availability, coverLetter, experience } =
       req.body;
 
     if (!availability || !experience) {
+    
       return res.status(400).json({ message: "All fields are required" });
     }
 
     if (!applicantId) {
+    
       return res.status(404).json({ message: "Applicant ID is required" });
     }
 
     const profile = await JobSeekerProfile.findOne({ userId: applicantId });
+    
     if (!profile || !profile.seekerresumeUrl) {
+    
       return res.status(400).json({
         message:
           "Please complete your profile and upload your CV before applying.",
@@ -26,8 +33,10 @@ export const apply = async (req, res) => {
     }
 
     const alreadyApplied = await Application.findOne({ jobId, applicantId });
+    
     if (alreadyApplied) {
       return res.status(409).json({
+
         message: "You have already applied for this job.",
       });
     }
@@ -60,6 +69,7 @@ export const apply = async (req, res) => {
     });
   }
 };
+
 
 // import Application from "../models/application.js";
 // import Job from "../models/jobs.js";
