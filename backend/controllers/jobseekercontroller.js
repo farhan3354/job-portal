@@ -73,8 +73,6 @@ export const getAllProfiles = async (req, res) => {
   }
 };
 
-
-
 export const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -96,7 +94,6 @@ export const getProfile = async (req, res) => {
   }
 };
 
-
 // update profile jobseeker
 
 export const updateProfile = async (req, res) => {
@@ -104,7 +101,6 @@ export const updateProfile = async (req, res) => {
     const profileId = req.params.id;
 
     const existingProfile = await JobSeekerProfile.findById(profileId);
-
     if (!existingProfile) {
       return res.status(404).json({
         success: false,
@@ -112,11 +108,17 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+    // if (existingProfile.userId.toString() !== req.user._id.toString()) {
+    //   return res.status(403).json({
+    //     success: false,
+    //     message: "You are not authorized to update this profile",
+    //   });
+    // }
+
     const {
       headline,
       about,
       location,
-      profileImage,
       seekerjobstitle,
       seekerjobscompany,
       seekerjobdescripition,
@@ -124,8 +126,11 @@ export const updateProfile = async (req, res) => {
       seekerdegree,
       seekerinsitute,
       seekereducation,
-      seekerskills,
     } = req.body;
+
+    const seekerskills = req.body.seekerskills
+      ? JSON.parse(req.body.seekerskills)
+      : [];
 
     if (!headline || !about || !location) {
       return res
@@ -138,7 +143,7 @@ export const updateProfile = async (req, res) => {
     const updatedProfile = await JobSeekerProfile.findByIdAndUpdate(
       profileId,
       {
-        profileImage: profileImage || existingProfile.profileImage,
+        profileImage: existingProfile.profileImage,
         headline,
         about,
         location,
@@ -149,20 +154,25 @@ export const updateProfile = async (req, res) => {
         seekerdegree,
         seekerinsitute,
         seekereducation,
-        seekerskills: seekerskills
-          ? JSON.parse(seekerskills)
-          : existingProfile.seekerskills,
+        seekerskills: seekerskills,
         seekerresumeUrl: resumeUrl,
       },
       { new: true }
     );
 
-    return res.status(200).json({ success: true, profile: updatedProfile });
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      profile: updatedProfile,
+    });
   } catch (error) {
-    return res.status(500).json({ success: false, message: error.message });
+    console.error("Update error:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Server Error",
+    });
   }
 };
-
 
 
 export const deleteProfile = async (req, res) => {

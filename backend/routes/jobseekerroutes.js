@@ -27,7 +27,7 @@ router.post(
 // get  job seeker profile
 router.get("/getprofile", protect, jobSeekerMiddleware, getProfile);
 
-// get all job seeker
+// get all job seeker for admin
 router.get("/all-profies", getAllProfiles);
 
 // update the profile
@@ -36,7 +36,7 @@ router.put(
   "/update/:id",
   protect,
   jobSeekerMiddleware,
-  // upload.single("resume"),
+  upload.single("resume"),
   updateProfile
 );
 

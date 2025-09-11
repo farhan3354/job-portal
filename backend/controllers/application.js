@@ -19,12 +19,10 @@ export const apply = async (req, res) => {
 
     const profile = await JobSeekerProfile.findOne({ userId: applicantId });
     if (!profile || !profile.seekerresumeUrl) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Please complete your profile and upload your CV before applying.",
-        });
+      return res.status(400).json({
+        message:
+          "Please complete your profile and upload your CV before applying.",
+      });
     }
 
     const alreadyApplied = await Application.findOne({ jobId, applicantId });

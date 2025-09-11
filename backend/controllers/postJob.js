@@ -63,6 +63,7 @@ export const createJob = async (req, res) => {
   }
 };
 
+
 // all jobs for the job-seeker
 
 export const getalljobs = async (req, res) => {
@@ -78,6 +79,7 @@ export const getalljobs = async (req, res) => {
     return res.status(500).json({ message: "Failed to get jobs" });
   }
 };
+
 
 // all the employer specific job
 
@@ -102,6 +104,7 @@ export const getjobsbyid = async (req, res) => {
     return res.status(500).json({ message: "Failed to fetch jobs" });
   }
 };
+
 
 export const getidjob = async (req, res) => {
   try {

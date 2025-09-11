@@ -38,6 +38,7 @@ import EmployerJobDetails from "./component/employerDashboard/EmployerJobDetails
 import ScrollTop from "./pages/ScrollTop.jsx";
 import JobSeekerProfileForm from "./component/userDashbord/profile/ProfileForm.jsx";
 import EditJobSeeker from "./component/userDashbord/profile/EditProfileForm.jsx";
+import AllJobsApplicant from "./pages/employerDashboardPages/AllJobsApplicant.jsx";
 
 function App() {
   return (
@@ -77,7 +78,8 @@ function App() {
             <Route index element={<EmployerHome />} />
             <Route path="posta-job" element={<PostJob />} />
             <Route path="profile" element={<EmployerProfile />} />
-            <Route path="applicants" element={<Applicant />} />
+            <Route path="alljobs-applicant" element={<AllJobsApplicant/>}/>
+            <Route path="applicants/:id" element={<Applicant />} />
             <Route path="applicant/:id" element={<JobApplicant />} />
             <Route
               path="applicant/:id/schedule-interview"

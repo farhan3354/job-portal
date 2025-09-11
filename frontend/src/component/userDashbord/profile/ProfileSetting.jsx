@@ -11,14 +11,11 @@ import { MdWork, MdSchool } from "react-icons/md";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { togglemode } from "../../../redux/slices/authslices/userslice";
 
 export default function ProfileSetting() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const token = useSelector((state) => state.auth.token);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -66,9 +63,6 @@ export default function ProfileSetting() {
         <div className="flex justify-end mb-4">
           <Link
             to={"edit"}
-            onClick={() =>
-              dispatch(togglemode({ mode: "edit", profileId: profile._id }))
-            }
             className="bg-blue-600 text-white text-sm md:text-base font-medium rounded-xl px-4 py-2 hover:bg-blue-700"
           >
             Edit Profile

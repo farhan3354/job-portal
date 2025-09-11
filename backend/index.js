@@ -6,6 +6,8 @@ import userApply from "./routes/applicationroutes.js";
 import postJob from "./routes/jobPost.js";
 import { v2 as cloudinary } from "cloudinary";
 import profile from "./routes/jobseekerroutes.js";
+import apllicant from "./routes/getapplicant.js";
+
 dotenv.config();
 import cors from "cors";
 
@@ -32,6 +34,7 @@ app.use("/", userRoutes);
 app.use("/", postJob);
 app.use("/", userApply);
 app.use("/", profile);
+app.use("/", apllicant);
 
 connectDB();
 app.listen(port, () => {

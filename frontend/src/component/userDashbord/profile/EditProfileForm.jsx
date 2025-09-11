@@ -48,12 +48,12 @@ export default function EditJobSeeker() {
           seekerinsitute: data.seekerinsitute || "",
           seekereducation: data.seekereducation || "",
           skills: data.seekerskills?.join(", ") || "",
-          resume: null,
+          resume: data.seekerresumeUrl || "",
         });
 
         setLoading(false);
       } catch (error) {
-        toast.error("Failed to load profile");
+        toast.error("Failed to load profile", error);
         setLoading(false);
       }
     };
@@ -100,7 +100,7 @@ export default function EditJobSeeker() {
       );
       if (response.data.success) {
         toast.success("Profile updated successfully");
-        navigate("/profile");
+        navigate("/user-dashboard/profile");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Error updating profile");
