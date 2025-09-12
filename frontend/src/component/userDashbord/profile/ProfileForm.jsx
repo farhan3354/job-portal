@@ -78,52 +78,52 @@ export default function JobSeekerProfileForm() {
   //     }
   //   };
 
- const onSubmit = async (data) => {
-  try {
-    const formData = new FormData();
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
 
-    formData.append("headline", data.headline);
-    formData.append("about", data.about);
-    formData.append("location", data.location);
+      formData.append("headline", data.headline);
+      formData.append("about", data.about);
+      formData.append("location", data.location);
 
-    formData.append("seekerjobstitle", data.seekerjobstitle);
-    formData.append("seekerjobscompany", data.seekerjobscompany);
-    formData.append("seekerjobdescripition", data.seekerjobdescripition);
-    formData.append("seekerexperience", data.seekerexperience);
-    formData.append("seekerdegree", data.seekerdegree);
-    formData.append("seekerinsitute", data.seekerinsitute);
-    formData.append("seekereducation", data.seekereducation);
+      formData.append("seekerjobstitle", data.seekerjobstitle);
+      formData.append("seekerjobscompany", data.seekerjobscompany);
+      formData.append("seekerjobdescripition", data.seekerjobdescripition);
+      formData.append("seekerexperience", data.seekerexperience);
+      formData.append("seekerdegree", data.seekerdegree);
+      formData.append("seekerinsitute", data.seekerinsitute);
+      formData.append("seekereducation", data.seekereducation);
 
-    const seekerskills = data.skills
-      .split(",")
-      .map((s) => s.trim())
-      .filter((s) => s !== "");
+      const seekerskills = data.skills
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s !== "");
 
-    formData.append("seekerskills", JSON.stringify(seekerskills));
+      formData.append("seekerskills", JSON.stringify(seekerskills));
 
-    if (data.resume && data.resume[0]) {
-      formData.append("resume", data.resume[0]);
-    }
-
-    const response = await axios.post(
-      "http://localhost:8000/createprofile",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
+      if (data.resume && data.resume[0]) {
+        formData.append("resume", data.resume[0]);
       }
-    );
 
-    if (response.data.success) {
-      toast.success("Profile created successfully");
-      navigate("/profile");
+      const response = await axios.post(
+        "http://localhost:8000/createprofile",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        toast.success("Profile created successfully");
+        navigate("user-dashboard/profile");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error creating profile");
     }
-  } catch (error) {
-    toast.error(error.response?.data?.message || "Error creating profile");
-  }
-};
+  };
 
   const nextStep = async () => {
     let valid = false;
@@ -192,8 +192,6 @@ export default function JobSeekerProfileForm() {
     </div>
   );
 }
-
-
 
 // import React, { useState } from "react";
 // import { useForm } from "react-hook-form";
@@ -404,7 +402,6 @@ export default function JobSeekerProfileForm() {
 //   );
 // }
 
-
 // import React, { useState } from "react";
 // import { useForm } from "react-hook-form";
 // import axios from "axios";
@@ -566,4 +563,3 @@ export default function JobSeekerProfileForm() {
 //     </div>
 //   );
 // }
-

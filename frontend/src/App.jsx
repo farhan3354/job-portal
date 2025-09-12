@@ -79,7 +79,8 @@ function App() {
             <Route path="posta-job" element={<PostJob />} />
             <Route path="profile" element={<EmployerProfile />} />
             <Route path="alljobs-applicant" element={<AllJobsApplicant/>}/>
-            <Route path="applicants/:id" element={<Applicant />} />
+            <Route path="job-applicants/:id" element={<Applicant />} />
+
             <Route path="applicant/:id" element={<JobApplicant />} />
             <Route
               path="applicant/:id/schedule-interview"
