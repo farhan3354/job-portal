@@ -14,6 +14,7 @@ export const getApplicantsByJobId = async (req, res) => {
     }
 
     return res.status(200).json({ success: true, applicants: applications });
+    
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
