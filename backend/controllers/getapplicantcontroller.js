@@ -42,16 +42,19 @@ export const applicant = async (req, res) => {
       "userId",
       "name email phone"
     );
+    
     if (!profile) {
       return res
         .status(404)
         .json({ success: false, message: "profile not found" });
     }
+
     return res.status(200).json({
       success: true,
       application,
       profile,
     });
+    
   } catch (error) {
     console.error("Error fetching user with profile:", error);
     return res.status(500).json({ success: false, message: "Server error" });
