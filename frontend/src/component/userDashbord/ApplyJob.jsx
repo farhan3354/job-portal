@@ -28,7 +28,7 @@ export default function Apply() {
 
       if (respo.data.success) {
         toast.success("Form submitted successfullly");
-        navigate("");
+        navigate("/user-dashboard");
       }
     } catch (error) {
       toast.error(

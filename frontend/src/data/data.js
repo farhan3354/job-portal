@@ -61,7 +61,7 @@ export const employersidebarmenu = [
   },
   {
     title: "Applicants",
-    to: "/employer-dashboard/applicants",
+    to: "/employer-dashboard/alljobs-applicant",
     icon: "FaUsers",
   },
   {
