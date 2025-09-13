@@ -28,7 +28,7 @@ export const registeruser = async (req, res) => {
     await transporter.sendMail(mailOptions(email, name));
     
 
-    res.status(201).json({
+   return res.status(201).json({
       message:
         "Registration email sent successfully . User registered successfully",
       user,

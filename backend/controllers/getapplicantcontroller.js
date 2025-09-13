@@ -14,7 +14,6 @@ export const getApplicantsByJobId = async (req, res) => {
     }
 
     return res.status(200).json({ success: true, applicants: applications });
-    
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -42,7 +41,7 @@ export const applicant = async (req, res) => {
       "userId",
       "name email phone"
     );
-    
+
     if (!profile) {
       return res
         .status(404)
@@ -54,7 +53,6 @@ export const applicant = async (req, res) => {
       application,
       profile,
     });
-    
   } catch (error) {
     console.error("Error fetching user with profile:", error);
     return res.status(500).json({ success: false, message: "Server error" });

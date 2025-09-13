@@ -16,7 +16,7 @@ export default function EmployerDashboard() {
     {
       title: "Applicants",
       value: 87,
-      to: "applicants",
+      to: "alljobs-applicant",
       icon: <MdPeople />,
       color: "text-green-500",
       bg: "bg-green-100",
