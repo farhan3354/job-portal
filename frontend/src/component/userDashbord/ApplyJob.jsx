@@ -36,6 +36,7 @@ export default function Apply() {
           error.response?.data?.message || error.message
         }`
       );
+      navigate("/user-dashboard/profile");
     }
   };
 

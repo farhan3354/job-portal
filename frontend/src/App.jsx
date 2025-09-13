@@ -39,6 +39,8 @@ import ScrollTop from "./pages/ScrollTop.jsx";
 import JobSeekerProfileForm from "./component/userDashbord/profile/ProfileForm.jsx";
 import EditJobSeeker from "./component/userDashbord/profile/EditProfileForm.jsx";
 import AllJobsApplicant from "./pages/employerDashboardPages/AllJobsApplicant.jsx";
+import Post from "./pages/testformforpractice/Post.jsx";
+import GetData from "./pages/testformforpractice/GetData.jsx";
 
 function App() {
   return (
@@ -55,7 +57,8 @@ function App() {
           <Route path="register/job-seeker" element={<Register />} />
           <Route path="register/employer" element={<Register />} />
           <Route path="contact" element={<Contact />} />
-
+          <Route path="postformdata" element={<Post />} />
+          <Route path="getformdata" element={<GetData />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
         <Route element={<ProtectRoute role="job-seeker" />}>
@@ -78,7 +81,7 @@ function App() {
             <Route index element={<EmployerHome />} />
             <Route path="posta-job" element={<PostJob />} />
             <Route path="profile" element={<EmployerProfile />} />
-            <Route path="alljobs-applicant" element={<AllJobsApplicant/>}/>
+            <Route path="alljobs-applicant" element={<AllJobsApplicant />} />
             <Route path="job-applicants/:id" element={<Applicant />} />
 
             <Route path="applicant/:id" element={<JobApplicant />} />

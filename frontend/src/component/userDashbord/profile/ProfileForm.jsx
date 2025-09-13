@@ -118,7 +118,7 @@ export default function JobSeekerProfileForm() {
 
       if (response.data.success) {
         toast.success("Profile created successfully");
-        navigate("user-dashboard/profile");
+        navigate("/user-dashboard/profile");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Error creating profile");

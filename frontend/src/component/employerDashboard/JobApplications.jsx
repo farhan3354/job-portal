@@ -17,10 +17,10 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const JobApplications = () => {
- 
   const { id: jobId } = useParams();
   const [applicants, setApplicants] = useState([]);
   const token = useSelector((state) => state.auth.token);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     const fetchApplicants = async () => {
@@ -34,31 +34,41 @@ const JobApplications = () => {
         setApplicants(res.data.applicants);
       } catch (err) {
         console.error("Failed to fetch applicants:", err);
+      } finally {
+        setloading(false);
       }
     };
+
     if (jobId && token) {
       fetchApplicants();
     }
   }, [jobId, token]);
 
- const isSameDay = (d1, d2) =>
-  d1.getFullYear() === d2.getFullYear() &&
-  d1.getMonth() === d2.getMonth() &&
-  d1.getDate() === d2.getDate();
+  const isSameDay = (d1, d2) =>
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate();
 
-const today = new Date();
+  const today = new Date();
 
-const todaysApplicants = applicants.filter(applicant => 
-  isSameDay(new Date(applicant.createdAt), today)
-);
+  const todaysApplicants = applicants.filter((applicant) =>
+    isSameDay(new Date(applicant.createdAt), today)
+  );
 
-const todaysApplicantsCount = todaysApplicants.length;
+  const todaysApplicantsCount = todaysApplicants.length;
 
-  if (applicants.length === 0) {
+  // if (applicants.length === 0) {
+  //   return (
+  //     <div className="max-w-6xl mx-auto p-6">
+  //       <h2 className="text-2xl font-bold mb-6">Applicants</h2>
+  //       <p>No applicants yet for this job.</p>
+  //     </div>
+  //   );
+  // }
+  if (loading) {
     return (
-      <div className="max-w-6xl mx-auto p-6">
-        <h2 className="text-2xl font-bold mb-6">Applicants</h2>
-        <p>No applicants yet for this job.</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -75,7 +85,7 @@ const todaysApplicantsCount = todaysApplicants.length;
           ))}
         </ul>
       </div> */}
-      
+
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-5 py-5 sm:py-6 lg:py-8">
           <div className="mb-6 sm:mb-8">
@@ -198,7 +208,7 @@ const todaysApplicantsCount = todaysApplicants.length;
                               {applicant?.applicantId.name.charAt(0)}
                             </div>
                           </div>
-                          <div className="ml-3" >
+                          <div className="ml-3">
                             <div className="text-sm font-medium text-gray-900">
                               {applicant?.applicantId.name}
                             </div>
@@ -276,7 +286,7 @@ const todaysApplicantsCount = todaysApplicants.length;
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
                           <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
-                              {applicant?.applicantId.name.charAt(0)}
+                            {applicant?.applicantId.name.charAt(0)}
                           </div>
                         </div>
                         <div className="ml-3">
@@ -332,7 +342,7 @@ const todaysApplicantsCount = todaysApplicants.length;
                       <div>
                         <p className="text-xs text-gray-500">Applied</p>
                         <p className="text-sm text-gray-900">
-                        {new Date(applicant.createdAt).toLocaleString()}
+                          {new Date(applicant.createdAt).toLocaleString()}
                         </p>
                       </div>
                       <div>
@@ -358,7 +368,7 @@ const todaysApplicantsCount = todaysApplicants.length;
                         Resume
                       </button>
                     </div>
-                  </div>
+                  </div>;
                 })}
               </div>
             </div>
