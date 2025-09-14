@@ -33,6 +33,7 @@ const InterviewSchema = new mongoose.Schema(
     interviewername: {
       type: String,
       required: true,
+    
     },
     interviewType: {
       type: String,
