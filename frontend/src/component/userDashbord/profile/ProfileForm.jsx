@@ -85,6 +85,9 @@ export default function JobSeekerProfileForm() {
       formData.append("headline", data.headline);
       formData.append("about", data.about);
       formData.append("location", data.location);
+      if (data.profileImage && data.profileImage[0]) {
+        formData.append("profileImage", data.profileImage[0]);
+      }
 
       formData.append("seekerjobstitle", data.seekerjobstitle);
       formData.append("seekerjobscompany", data.seekerjobscompany);
@@ -129,7 +132,7 @@ export default function JobSeekerProfileForm() {
     let valid = false;
 
     if (step === 1) {
-      valid = await trigger(["headline", "about", "location"]);
+      valid = await trigger(["headline", "about", "location", "profileImage"]);
     } else if (step === 2) {
       valid = await trigger([
         "seekerjobstitle",

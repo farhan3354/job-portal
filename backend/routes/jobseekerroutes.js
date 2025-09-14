@@ -1,5 +1,5 @@
 import express from "express";
-import upload from "../middlewares/multermiddleware.js";
+import { upload } from "../middlewares/multermiddleware.js";
 import {
   createProfile,
   getProfile,
@@ -7,27 +7,29 @@ import {
   deleteProfile,
   getAllProfiles,
 } from "../controllers/jobseekercontroller.js";
-import {
-  employerMiddleware,
-  jobSeekerMiddleware,
-  protect,
-} from "../middlewares/authMiddleware.js";
+import { jobSeekerMiddleware, protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 //  create profile
+
 router.post(
   "/createprofile",
   protect,
   jobSeekerMiddleware,
-  upload.single("resume"),
+  upload.fields([
+    { name: "profileImage", maxCount: 1 },
+    { name: "resume", maxCount: 1 },
+  ]),
   createProfile
 );
 
 // get  job seeker profile
+
 router.get("/getprofile", protect, jobSeekerMiddleware, getProfile);
 
 // get all job seeker for admin
+
 router.get("/all-profies", getAllProfiles);
 
 // update the profile
@@ -36,7 +38,11 @@ router.put(
   "/update/:id",
   protect,
   jobSeekerMiddleware,
-  upload.single("resume"),
+  upload.fields([
+    { name: "profileImage", maxCount: 1 },
+    { name: "resume", maxCount: 1 },
+  ]),
+  // upload.single("resume"),
   updateProfile
 );
 

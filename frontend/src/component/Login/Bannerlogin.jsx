@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import Header1 from "./Header1";
 
 export default function Bannerlogin() {
   const location = useLocation();
@@ -12,7 +13,8 @@ export default function Bannerlogin() {
             <div className="z-10 relative">
               {/* <h2 className="text-2xl font-bold mb-6">Jobzy</h2> */}
               <div className="mt-20 md:mt-32">
-                <h1 className="text-3xl font-bold mb-4">Sign in to Jobzy</h1>
+                <Header1 label="Sign up" className="text-white" />
+
                 <p className="max-w-md opacity-90">
                   Jobzy is your trusted gateway to career success — connecting
                   talented job seekers with top companies. Whether you're
@@ -24,16 +26,16 @@ export default function Bannerlogin() {
           </div>
         </>
       )}
-      
+
       {location.pathname === "/register/employer" && (
         <>
           <div className="bg-blue-500 text-white p-8 md:p-12 md:w-1/2 relative overflow-hidden">
             <div className="z-10 relative">
               <div className="mt-20 md:mt-32">
-                <h1 className="text-3xl font-bold mb-4 text-center">
+                {/* <h1 className="text-3xl font-bold mb-4 text-center">
                   Sign in For Employers
-                </h1>
-
+                </h1> */}
+                <Header1 />
                 <div className="bg-green-50 p-6 rounded-lg border border-green-200 mt-8 text-gray-900">
                   <p className="mb-3">
                     💼 <strong>Find Exceptional Talent</strong> with Jobzy — the

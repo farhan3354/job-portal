@@ -824,7 +824,7 @@ import { useSelector } from "react-redux";
 const JobSeekerDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [loading, setloading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [application, setApplication] = useState(null);
   const token = useSelector((state) => state.auth.token);
@@ -842,13 +842,21 @@ const JobSeekerDetail = () => {
       setApplication(response.data.application || null);
     } catch (error) {
       console.log(error);
+    } finally {
+      setloading(false);
     }
   };
 
   useEffect(() => {
     getApplicant();
   }, [id]);
-
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   if (!profile) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -867,28 +875,6 @@ const JobSeekerDetail = () => {
     );
   }
 
-  // const handleDownload = () => {
-  //   if (profile.seekerresumeUrl) {
-  //     window.open(profile.seekerresumeUrl, "_blank");
-  //   } else {
-  //     alert("No resume uploaded");
-  //   }
-  // };
-
-  // const getStatusColor = (status) => {
-  //   switch (status) {
-  //     case "Accepted":
-  //       return "bg-green-100 text-green-800";
-  //     case "Rejected":
-  //       return "bg-red-100 text-red-800";
-  //     case "Shortlisted":
-  //       return "bg-blue-100 text-blue-800";
-  //     case "Reviewed":
-  //       return "bg-yellow-100 text-yellow-800";
-  //     default:
-  //       return "bg-gray-100 text-gray-800";
-  //   }
-  // };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -948,15 +934,16 @@ const JobSeekerDetail = () => {
               <h3 className="text-xl font-semibold text-gray-900 mb-1 text-center">
                 {profile?.userId?.name}
               </h3>
-              <p className="text-lg text-center text-gray-600 mb-2.5">{profile.headline}</p>
-
+              <p className="text-lg text-center text-gray-600 mb-2.5">
+                {profile.headline}
+              </p>
 
               <div className="space-y-4">
                 <div className="flex items-center p-3 bg-gray-50 rounded-lg">
                   <FiMail className="h-5 w-5 text-blue-600 mr-3" />
                   <div>
                     <p className="text-sm text-gray-500">Email</p>
-                    <p className="text-gray-900 font-medium">
+                    <p className="truncate text-gray-900 font-medium">
                       {profile?.userId?.email}
                     </p>
                   </div>
@@ -992,7 +979,7 @@ const JobSeekerDetail = () => {
 
                 <div className="space-y-4">
                   <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                    <FiBriefcase className="h-5 w-5 text-green-600 mr-3" />
+                    <FiBriefcase className="h-5 w-5 text-blue-600 mr-3" />
                     <div>
                       <p className="text-sm text-gray-500">Last Company</p>
                       <p className="text-gray-900 font-medium">
@@ -1002,7 +989,7 @@ const JobSeekerDetail = () => {
                   </div>
 
                   <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                    <FiDollarSign className="h-5 w-5 text-green-600 mr-3" />
+                    <FiDollarSign className="h-5 w-5 text-blue-600 mr-3" />
                     <div>
                       <p className="text-sm text-gray-500">Last Salary</p>
                       <p className="text-gray-900 font-medium">
@@ -1012,7 +999,7 @@ const JobSeekerDetail = () => {
                   </div>
 
                   <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                    <FiClock className="h-5 w-5 text-green-600 mr-3" />
+                    <FiClock className="h-5 w-5 text-blue-600 mr-3" />
                     <div>
                       <p className="text-sm text-gray-500">Availability</p>
                       <p className="text-gray-900 font-medium">
@@ -1022,7 +1009,7 @@ const JobSeekerDetail = () => {
                   </div>
 
                   <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                    <FiAward className="h-5 w-5 text-green-600 mr-3" />
+                    <FiAward className="h-5 w-5 text-blue-600 mr-3" />
                     <div>
                       <p className="text-sm text-gray-500">Experience</p>
                       <p className="text-gray-900 font-medium">
@@ -1035,9 +1022,7 @@ const JobSeekerDetail = () => {
             )}
           </div>
 
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* About Section */}
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <FiFileText className="mr-2 text-blue-600" />
@@ -1046,7 +1031,6 @@ const JobSeekerDetail = () => {
               <p className="text-gray-700 leading-relaxed">{profile.about}</p>
             </div>
 
-            {/* Skills Section */}
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <FiAward className="mr-2 text-blue-600" />
@@ -1056,7 +1040,7 @@ const JobSeekerDetail = () => {
                 {profile.seekerskills.map((skill, i) => (
                   <span
                     key={i}
-                    className="px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full shadow-sm hover:bg-blue-200 transition-colors duration-200"
+                    className="px-4 py-2 bg-blue-200 text-blue-800 text-sm font-medium rounded-full"
                   >
                     {skill}
                   </span>
@@ -1064,7 +1048,6 @@ const JobSeekerDetail = () => {
               </div>
             </div>
 
-            {/* Experience & Education */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
@@ -1106,7 +1089,6 @@ const JobSeekerDetail = () => {
               </div>
             </div>
 
-            {/* Cover Letter */}
             {application?.coverLetter && (
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
@@ -1119,7 +1101,6 @@ const JobSeekerDetail = () => {
               </div>
             )}
 
-            {/* Resume Section */}
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                 <FiDownload className="mr-2 text-blue-600" />
@@ -1148,7 +1129,6 @@ const JobSeekerDetail = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
         <div className="mt-8 bg-white rounded-xl shadow-sm p-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-sm text-gray-500">

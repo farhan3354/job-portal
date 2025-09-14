@@ -11,14 +11,45 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
-    folder: "pdfs",
-    resource_type: "raw",
-    format: async () => "pdf",
+  params: async (req, file) => {
+    if (file.fieldname === "resume") {
+      return {
+        folder: "pdfs",
+        resource_type: "raw",
+        format: "pdf",
+        public_id: file.originalname.split(".")[0],
+      };
+    } else if (file.fieldname === "profileImage") {
+      return {
+        folder: "images",
+        resource_type: "image",
+        public_id: file.originalname.split(".")[0],
+      };
+    }
   },
 });
 
-const upload = multer({ storage });
-export default upload;
+
+
+// const storage = new CloudinaryStorage({
+//   cloudinary,
+//   params: {
+//     folder: "pdfs",
+//     resource_type: "raw",
+//     format: async () => "pdf",
+//   },
+// });
+
+// const imageStorage = new CloudinaryStorage({
+//   cloudinary,
+//   params: async (req, file) => ({
+//     folder: "images",
+//     resource_type: "image",
+//     public_id: file.originalname.split(".")[0],
+//   }),
+// });
+
+export const upload = multer({ storage });

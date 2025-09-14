@@ -68,7 +68,9 @@ export default function EditJobSeeker() {
       formData.append("headline", data.headline);
       formData.append("about", data.about);
       formData.append("location", data.location);
-
+      if (data.profileImage && data.profileImage[0]) {
+        formData.append("profileImage", data.profileImage[0]);
+      }
       formData.append("seekerjobstitle", data.seekerjobstitle);
       formData.append("seekerjobscompany", data.seekerjobscompany);
       formData.append("seekerjobdescripition", data.seekerjobdescripition);

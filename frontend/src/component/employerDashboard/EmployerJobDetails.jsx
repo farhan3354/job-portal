@@ -29,7 +29,11 @@ export default function EmployerJobDetails() {
   }, [id]);
 
   if (loading) {
-    return <div className="text-2xl text-center">...loading data</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   if (!job) {
@@ -110,19 +114,21 @@ export default function EmployerJobDetails() {
           </ul>
         </div>
 
-        { job.skills.length >0 ? <div className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Skills</h3>
-          <div className="mt-3 flex flex-wrap gap-1">
-            {job.skills?.slice(0, 9).map((skill, index) => (
-              <span
-                key={index}
-                className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-              >
-                {skill}
-              </span>
-            ))}
+        {job.skills.length > 0 ? (
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Skills</h3>
+            <div className="mt-3 flex flex-wrap gap-1">
+              {job.skills?.slice(0, 9).map((skill, index) => (
+                <span
+                  key={index}
+                  className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
-        </div> :null}
+        ) : null}
 
         <div className="flex justify-end">
           <Link

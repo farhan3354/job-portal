@@ -34,9 +34,9 @@ export default function EmployerAllPostedJobs() {
 
   if (loading) {
     return (
-      <>
-        <div className="text-2xl text-center">...loading data</div>
-      </>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
     );
   }
 

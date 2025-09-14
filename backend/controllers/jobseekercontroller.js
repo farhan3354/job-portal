@@ -17,23 +17,32 @@ export const createProfile = async (req, res) => {
       seekereducation,
     } = req.body;
 
-    const seekerskills = req.body.seekerskills
-      ? JSON.parse(req.body.seekerskills)
-      : [];
+    let seekerskills = [];
 
-    if (!headline || !about || !location) {
-      return res
-        .status(400)
-        .json({ message: "Headline, about, and location are required" });
+    if (req.body.seekerskills) {
+      try {
+        seekerskills = JSON.parse(req.body.seekerskills);
+      } catch (err) {
+        return res
+          .status(400)
+          .json({ message: "Invalid JSON format for seekerskills" });
+      }
     }
 
-    console.log("Uploaded File:", req.file);
+    if (!headline || !about || !location) {
+      return res.status(400).json({
+        message: "Headline, about, and location are required",
+      });
+    }
 
-    const cvurl = req.file?.path || null;
+    console.log("Uploaded Files:", req.files);
+
+    const profileImageUrl = req.files?.profileImage?.[0]?.path || null;
+    const resumeUrl = req.files?.resume?.[0]?.path || null;
 
     const newProfile = new JobSeekerProfile({
       userId,
-      profileImage: req.body.profileImage || undefined,
+      profileImage: profileImageUrl,
       headline,
       about,
       location,
@@ -45,7 +54,7 @@ export const createProfile = async (req, res) => {
       seekerinsitute,
       seekereducation,
       seekerskills,
-      seekerresumeUrl: cvurl,
+      seekerresumeUrl: resumeUrl,
     });
 
     await newProfile.save();
@@ -108,13 +117,6 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    // if (existingProfile.userId.toString() !== req.user._id.toString()) {
-    //   return res.status(403).json({
-    //     success: false,
-    //     message: "You are not authorized to update this profile",
-    //   });
-    // }
-
     const {
       headline,
       about,
@@ -138,12 +140,14 @@ export const updateProfile = async (req, res) => {
         .json({ message: "Headline, about, and location are required" });
     }
 
-    const resumeUrl = req.file?.path || existingProfile.seekerresumeUrl;
+    // const resumeUrl = req.file?.path || existingProfile.seekerresumeUrl;
+    const profileImageUrl = req.files?.profileImage?.[0]?.path || null;
+    const resumeUrl = req.files?.resume?.[0]?.path || null;
 
     const updatedProfile = await JobSeekerProfile.findByIdAndUpdate(
       profileId,
       {
-        profileImage: existingProfile.profileImage,
+        profileImage: profileImageUrl,
         headline,
         about,
         location,
@@ -191,3 +195,60 @@ export const deleteProfile = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// export const createProfile = async (req, res) => {
+//   try {
+//     const userId = req.user.id;
+
+// const {
+//   headline,
+//   about,
+//   location,
+//   seekerjobstitle,
+//   seekerjobscompany,
+//   seekerjobdescripition,
+//   seekerexperience,
+//   seekerdegree,
+//   seekerinsitute,
+//   seekereducation,
+// } = req.body;
+
+//     const seekerskills = req.body.seekerskills
+//       ? JSON.parse(req.body.seekerskills)
+//       : [];
+
+//     if (!headline || !about || !location) {
+//       return res
+//         .status(400)
+//         .json({ message: "Headline, about, and location are required" });
+//     }
+
+//     console.log("Uploaded File:", req.file);
+
+//     const cvurl = req.file?.path || null;
+
+//     const newProfile = new JobSeekerProfile({
+//       userId,
+//       profileImage: req.body.profileImage || undefined,
+//       headline,
+//       about,
+//       location,
+//       seekerjobstitle,
+//       seekerjobscompany,
+//       seekerjobdescripition,
+//       seekerexperience,
+//       seekerdegree,
+//       seekerinsitute,
+//       seekereducation,
+//       seekerskills,
+//       seekerresumeUrl: cvurl,
+//     });
+
+//     await newProfile.save();
+
+//     return res.status(201).json({ success: true, profile: newProfile });
+//   } catch (error) {
+//     console.error("Error creating profile:", error);
+//     return res.status(500).json({ success: false, message: error.message });
+//   }
+// };

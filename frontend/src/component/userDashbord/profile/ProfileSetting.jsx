@@ -6,7 +6,10 @@ import {
   FaMapMarkerAlt,
   FaBriefcase,
   FaFilePdf,
+  FaUserTimes,
 } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
+
 import { MdWork, MdSchool } from "react-icons/md";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -37,22 +40,59 @@ export default function ProfileSetting() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-gray-600">Loading profile...</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <Link
-          to={"create"}
-          className="bg-blue-600 text-white text-sm md:text-base font-medium rounded-xl px-4 py-2 hover:bg-blue-700"
-        >
-          Add Profile
-        </Link>
-        <p className="text-red-600">No profile data found.</p>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="mb-6">
+            <div className="relative inline-flex">
+              <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
+                <FaUserTimes className="w-10 h-10 text-blue-600" />
+              </div>
+            </div>
+          </div>
+
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">
+            Profile Not Found
+          </h2>
+          <p className="text-gray-600 mb-8 leading-relaxed">
+            It looks like you haven't created your professional profile yet.
+            Let's get started and showcase your skills to potential employers!
+          </p>
+
+          <Link
+            to={"create"}
+            className="inline-flex items-center px-6 py-3 text-white font-semibold rounded-xl bg-blue-600"
+          >
+            <FaPlus />
+            Create Your Profile
+          </Link>
+
+          <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <p className="text-sm text-blue-700 flex items-center justify-center">
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Complete your profile to increase your job opportunities
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
