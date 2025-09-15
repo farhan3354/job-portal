@@ -57,14 +57,6 @@ const JobApplications = () => {
 
   const todaysApplicantsCount = todaysApplicants.length;
 
-  // if (applicants.length === 0) {
-  //   return (
-  //     <div className="max-w-6xl mx-auto p-6">
-  //       <h2 className="text-2xl font-bold mb-6">Applicants</h2>
-  //       <p>No applicants yet for this job.</p>
-  //     </div>
-  //   );
-  // }
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -75,17 +67,6 @@ const JobApplications = () => {
 
   return (
     <>
-      {/* <div>
-        <h2>Applicants</h2>
-        <ul>
-          {applicants.map((applicant) => (
-            <li key={applicant._id}>
-              {applicant.applicantId?.name} - {applicant?.applicantId.email}
-            </li>
-          ))}
-        </ul>
-      </div> */}
-
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-5 py-5 sm:py-6 lg:py-8">
           <div className="mb-6 sm:mb-8">
@@ -264,10 +245,7 @@ const JobApplications = () => {
                         >
                           Details
                         </Link>
-                        <button
-                          // onClick={() => handleDownload(applicant)}
-                          className="text-gray-600 hover:text-gray-900"
-                        >
+                        <button className="text-gray-600 hover:text-gray-900">
                           <FiDownload className="h-5 w-5" />
                         </button>
                       </td>
@@ -355,7 +333,7 @@ const JobApplications = () => {
 
                     <div className="mt-4 pt-4 border-t border-gray-200 flex justify-between">
                       <Link
-                        to={`/employer-dashboard/applicant/${applicant.id}`}
+                        to={`/employer-dashboard/job-applicants/applicant/${applicant.id}`}
                         className="text-blue-600 hover:text-blue-900 text-sm font-medium"
                       >
                         View Details
