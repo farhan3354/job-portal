@@ -7,39 +7,26 @@ const InterviewSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    jobId: {
+    employerid: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Job",
+      ref: "User",
       required: true,
     },
-    interviewerIds: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     time: {
       type: String,
       required: true,
     },
-    duration: {
-      type: Number,
-      required: true,
-    },
+
     interviewername: {
       type: String,
       required: true,
-    
     },
-    interviewType: {
-      type: String,
-      enum: ["online", "phone"],
-      required: true,
-    },
+
     meetingurl: {
       type: String,
       required: true,

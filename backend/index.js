@@ -8,6 +8,7 @@ import { v2 as cloudinary } from "cloudinary";
 import profile from "./routes/jobseekerroutes.js";
 import apllicant from "./routes/getapplicant.js";
 import formdata from "./routes/testformroute.js";
+import interviewrouter from "./routes/interview.js";
 
 dotenv.config();
 import cors from "cors";
@@ -40,7 +41,7 @@ app.use("/", apllicant);
 
 app.use("/", formdata);
 
-
+app.use("/", interviewrouter);
 
 connectDB();
 app.listen(port, () => {

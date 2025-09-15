@@ -7,7 +7,6 @@ export default function EmployerDashboard() {
   const stats = [
     {
       title: "Active Jobs",
-      value: 12,
       to: "all-job",
       icon: <MdWorkOutline />,
       color: "text-blue-500",
@@ -15,7 +14,6 @@ export default function EmployerDashboard() {
     },
     {
       title: "Applicants",
-      value: 87,
       to: "alljobs-applicant",
       icon: <MdPeople />,
       color: "text-green-500",
@@ -24,7 +22,6 @@ export default function EmployerDashboard() {
     {
       title: "Interviews Scheduled",
       to: "view-interviews",
-      value: 5,
       icon: <MdOutlineBarChart />,
       color: "text-purple-500",
       bg: "bg-purple-100",
@@ -59,13 +56,11 @@ export default function EmployerDashboard() {
               </div>
               <div>
                 <h4 className="text-lg font-semibold">{stat.title}</h4>
-                <p className="text-gray-600">{stat.value}</p>
               </div>
             </Link>
           ))}
       </div>
 
-      {/* Recent Job Postings */}
       <div className="bg-white p-6 rounded-2xl shadow mb-8">
         <h3 className="text-xl font-bold mb-4">Recent Job Postings</h3>
         <ul className="divide-y divide-gray-200">

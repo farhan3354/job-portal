@@ -8,20 +8,31 @@ import {
   FiFileText,
   FiArrowLeft,
 } from "react-icons/fi";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ScheduleInterview = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const token = useSelector((state) => state.auth.token);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    alert(`Interview scheduled for ${data.date} at ${data.time}`);
-    navigate(`/employer-dashboard/view-interviews`);
+  const onSubmit = async (data) => {
+    try {
+      const respo = await axios.post(
+        `http://localhost:8000/interview/${id}`,
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log(respo);
+      navigate(`/employer-dashboard/view-interviews`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -49,86 +60,55 @@ const ScheduleInterview = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Interview Date
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiCalendar className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="date"
-                    {...register("date", { required: true })}
-                    className="pl-10 w-full border border-gray-300 rounded-md py-2 px-3"
-                  />
-                  {errors.date && <p>{errors.date.message}</p>}
-                </div>
+                <input
+                  type="date"
+                  {...register("date", {
+                    required: "Interview date is required",
+                  })}
+                  className="pl-10 w-full border border-gray-300 rounded-md py-2 px-3"
+                />
+                {errors.date && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.date.message}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Interview Time
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiClock className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="time"
-                    {...register("time", { required: true })}
-                    className="pl-10 w-full border border-gray-300 rounded-md py-2 px-3"
-                  />
-                  {errors.time && <p>{errors.time.message}</p>}
-                </div>
+                <input
+                  type="time"
+                  {...register("time", {
+                    required: "Interview time is required",
+                  })}
+                  className="pl-10 w-full border border-gray-300 rounded-md py-2 px-3"
+                />
+                {errors.time && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.time.message}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Duration (minutes)
+                  Interviewer Name
                 </label>
-                <select
-                  {...register("duration")}
-                  className="w-full border border-gray-300 rounded-md py-2 px-3"
-                >
-                  <option disabled>Select time</option>
-                  <option value="30">30 minutes</option>
-                  <option value="45">45 minutes</option>
-                  <option value="60">60 minutes</option>
-                  <option value="90">90 minutes</option>
-                </select>
-                {errors.duration && <p>{errors.duration.message}</p>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Interviewer
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiUser className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Interviewer name"
-                    {...register("interviewername", { required: true })}
-                    className="pl-10 w-full border border-gray-300 rounded-md py-2 px-3"
-                  />
-                  {errors.interviewername && (
-                    <p>{errors.interviewername.message}</p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Interview Type
-                </label>
-                <select
-                  {...register("interviewType")}
-                  className="w-full border border-gray-300 rounded-md py-2 px-3"
-                >
-                  <option disabled>Select type</option>
-                  <option value="online">Online</option>
-                  <option value="phone">Phone Call</option>
-                </select>
-                {errors.interviewType && <p>{errors.interviewType.message}</p>}
+                <input
+                  type="text"
+                  placeholder="Interviewer name"
+                  {...register("interviewername", {
+                    required: "Interviewer name is required",
+                  })}
+                  className="pl-10 w-full border border-gray-300 rounded-md py-2 px-3"
+                />
+                {errors.interviewername && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.interviewername.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -138,10 +118,16 @@ const ScheduleInterview = () => {
                 <input
                   type="text"
                   placeholder="https://meet.example.com/room"
-                  {...register("meetingurl", { required: true })}
+                  {...register("meetingurl", {
+                    required: "Meeting URL is required",
+                  })}
                   className="w-full border border-gray-300 rounded-md py-2 px-3"
                 />
-                {errors.meetingurl && <p>{errors.meetingurl.message}</p>}
+                {errors.meetingurl && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.meetingurl.message}
+                  </p>
+                )}
               </div>
 
               <div className="md:col-span-2">
@@ -186,7 +172,6 @@ const ScheduleInterview = () => {
 };
 
 export default ScheduleInterview;
-
 
 // import React, { useState } from "react";
 // import { useParams, useNavigate,Link } from "react-router-dom";
