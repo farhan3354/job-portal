@@ -1,49 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaSearch,
   FaBriefcase,
   FaMapMarkerAlt,
   FaCalendarAlt,
-  FaClock,
-  FaCheckCircle,
-  FaSpinner,
-  FaTimesCircle,
 } from "react-icons/fa";
-import {appliedJobs} from "./../../data/data";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function AppliedAllJobs() {
-  // Get status icon and color
-  const getStatusInfo = (status) => {
-    switch (status) {
-      case "applied":
-        return {
-          icon: <FaClock className="mr-1" />,
-          color: "text-blue-500",
-          text: "Applied",
-        };
-      case "interview":
-        return {
-          icon: <FaSpinner className="mr-1 animate-spin" />,
-          color: "text-yellow-500",
-          text: "Interview",
-        };
-      case "offer":
-        return {
-          icon: <FaCheckCircle className="mr-1" />,
-          color: "text-green-500",
-          text: "Offer",
-        };
-      case "rejected":
-        return {
-          icon: <FaTimesCircle className="mr-1" />,
-          color: "text-red-500",
-          text: "Rejected",
-        };
-      default:
-        return { icon: null, color: "text-gray-500", text: "Unknown" };
+  const [appliedJobs, setappliedjobs] = useState([]);
+  const [loading, setloading] = useState(true);
+  const token = useSelector((state) => state.auth.token);
+
+  const fetchaplliedjobs = async () => {
+    try {
+      const repos = await axios.get("http://localhost:8000/details", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setappliedjobs(repos.data.jobs || null);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setloading(false);
     }
   };
-
+  useEffect(() => {
+    fetchaplliedjobs();
+  }, [token]);
+  if (loading) {
+    return (
+      <>
+        <h3>No Applied data</h3>
+      </>
+    );
+  }
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -55,7 +46,6 @@ export default function AppliedAllJobs() {
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Search */}
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <FaSearch className="text-gray-400" />
@@ -94,21 +84,21 @@ export default function AppliedAllJobs() {
       <div className="space-y-6">
         {appliedJobs.map((job) => (
           <div
-            key={job.id}
+            key={job._id}
             className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300"
           >
             <div className="p-6">
               <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                 <div className="mb-4 md:mb-0">
                   <h3 className="text-xl font-semibold text-gray-800 mb-1">
-                    {job.title}
+                    {job.jobTitle}
                   </h3>
-                  <p className="text-gray-600 mb-2">{job.company}</p>
+                  <p className="text-gray-600 mb-2">{job.companyName}</p>
 
                   <div className="flex flex-wrap items-center gap-4 mt-3">
                     <div className="flex items-center text-gray-600">
                       <FaBriefcase className="mr-2 text-blue-500" />
-                      <span>{job.type}</span>
+                      <span>{job.employmentType}</span>
                     </div>
                     <div className="flex items-center text-gray-600">
                       <FaMapMarkerAlt className="mr-2 text-blue-500" />
@@ -118,36 +108,25 @@ export default function AppliedAllJobs() {
                       <FaCalendarAlt className="mr-2 text-blue-500" />
                       <span>
                         Applied on{" "}
-                        {new Date(job.appliedDate).toLocaleDateString()}
+                        {new Date(job.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-start md:items-end">
-                  <div
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                      getStatusInfo(job.status).color
-                    } bg-${getStatusInfo(job.status).color.replace(
-                      "text-",
-                      "bg-"
-                    )}/10 mb-3`}
-                  >
-                    {getStatusInfo(job.status).icon}
-                    {getStatusInfo(job.status).text}
-                  </div>
                   <p className="text-gray-700 font-medium">{job.salary}</p>
                 </div>
               </div>
 
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-gray-700 mb-4">{job.description}</p>
+                <p className="text-gray-700 mb-4">{job.jobDescription}</p>
 
-                {job.status === "interview" && job.interviewDate && (
+                {job.status === "interview" && job.jobDescription && (
                   <div className="bg-blue-50 text-blue-800 px-4 py-3 rounded-md">
                     <p className="font-medium">
                       Interview scheduled for{" "}
-                      {new Date(job.interviewDate).toLocaleDateString()}
+                      {new Date(job.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 )}

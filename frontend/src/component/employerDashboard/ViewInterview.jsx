@@ -1,6 +1,6 @@
 // src/components/interview/ViewInterview.jsx
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FiArrowLeft,
   FiCalendar,
@@ -51,7 +51,6 @@ const ViewInterview = () => {
     <>
       <div className="min-h-screen bg-gray-50 py-8 px-4">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
           <div className="mb-10">
             <button
               onClick={() => navigate(-1)}
@@ -117,12 +116,12 @@ const ViewInterview = () => {
                 </div>
 
                 <div className="mt-6 flex justify-end space-x-3">
-                  <button
-                    onClick={Editinterview}
+                  <Link
+                    to={`/employer-dashboard/edit-interview/${intervie._id}`}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
                   >
                     Edit
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
