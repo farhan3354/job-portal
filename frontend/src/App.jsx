@@ -41,6 +41,7 @@ import EditJobSeeker from "./component/userDashbord/profile/EditProfileForm.jsx"
 import AllJobsApplicant from "./pages/employerDashboardPages/AllJobsApplicant.jsx";
 import Post from "./pages/testformforpractice/Post.jsx";
 import GetData from "./pages/testformforpractice/GetData.jsx";
+import EditScheduledInterview from "./component/employerDashboard/EditScheduledInterview.jsx";
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
             />
             <Route path="all-job/:id" element={<EditJob />} />
             <Route path="view-interviews" element={<SeeInterviews />} />
+            <Route path="edit-interview/:id" element={<EditScheduledInterview />} />
             <Route path="all-job" element={<AllPostedJob />} />
             <Route
               path="all-job/details/:id"

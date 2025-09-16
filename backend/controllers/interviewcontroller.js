@@ -83,26 +83,66 @@ export const jobseekerinterview = async (req, res) => {
     return res.status(200).json({ message: "Server Error" });
   }
 };
+// get by id interviews
+
+export const getinterviewid = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Id is required" });
+    }
+    const interview = await Interview.findById(id);
+    if (!interview) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No data in the data base" });
+    }
+    return res.status(200).json({ success: true, interview });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+//  Edit interview by the employer
 
 export const Editinterview = async (req, res) => {
-  const { id } = req.params;
-  if (!data) {
-    return res
-      .status(400)
-      .json({ success: false, message: "No data in the database" });
-  }
-  const { date, time, interviewername, meetingurl, notes } = req.body;
+  try {
+    const { id } = req.params;
+    const { date, time, interviewername, meetingurl, notes } = req.body;
 
-  if (!date || !time || !interviewername || !meetingurl || !notes) {
-    return res
-      .status(400)
-      .json({ success: false, message: "All fields are required" });
+    if (!date || !time || !interviewername || !meetingurl || !notes) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
+    }
+
+    const updatedInterview = await Interview.findByIdAndUpdate(
+      id,
+      {
+        date,
+        time,
+        interviewername,
+        meetingurl,
+        notes,
+      },
+      { new: true }
+    );
+
+    if (!updatedInterview) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Interview not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Interview updated successfully",
+      interview: updatedInterview,
+    });
+  } catch (error) {
+    console.error("Update Error:", error);
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
-  const editinter = await interview.findByIdAndUpdate(id, {
-    date,
-    time,
-    interviewername,
-    meetingurl,
-    notes,
-  });
 };

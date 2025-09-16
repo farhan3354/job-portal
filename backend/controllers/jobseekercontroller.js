@@ -1,5 +1,8 @@
+import Application from "../models/application.js";
+import Job from "../models/jobs.js";
 import JobSeekerProfile from "../models/jobseeker.js";
 
+// create profile
 export const createProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -65,6 +68,8 @@ export const createProfile = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// get all profile
 
 export const getAllProfiles = async (req, res) => {
   try {
@@ -193,6 +198,28 @@ export const deleteProfile = async (req, res) => {
       .json({ success: true, message: "Profile deleted successfully" });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+//  see the applied jobs
+
+export const getallapplicant = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const applications = await Application.find({ userId });
+
+    const jobIds = applications.map((app) => app.jobId);
+
+    const jobs = await Job.find({ _id: { $in: jobIds } });
+
+    if (!jobs || jobs.length == 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Applicant not found" });
+    }
+    return res.status(200).json({ success: true, jobs });
+  } catch (error) {
+    return res.json({});
   }
 };
 
