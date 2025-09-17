@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const AllApplicants = () => {
   const [jobs, setJobs] = useState([]);
   const token = useSelector((state) => state.auth.token);
-
+  const [loading, setloading] = useState(true);
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -16,13 +16,23 @@ const AllApplicants = () => {
         setJobs(res.data.jobs);
       } catch (err) {
         console.error(err);
+      } finally {
+        setloading(false);
       }
     };
     fetchJobs();
   }, [token]);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+  <>
+      <div className="max-w-5xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Your Posted Jobs</h2>
       {jobs.length === 0 ? (
         <p>No jobs posted yet.</p>
@@ -49,6 +59,7 @@ const AllApplicants = () => {
         </div>
       )}
     </div>
+  </>
   );
 };
 

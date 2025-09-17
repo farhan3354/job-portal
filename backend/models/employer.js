@@ -9,6 +9,7 @@ const employerProfileSchema = new mongoose.Schema(
     },
     companylogo: { type: String },
     companyName: { type: String, required: true },
+    companysize: { type: String, required: true },
     companyWebsite: { type: String, required: true },
     industry: { type: String },
     location: { type: String, required: true },
@@ -17,6 +18,6 @@ const employerProfileSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const employer = mongoose.model("EmployerProfile", employerProfileSchema);
+const Employer = mongoose.model("EmployerProfile", employerProfileSchema);
 
-export default employer;
+export default Employer;

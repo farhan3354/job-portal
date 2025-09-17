@@ -7,6 +7,7 @@ import {
   deleteProfile,
   getAllProfiles,
   getallapplicant,
+  getProfileScore,
 } from "../controllers/jobseekercontroller.js";
 import { jobSeekerMiddleware, protect } from "../middlewares/authMiddleware.js";
 
@@ -57,5 +58,12 @@ router.delete(
 
 // get applicant details
 router.get("/details", protect, jobSeekerMiddleware, getallapplicant);
+
+router.get(
+  "/get-profile-score",
+  protect,
+  jobSeekerMiddleware,
+  getProfileScore
+);
 
 export default router;

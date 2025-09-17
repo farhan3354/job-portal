@@ -10,7 +10,6 @@ import Contact from "./pages/Contact.jsx";
 import UserLayout from "./component/common/userLayout/UserLayout.jsx";
 import Userdashboard from "./pages/userDashboardPages/UserDashboard.jsx";
 import Job from "./pages/userDashboardPages/Job.jsx";
-import Saved from "./pages/userDashboardPages/SavedJob.jsx";
 import ApplyJob from "./pages/userDashboardPages/ApplyJob.jsx";
 import Profile from "./pages/userDashboardPages/Profile.jsx";
 import Appliedjob from "./pages/userDashboardPages/AppliedJob.jsx";
@@ -42,6 +41,8 @@ import AllJobsApplicant from "./pages/employerDashboardPages/AllJobsApplicant.js
 import Post from "./pages/testformforpractice/Post.jsx";
 import GetData from "./pages/testformforpractice/GetData.jsx";
 import EditScheduledInterview from "./component/employerDashboard/EditScheduledInterview.jsx";
+import CreateProfile from "./component/employerDashboard/postJobForm/CreateProfile.jsx";
+import EditProfile from "./component/employerDashboard/postJobForm/EditProfile.jsx";
 
 function App() {
   return (
@@ -66,7 +67,6 @@ function App() {
           <Route path="/user-dashboard" element={<UserLayout />}>
             <Route index element={<Userdashboard />} />
             <Route path="jobs" element={<Job />} />
-            <Route path="saved" element={<Saved />} />
             <Route path="apply/:id" element={<ApplyJob />} />
             <Route path="applied" element={<Appliedjob />} />
             <Route path="profile" element={<Profile />} />
@@ -92,7 +92,12 @@ function App() {
             />
             <Route path="all-job/:id" element={<EditJob />} />
             <Route path="view-interviews" element={<SeeInterviews />} />
-            <Route path="edit-interview/:id" element={<EditScheduledInterview />} />
+            <Route
+              path="edit-interview/:id"
+              element={<EditScheduledInterview />}
+            />
+            <Route path="createprofile" element={<CreateProfile />} />
+            <Route path="editprofile" element={<EditProfile />} />
             <Route path="all-job" element={<AllPostedJob />} />
             <Route
               path="all-job/details/:id"

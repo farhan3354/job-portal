@@ -1,4 +1,3 @@
-// src/components/interview/ViewInterview.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -44,9 +43,7 @@ const ViewInterview = () => {
     );
   }
 
-  function Editinterview() {
-    alert("You want to edit the interview");
-  }
+ 
   return (
     <>
       <div className="min-h-screen bg-gray-50 py-8 px-4">

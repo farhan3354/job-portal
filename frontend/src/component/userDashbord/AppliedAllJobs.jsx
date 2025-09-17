@@ -18,7 +18,7 @@ export default function AppliedAllJobs() {
       const repos = await axios.get("http://localhost:8000/details", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setappliedjobs(repos.data.jobs || null);
+      setappliedjobs(repos.data.applications || null);
     } catch (error) {
       console.log(error);
     } finally {
@@ -30,11 +30,22 @@ export default function AppliedAllJobs() {
   }, [token]);
   if (loading) {
     return (
-      <>
-        <h3>No Applied data</h3>
-      </>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
     );
   }
+
+  if (!appliedJobs || appliedJobs.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <h3 className="text-xl font-semibold text-gray-700">
+          No applied jobs found
+        </h3>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -91,42 +102,46 @@ export default function AppliedAllJobs() {
               <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                 <div className="mb-4 md:mb-0">
                   <h3 className="text-xl font-semibold text-gray-800 mb-1">
-                    {job.jobTitle}
+                    {job?.jobId.jobTitle}
                   </h3>
-                  <p className="text-gray-600 mb-2">{job.companyName}</p>
+                  <p className="text-gray-600 mb-2">{job?.jobId.companyName}</p>
 
                   <div className="flex flex-wrap items-center gap-4 mt-3">
                     <div className="flex items-center text-gray-600">
                       <FaBriefcase className="mr-2 text-blue-500" />
-                      <span>{job.employmentType}</span>
+                      <span>{job?.jobId.employmentType}</span>
                     </div>
                     <div className="flex items-center text-gray-600">
                       <FaMapMarkerAlt className="mr-2 text-blue-500" />
-                      <span>{job.location}</span>
+                      <span>{job?.jobId.location}</span>
                     </div>
                     <div className="flex items-center text-gray-600">
                       <FaCalendarAlt className="mr-2 text-blue-500" />
                       <span>
                         Applied on{" "}
-                        {new Date(job.createdAt).toLocaleDateString()}
+                        {new Date(job?.jobId.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-start md:items-end">
-                  <p className="text-gray-700 font-medium">{job.salary}</p>
+                  <p className="text-gray-700 font-medium">
+                    {job?.jobId.salary}
+                  </p>
                 </div>
               </div>
 
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-gray-700 mb-4">{job.jobDescription}</p>
+                <p className="text-gray-700 mb-4">
+                  {job?.jobId.jobDescription}
+                </p>
 
-                {job.status === "interview" && job.jobDescription && (
+                {job.status === "interview" && job?.jobId.jobDescription && (
                   <div className="bg-blue-50 text-blue-800 px-4 py-3 rounded-md">
                     <p className="font-medium">
                       Interview scheduled for{" "}
-                      {new Date(job.createdAt).toLocaleDateString()}
+                      {new Date(job?.jobId.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 )}
