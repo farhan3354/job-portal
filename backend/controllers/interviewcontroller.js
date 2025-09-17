@@ -70,7 +70,7 @@ export const jobseekerinterview = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Id is required" });
     }
-    const jobseekerinter = await Interview.findOne({
+    const jobseekerinter = await Interview.find({
       candidateId: userId,
     }).populate("candidateId", "name email");
     if (!jobseekerinter) {

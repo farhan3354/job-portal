@@ -23,11 +23,7 @@ export const menuItems = [
     icon: "MdSend",
     to: "/user-dashboard/applied",
   },
-  {
-    title: "Saved Jobs",
-    icon: "MdBookmark",
-    to: "/user-dashboard/saved",
-  },
+
   {
     title: "All Jobs",
     icon: "MdOutlineWorkOutline",
@@ -47,7 +43,6 @@ export const menuItems = [
 
 export const employersidebarmenu = [
   { title: "Dashboard", to: "/employer-dashboard", icon: "RxDashboard" },
-  { title: "Profile", to: "/employer-dashboard/profile", icon: "CgProfile" },
 
   {
     title: "Post a Job",
@@ -69,6 +64,7 @@ export const employersidebarmenu = [
     to: "/employer-dashboard/view-interviews",
     icon: "MdWork",
   },
+  { title: "Profile", to: "/employer-dashboard/profile", icon: "CgProfile" },
 ];
 
 export const adminsidebarmenu = [
