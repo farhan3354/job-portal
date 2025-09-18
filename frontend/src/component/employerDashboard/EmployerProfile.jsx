@@ -7,6 +7,8 @@ import {
   FaMapMarkerAlt,
   FaUsers,
   FaRegUserCircle,
+  FaUserTimes,
+  FaPlus,
 } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
@@ -60,7 +62,7 @@ export default function EmployerProfile() {
           </p>
 
           <Link
-            to={"createprofile"}
+            to={"/employer-dashboard/createprofile"}
             className="inline-flex items-center px-6 py-3 text-white font-semibold rounded-xl bg-blue-600"
           >
             <FaPlus />

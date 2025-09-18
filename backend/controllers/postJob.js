@@ -63,7 +63,6 @@ export const createJob = async (req, res) => {
   }
 };
 
-
 // all jobs for the job-seeker
 
 export const getalljobs = async (req, res) => {
@@ -80,6 +79,21 @@ export const getalljobs = async (req, res) => {
   }
 };
 
+// jobs for the admin dashboard
+
+export const getalljob = async (req, res) => {
+  try {
+    const jobs = await Job.find().populate("postedBy");
+
+    if (!jobs || jobs.length === 0) {
+      return res.status(400).json({ message: "No jobs in the database" });
+    }
+
+    return res.status(200).json({ message: "Jobs fetched successfully", jobs });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to get jobs" });
+  }
+};
 
 // all the employer specific job
 
@@ -104,7 +118,6 @@ export const getjobsbyid = async (req, res) => {
     return res.status(500).json({ message: "Failed to fetch jobs" });
   }
 };
-
 
 export const getidjob = async (req, res) => {
   try {

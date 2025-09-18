@@ -1,5 +1,9 @@
 import express from "express";
-import { protect, employerMiddleware } from "../middlewares/authMiddleware.js";
+import {
+  protect,
+  employerMiddleware,
+  adminMiddleware,
+} from "../middlewares/authMiddleware.js";
 import {
   createJob,
   getalljobs,
@@ -7,6 +11,7 @@ import {
   deletejob,
   editjob,
   getidjob,
+  getalljob,
 } from "../controllers/postJob.js";
 
 const router = express.Router();
@@ -19,6 +24,9 @@ router.post("/post-job", protect, employerMiddleware, createJob);
 
 //  fetch all jobs for the jobseeker
 router.get("/get-alljobs", getalljobs);
+
+//  fetch all jobs for the admin
+router.get("/getalljobs", protect, adminMiddleware, getalljob);
 
 // get the specific employers jobs
 router.get("/get-jobs", protect, employerMiddleware, getjobsbyid);

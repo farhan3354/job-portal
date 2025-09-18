@@ -38,7 +38,7 @@ export default function CreateProfile() {
       toast.success("Profile Update successfully");
 
       console.log(repo);
-      navigate("profile");
+      navigate("/employer-dashboard/profile");
     } catch (error) {
       console.log(error);
     }
