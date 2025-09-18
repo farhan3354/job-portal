@@ -1,6 +1,14 @@
 import express from "express";
-import { registeruser, loginuser } from "../controllers/authController.js";
-import { protect } from "../middlewares/authMiddleware.js";
+import {
+  registeruser,
+  loginuser,
+  getUsers,
+  getemployer,
+  createrofile,
+  getProfile,
+} from "../controllers/authController.js";
+import { adminMiddleware, protect } from "../middlewares/authMiddleware.js";
+import { upload } from "../middlewares/multermiddleware.js";
 
 const router = express.Router();
 
@@ -12,10 +20,23 @@ router.get("/", (req, res) => {
   res.send("Hello from the server");
 });
 
-router.get("/verify", protect
-  , (req, res) => {
+router.get("/verify", protect, (req, res) => {
   res.json({ message: "Token valid", user: req.user });
-}
+});
+
+router.get("/getuser", protect, adminMiddleware, getUsers);
+
+router.get("/getemployer", protect, adminMiddleware, getemployer);
+
+// Create profile
+router.post(
+  "/adminProfile",
+  protect,
+  adminMiddleware,
+  upload.single("profileImage"),
+  createrofile
 );
+// Get profile by userId
+router.get("/admin", protect, getProfile);
 
 export default router;

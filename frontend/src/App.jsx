@@ -43,6 +43,8 @@ import GetData from "./pages/testformforpractice/GetData.jsx";
 import EditScheduledInterview from "./component/employerDashboard/EditScheduledInterview.jsx";
 import CreateProfile from "./component/employerDashboard/postJobForm/CreateProfile.jsx";
 import EditProfile from "./component/employerDashboard/postJobForm/EditProfile.jsx";
+import CreateAdminProfile from "./component/adminDashoardComponents/CreateAdminProfile.jsx";
+import EditAdminProfile from "./component/adminDashoardComponents/EditAdminProfile.jsx";
 
 function App() {
   return (
@@ -112,6 +114,8 @@ function App() {
             <Route path="manage-users" element={<ManageUser />} />
             <Route path="manage-employers" element={<ManageEmployer />} />
             <Route path="manage-jobs" element={<ManageJobs />} />
+            <Route path="createprofile" element={<CreateAdminProfile />} />
+            <Route path="editadmin" element={<EditAdminProfile />} />
           </Route>
         </Route>
       </Routes>

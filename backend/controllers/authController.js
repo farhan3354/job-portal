@@ -2,6 +2,9 @@ import jwt from "jsonwebtoken";
 import User from "../models/usermodel.js";
 import bcrypt from "bcrypt";
 import { mailOptions, transporter } from "../helper/registeremail.js";
+import JobSeekerProfile from "../models/jobseeker.js";
+import Employer from "../models/employer.js";
+import AdminProfile from "../models/admin.js";
 
 export const registeruser = async (req, res) => {
   try {
@@ -26,9 +29,8 @@ export const registeruser = async (req, res) => {
       password: hashedPassword,
     });
     await transporter.sendMail(mailOptions(email, name));
-    
 
-   return res.status(201).json({
+    return res.status(201).json({
       message:
         "Registration email sent successfully . User registered successfully",
       user,
@@ -76,5 +78,112 @@ export const loginuser = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const profile = await JobSeekerProfile.find().populate("userId");
+    // const users = await User.find({role: "job-seeker"});
+
+    if (profile.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No jobseekers found" });
+    }
+
+    return res.status(200).json({ success: true, profile });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Server Error", error: error.message });
+  }
+};
+
+export const getemployer = async (req, res) => {
+  try {
+    const employer = await Employer.find().populate("userId");
+    if (employer.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No jobseekers found" });
+    }
+
+    return res.status(200).json({ success: true, employer });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+// Create
+export const createrofile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { bio, location } = req.body;
+
+    if (!userId) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: User ID missing" });
+    }
+
+    if (!bio || !location) {
+      return res.status(400).json({
+        success: false,
+        message: "Both bio and location are required",
+      });
+    }
+
+    // Check if file was uploaded
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Profile image is required" });
+    }
+
+    const profileImageUrl = req.file.path;
+
+    const existingProfile = await AdminProfile.findOne({ userId });
+    if (existingProfile) {
+      return res
+        .status(409)
+        .json({ success: false, message: "Profile already exists" });
+    }
+
+    const profile = await AdminProfile.create({
+      userId,
+      bio,
+      location,
+      profileImage: profileImageUrl,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Profile created successfully",
+      data: profile,
+    });
+  } catch (error) {
+    console.error("Error creating profile:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+// Get Profile
+export const getProfile = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const profile = await AdminProfile.findOne({
+      userId: id,
+    }).populate("userId", "name email role phone");
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+    return res.status(200).json({ profile });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
