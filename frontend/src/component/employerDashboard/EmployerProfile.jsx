@@ -8,7 +8,7 @@ import {
   FaUsers,
   FaRegUserCircle,
   FaUserTimes,
-  FaPlus,
+  FaPlus,FaEdit 
 } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
@@ -120,6 +120,13 @@ export default function EmployerProfile() {
           className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 w-full md:w-auto"
         >
           Edit Profile
+        </Link>
+        <Link
+          to="/employer-dashboard/change-password"
+          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          <FaEdit className="mr-2" />
+          Change Password
         </Link>
       </div>
 

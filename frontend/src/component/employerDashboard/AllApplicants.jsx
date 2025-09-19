@@ -31,35 +31,49 @@ const AllApplicants = () => {
   }
 
   return (
-  <>
-      <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Your Posted Jobs</h2>
-      {jobs.length === 0 ? (
-        <p>No jobs posted yet.</p>
-      ) : (
-        <div className="space-y-4">
-          {jobs.map((job) => (
-            <div
-              key={job._id}
-              className="bg-white p-4 rounded-lg shadow flex justify-between items-center"
-            >
-              <div>
-                <h3 className="text-lg font-semibold mb-1">{job.jobTitle}</h3>
-                <p className="text-gray-600 mb-1">{job.location}</p>
-                <p className="text-gray-600">{job.companyName}</p>
-              </div>
-              <Link
-                to={`/employer-dashboard/job-applicants/${job._id}`}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+    <>
+      <div className="max-w-5xl mx-auto p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
+          Your Posted Jobs
+        </h2>
+
+        {jobs.length === 0 ? (
+          <p className="text-gray-600 text-sm sm:text-base">
+            No jobs posted yet.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            {jobs.map((job) => (
+              <div
+                key={job._id}
+                className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 hover:shadow-md transition"
               >
-                See Applicants
-              </Link>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  </>
+                {/* Job Info */}
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
+                    {job.jobTitle}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base mb-0.5">
+                    {job.location}
+                  </p>
+                  <p className="text-gray-500 text-sm sm:text-base">
+                    {job.companyName}
+                  </p>
+                </div>
+
+                {/* Action Button */}
+                <Link
+                  to={`/employer-dashboard/job-applicants/${job._id}`}
+                  className="inline-flex justify-center items-center px-3 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                >
+                  See Applicants
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

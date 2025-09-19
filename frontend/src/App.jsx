@@ -45,6 +45,7 @@ import CreateProfile from "./component/employerDashboard/postJobForm/CreateProfi
 import EditProfile from "./component/employerDashboard/postJobForm/EditProfile.jsx";
 import CreateAdminProfile from "./component/adminDashoardComponents/CreateAdminProfile.jsx";
 import EditAdminProfile from "./component/adminDashoardComponents/EditAdminProfile.jsx";
+import ChangePassword from "./component/adminDashoardComponents/ChangePassword.jsx";
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="profile/create" element={<JobSeekerProfileForm />} />
             <Route path="profile/edit" element={<EditJobSeeker />} />
+            <Route path="change-password" element={<ChangePassword />} />
 
             <Route path="interview" element={<Interview />} />
           </Route>
@@ -105,6 +107,7 @@ function App() {
               path="all-job/details/:id"
               element={<EmployerJobDetails />}
             />
+            <Route path="change-password" element={<ChangePassword />} />
           </Route>
         </Route>
         <Route element={<ProtectRoute role="admin" />}>
@@ -116,6 +119,7 @@ function App() {
             <Route path="manage-jobs" element={<ManageJobs />} />
             <Route path="createprofile" element={<CreateAdminProfile />} />
             <Route path="editadmin" element={<EditAdminProfile />} />
+            <Route path="change-password" element={<ChangePassword />} />
           </Route>
         </Route>
       </Routes>
