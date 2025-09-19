@@ -107,6 +107,12 @@ export default function ProfileSetting() {
           >
             Edit Profile
           </Link>
+          <Link
+            to={"/user-dashboard/change-password"}
+            className="bg-blue-600 text-white text-sm md:text-base font-medium rounded-xl px-4 py-2 hover:bg-blue-700 ml-0.5"
+          >
+            Change Password
+          </Link>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">

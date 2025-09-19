@@ -43,11 +43,10 @@ const ViewInterview = () => {
     );
   }
 
- 
   return (
     <>
       <div className="min-h-screen bg-gray-50 py-8 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           <div className="mb-10">
             <button
               onClick={() => navigate(-1)}
@@ -63,7 +62,7 @@ const ViewInterview = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
             {interviews.map((intervie) => (
               <div
                 key={intervie._id}

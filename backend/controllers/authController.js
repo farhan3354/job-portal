@@ -134,7 +134,6 @@ export const createrofile = async (req, res) => {
       });
     }
 
-    // Check if file was uploaded
     if (!req.file) {
       return res
         .status(400)
@@ -185,5 +184,101 @@ export const getProfile = async (req, res) => {
     return res.status(200).json({ profile });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+// change profile
+
+export const editadminprofile = async (req, res) => {
+  try {
+    const id = req.user.id;
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID is required" });
+    }
+
+    const { name, email, phone, bio, location } = req.body;
+
+    const userUpdate = {};
+    if (name) userUpdate.name = name;
+    if (email) userUpdate.email = email;
+    if (phone) userUpdate.phone = phone;
+
+    const adminUpdate = {};
+    if (bio) adminUpdate.bio = bio;
+    if (location) adminUpdate.location = location;
+    if (req.file) adminUpdate.profileImage = req.file.path;
+
+    const updatedUser = await User.findByIdAndUpdate(id, userUpdate, {
+      new: true,
+    });
+
+    const updatedAdminProfile = await AdminProfile.findOneAndUpdate(
+      { userId: id },
+      adminUpdate,
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: updatedUser,
+      adminProfile: updatedAdminProfile,
+    });
+  } catch (error) {
+    console.error("Error updating admin profile:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Server Error", error: error.message });
+  }
+};
+
+// change password
+
+export const ChangePassword = async (req, res) => {
+  try {
+    const id = req.user.id;
+
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID is required" });
+    }
+
+    const { oldpassword, newpassword } = req.body;
+
+    if (!oldpassword || !newpassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
+    }
+
+    const profile = await User.findById(id);
+
+    if (!profile) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Profile not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldpassword, profile.password);
+
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Old password is incorrect" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newpassword, 10);
+    profile.password = hashedPassword;
+    await profile.save();
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Change password error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 };
