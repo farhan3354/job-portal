@@ -22,7 +22,7 @@ const jobSchema = new mongoose.Schema(
     contactPhone: { type: String },
     status: {
       type: String,
-      enum: ["Active", "Closed"],
+      enum: ["Active", "Inactive", "Closed"],
       default: "Active",
       required: true,
     },

@@ -33,6 +33,9 @@ export default function JobList() {
   useEffect(() => {
     fetchAllJobs();
   }, []);
+  const activeJobs = jobs.filter(
+    (job) => job.status !== "Closed" && job.status !== "Inactive"
+  );
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -41,13 +44,15 @@ export default function JobList() {
           <LeftSidejob
             selectedJob={selectedJob}
             setSelectedJob={setSelectedJob}
-            jobs={jobs}
+            jobs={activeJobs}
           />
 
           {selectedJob && (
-            <div className="lg:w-1/2 py-8" key={selectedJob._id || selectedJob.id}>
+            <div
+              className="lg:w-1/2 py-8"
+              key={selectedJob._id || selectedJob.id}
+            >
               <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 sticky top-4">
-              
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start gap-4 mb-4">
                   <div className="flex-1">
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
@@ -148,8 +153,6 @@ export default function JobList() {
     </div>
   );
 }
-
-
 
 // import React, { useState, useEffect } from "react";
 // import {

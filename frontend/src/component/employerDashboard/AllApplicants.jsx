@@ -29,6 +29,7 @@ const AllApplicants = () => {
       </div>
     );
   }
+  const activeJobs = jobs.filter((job) => job.status !== "Closed");
 
   return (
     <>
@@ -37,18 +38,17 @@ const AllApplicants = () => {
           Your Posted Jobs
         </h2>
 
-        {jobs.length === 0 ? (
+        {activeJobs.length === 0 ? (
           <p className="text-gray-600 text-sm sm:text-base">
             No jobs posted yet.
           </p>
         ) : (
           <div className="space-y-4">
-            {jobs.map((job) => (
+            {activeJobs.map((job) => (
               <div
                 key={job._id}
                 className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 hover:shadow-md transition"
               >
-                {/* Job Info */}
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
                     {job.jobTitle}
@@ -61,7 +61,6 @@ const AllApplicants = () => {
                   </p>
                 </div>
 
-                {/* Action Button */}
                 <Link
                   to={`/employer-dashboard/job-applicants/${job._id}`}
                   className="inline-flex justify-center items-center px-3 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
