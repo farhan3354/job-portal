@@ -225,3 +225,25 @@ export const editjob = async (req, res) => {
     });
   }
 };
+
+// change status of the jobs
+
+export const changestatusjob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const findjob = await Job.findById(id);
+    const { status } = req.body;
+    if (!findjob) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    findjob.status = status;
+    await findjob.save();
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Status changed successfully" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};

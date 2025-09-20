@@ -19,6 +19,9 @@ export default function FeaturedJobs() {
   useEffect(() => {
     getAllJobs();
   }, []);
+  const activeJobs = jobs.filter(
+    (job) => job.status !== "Closed" && job.status !== "Inactive"
+  );
 
   return (
     <div className="py-16 px-4">
@@ -34,10 +37,8 @@ export default function FeaturedJobs() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {jobs.length > 0 ? (
-            jobs.map((job) => (
-              <JobCard key={job._id} job={job} />
-            ))
+          {activeJobs.length > 0 ? (
+            activeJobs.map((job) => <JobCard key={job._id} job={job} />)
           ) : (
             <p>No jobs found.</p>
           )}

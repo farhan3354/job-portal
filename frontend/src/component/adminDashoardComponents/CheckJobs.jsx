@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 
 export default function CheckJobs() {
   const [jobs, setJobs] = useState([]);
+  const [showOptions, setShowOptions] = useState(null);
 
   const token = useSelector((state) => state.auth.token);
   const fetchadminjobs = async () => {
@@ -62,6 +63,27 @@ export default function CheckJobs() {
       } catch (error) {
         Swal.fire("Error!", "Failed to delete job.", error);
       }
+    }
+  };
+
+  const handleStatusChange = async (jobId, status) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/update-job-status/${jobId}`,
+        { status },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.data.success) {
+        setJobs(
+          jobs.map((job) => (job._id === jobId ? { ...job, status } : job))
+        );
+        Swal.fire("Updated!", `Job set to ${status}.`, "success");
+      }
+    } catch (error) {
+      Swal.fire("Error!", "Failed to update status.", error);
+    } finally {
+      setShowOptions(null);
     }
   };
 
@@ -146,7 +168,9 @@ export default function CheckJobs() {
                         </div>
                       </td>
                       <td className="px-4 md:px-6 py-4 whitespace-nowrap">
-                        <div className="text-gray-700">{job?.postedBy.name}</div>
+                        <div className="text-gray-700">
+                          {job?.postedBy.name}
+                        </div>
                       </td>
                       <td className="px-4 md:px-6 py-4 whitespace-nowrap">
                         <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
@@ -177,12 +201,45 @@ export default function CheckJobs() {
                       </td>
                       <td className="px-4 md:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex items-center justify-end space-x-2 md:space-x-3">
-                          <button
+                          {/* <button
                             className="text-yellow-600 hover:text-yellow-900 p-1 rounded-full hover:bg-yellow-50"
                             title="Edit"
                           >
                             <FaEdit />
-                          </button>
+                          </button> */}
+                          <div className="relative inline-block">
+                            <button
+                              onClick={() =>
+                                setShowOptions(
+                                  showOptions === job._id ? null : job._id
+                                )
+                              }
+                              className="p-2 bg-blue-100 rounded-full text-blue-600 hover:bg-blue-200 transition"
+                            >
+                              <FaEdit />
+                            </button>
+
+                            {showOptions === job._id && (
+                              <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                <button
+                                  className="block w-full px-4 py-2 text-left text-sm text-green-600 hover:bg-gray-100"
+                                  onClick={() =>
+                                    handleStatusChange(job._id, "Active")
+                                  }
+                                >
+                                  Active
+                                </button>
+                                <button
+                                  className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
+                                  onClick={() =>
+                                    handleStatusChange(job._id, "Inactive")
+                                  }
+                                >
+                                  Inactive
+                                </button>
+                              </div>
+                            )}
+                          </div>
                           <button
                             className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
                             title="Delete"
