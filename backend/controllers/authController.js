@@ -6,6 +6,40 @@ import JobSeekerProfile from "../models/jobseeker.js";
 import Employer from "../models/employer.js";
 import AdminProfile from "../models/admin.js";
 
+// export const registeruser = async (req, res) => {
+//   try {
+//     const { role, name, email, phone, password } = req.body;
+
+//     if (!role || !name || !email || !phone || !password) {
+//       return res.status(400).json({ message: "All the fields are required" });
+//     }
+
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(409).json({ message: "User already exists" });
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     const user = await User.create({
+//       role,
+//       name,
+//       email,
+//       phone,
+//       password: hashedPassword,
+//     });
+//     await transporter.sendMail(mailOptions(email, name));
+
+//     return res.status(201).json({
+//       message:
+//         "Registration email sent successfully . User registered successfully",
+//       user,
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const registeruser = async (req, res) => {
   try {
     const { role, name, email, phone, password } = req.body;
@@ -21,20 +55,51 @@ export const registeruser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpires = Date.now() + 5 * 60 * 1000;
+
     const user = await User.create({
       role,
       name,
       email,
       phone,
       password: hashedPassword,
+      otp,
+      otpExpires,
     });
-    await transporter.sendMail(mailOptions(email, name));
+
+    await transporter.sendMail(mailOptions(name, email, otp));
 
     return res.status(201).json({
-      message:
-        "Registration email sent successfully . User registered successfully",
-      user,
+      message: "OTP sent to your email. Please verify your account.",
+      userId: user._id,
     });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const verifyOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    const user = await User.findOne({email});
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    if (user.isVerified) {
+      return res.status(400).json({ message: "User already verified" });
+    }
+
+    if (user.otp !== otp || user.otpExpires < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    user.isVerified = true;
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: "Account verified successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -51,6 +116,12 @@ export const loginuser = async (req, res) => {
     const checkuser = await User.findOne({ email });
     if (!checkuser) {
       return res.status(400).json({ message: "User does not exist" });
+    }
+
+    if (!checkuser.isVerified) {
+      return res
+        .status(403)
+        .json({ message: "Please verify your account before login" });
     }
 
     const matchpassword = await bcrypt.compare(password, checkuser.password);
@@ -80,6 +151,47 @@ export const loginuser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// export const loginuser = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+
+//     if (!email || !password) {
+//       return res.status(400).json({ message: "Fill all the details" });
+//     }
+
+//     const checkuser = await User.findOne({ email });
+//     if (!checkuser) {
+//       return res.status(400).json({ message: "User does not exist" });
+//     }
+
+//     const matchpassword = await bcrypt.compare(password, checkuser.password);
+//     if (!matchpassword) {
+//       return res.status(401).json({ message: "Invalid credentials" });
+//     }
+
+//     const token = jwt.sign(
+//       { id: checkuser._id, role: checkuser.role },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1d" }
+//     );
+
+//     res.status(200).json({
+//       message: "Login successful",
+//       token,
+//       user: {
+//         id: checkuser._id,
+//         role: checkuser.role,
+//         name: checkuser.name,
+//         email: checkuser.email,
+//         phone: checkuser.phone,
+//       },
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 
 export const getUsers = async (req, res) => {
   try {

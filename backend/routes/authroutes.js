@@ -8,13 +8,20 @@ import {
   getProfile,
   editadminprofile,
   ChangePassword,
+  verifyOtp,
 } from "../controllers/authController.js";
-import { adminMiddleware, employerMiddleware, protect } from "../middlewares/authMiddleware.js";
+import {
+  adminMiddleware,
+  employerMiddleware,
+  protect,
+} from "../middlewares/authMiddleware.js";
 import { upload } from "../middlewares/multermiddleware.js";
 
 const router = express.Router();
 
 router.post("/register", registeruser);
+
+router.post("/verify-otp", verifyOtp);
 
 router.post("/login", loginuser);
 
@@ -38,6 +45,7 @@ router.post(
   upload.single("profileImage"),
   createrofile
 );
+
 // Get profile by userId
 router.get("/admin", protect, getProfile);
 
@@ -50,6 +58,5 @@ router.patch(
 );
 
 router.patch("/changepassword", protect, ChangePassword);
-
 
 export default router;

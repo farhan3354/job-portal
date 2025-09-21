@@ -14,14 +14,26 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-// Dynamic mail options
-export const mailOptions = (email, name) => ({
+export const mailOptions = (name, email, otp) => ({
   from: `"Your Website" <${process.env.EMAIL_USER}>`,
   to: email,
-  subject: "Welcome to Our Website!",
+  subject: "Verify your account - OTP",
   html: `
-    <h2>Hello ${name},</h2>
-    <p>Thank you for registering on our website.</p>
-    <p>We're excited to have you on board! 🎉</p>
-  `,
+        <h2>Hello ${name},</h2>
+        <p>Your OTP for account verification is:</p>
+        <h1>${otp}</h1>
+        <p>This code will expire in 5 minutes.</p>
+      `,
 });
+
+// Dynamic mail options
+// export const mailOptions = (email, name) => ({
+//   from: `"Your Website" <${process.env.EMAIL_USER}>`,
+//   to: email,
+//   subject: "Welcome to Our Website!",
+//   html: `
+//     <h2>Hello ${name},</h2>
+//     <p>Thank you for registering on our website.</p>
+//     <p>We're excited to have you on board! 🎉</p>
+//   `,
+// });

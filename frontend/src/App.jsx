@@ -46,6 +46,7 @@ import EditProfile from "./component/employerDashboard/postJobForm/EditProfile.j
 import CreateAdminProfile from "./component/adminDashoardComponents/CreateAdminProfile.jsx";
 import EditAdminProfile from "./component/adminDashoardComponents/EditAdminProfile.jsx";
 import ChangePassword from "./component/adminDashoardComponents/ChangePassword.jsx";
+import OTPVerifyForm from "./component/Login/OtpVerify.jsx";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
           <Route path="chose-register" element={<ChoseRole />} />
           <Route path="register/job-seeker" element={<Register />} />
           <Route path="register/employer" element={<Register />} />
+          <Route path="/verify-otp" element={<OTPVerifyForm />} />
           <Route path="contact" element={<Contact />} />
           <Route path="postformdata" element={<Post />} />
           <Route path="getformdata" element={<GetData />} />
