@@ -29,7 +29,7 @@ export default function FeaturedJobs() {
         <div className="flex justify-between items-center mb-10">
           <h2 className="text-3xl font-bold">Featured Jobs</h2>
           <Link
-            to="/userdashboard/jobs"
+            to="/user-dashboard/jobs"
             className="flex items-center text-blue-600 hover:text-blue-800"
           >
             View all jobs <FaArrowRight className="ml-2" />

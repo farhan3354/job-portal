@@ -21,6 +21,7 @@ const AdminSeeder = async () => {
         email: process.env.email,
         phone: process.env.phone,
         password: hashedPassword,
+        isVerified: true,
       });
 
       console.log("Admin registered successfully");
