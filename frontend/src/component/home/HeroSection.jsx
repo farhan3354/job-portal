@@ -13,7 +13,7 @@ export default function HeroSection() {
           Thousands of jobs in technology, business, and more. Start your career
           journey with us.
         </p>
-        <SearchBar />
+        {/* <SearchBar /> */}
       </div>
     </div>
   );

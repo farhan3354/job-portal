@@ -50,8 +50,15 @@ export const registeruser = async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
+      if (!existingUser.isVerified && existingUser.otpExpires < Date.now()) {
+        await User.deleteOne({ email });
+      } else {
+        return res.status(409).json({ message: "User already exists" });
+      }
     }
+    // if (existingUser) {
+    //   return res.status(409).json({ message: "User already exists" });
+    // }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -83,7 +90,7 @@ export const verifyOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
 
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "User not found" });
 
     if (user.isVerified) {
