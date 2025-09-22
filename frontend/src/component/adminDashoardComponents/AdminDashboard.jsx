@@ -3,26 +3,30 @@ import { FaUsersLine } from "react-icons/fa6";
 import { ImUserCheck } from "react-icons/im";
 import { RxDashboard } from "react-icons/rx";
 import { IoBriefcaseSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export default function AdminDashboard() {
   const stats = [
     {
       title: "Total Employers",
-      value: 120,
+      // value: 120,
       icon: FaUsersLine,
       color: "bg-blue-500",
+      to: "manage-employers",
     },
     {
       title: "Total Job Seekers",
-      value: 850,
+      // value: 850,
       icon: ImUserCheck,
       color: "bg-green-500",
+      to: "manage-users",
     },
     {
       title: "Active Jobs",
-      value: 342,
+      // value: 342,
       icon: IoBriefcaseSharp,
       color: "bg-purple-500",
+      to: "manage-jobs",
     },
   ];
 
@@ -60,7 +64,8 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {stats.map((stat, index) => (
-            <div
+            <Link
+              to={stat.to}
               key={index}
               className="bg-white rounded-2xl shadow-md p-6 flex items-center space-x-4 hover:shadow-lg"
             >
@@ -71,9 +76,9 @@ export default function AdminDashboard() {
                 <h2 className="text-lg font-semibold text-gray-700">
                   {stat.title}
                 </h2>
-                <p className="text-xl font-bold text-gray-900">{stat.value}</p>
+                {/* <p className="text-xl font-bold text-gray-900">{stat.value}</p> */}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

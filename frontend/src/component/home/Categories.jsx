@@ -10,22 +10,22 @@ export default function Categories() {
     {
       icon: <FaUserTie className="text-blue-500 text-2xl" />,
       name: "Business",
-      jobs: 1243,
+      // jobs: 1243,
     },
     {
       icon: <FaLaptopCode className="text-blue-500 text-2xl" />,
       name: "Technology",
-      jobs: 3562,
+      // jobs: 3562,
     },
     {
       icon: <FaChartLine className="text-blue-500 text-2xl" />,
       name: "Marketing",
-      jobs: 892,
+      // jobs: 892,
     },
     {
       icon: <FaShieldAlt className="text-blue-500 text-2xl" />,
       name: "Security",
-      jobs: 567,
+      // jobs: 567,
     },
   ];
 
@@ -48,7 +48,7 @@ export default function Categories() {
             >
               <div className="flex justify-center mb-4">{category.icon}</div>
               <h3 className="font-bold text-lg mb-2">{category.name}</h3>
-              <p className="text-gray-500">{category.jobs} jobs available</p>
+              {/* <p className="text-gray-500">{category.jobs} jobs available</p> */}
             </div>
           ))}
         </div>

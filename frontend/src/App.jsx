@@ -47,6 +47,7 @@ import CreateAdminProfile from "./component/adminDashoardComponents/CreateAdminP
 import EditAdminProfile from "./component/adminDashoardComponents/EditAdminProfile.jsx";
 import ChangePassword from "./component/adminDashoardComponents/ChangePassword.jsx";
 import OTPVerifyForm from "./component/Login/OtpVerify.jsx";
+import Blog from "./pages/Blog.jsx";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
           <Route path="register/employer" element={<Register />} />
           <Route path="/verify-otp" element={<OTPVerifyForm />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="blog" element={<Blog />} />
           <Route path="postformdata" element={<Post />} />
           <Route path="getformdata" element={<GetData />} />
           <Route path="*" element={<PageNotFound />} />

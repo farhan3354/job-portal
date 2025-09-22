@@ -13,6 +13,7 @@ import {
   getidjob,
   getalljob,
   changestatusjob,
+  dashboardjob,
 } from "../controllers/postJob.js";
 
 const router = express.Router();
@@ -42,5 +43,7 @@ router.delete("/remove/:id", protect, employerMiddleware, deletejob);
 router.put("/edit-job/:id", protect, employerMiddleware, editjob);
 
 router.put("/update-job-status/:id", protect, changestatusjob);
+
+router.get("/employerjob", protect, employerMiddleware, dashboardjob);
 
 export default router;

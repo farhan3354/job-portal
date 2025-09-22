@@ -133,6 +133,23 @@ export const getidjob = async (req, res) => {
   }
 };
 
+// one job for the employer dashboard
+
+export const dashboardjob = async (req, res) => {
+  try {
+    const userid = req.user.id;
+    const job = await Job.findOne({ postedBy: userid }).sort({ createdAt: -1 });
+    if (!job) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No job is posted by this employer" });
+    }
+    return res.status(200).json({ success: true, job });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
 //  delete specgic job by the owner of the job
 
 export const deletejob = async (req, res) => {
