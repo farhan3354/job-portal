@@ -21,6 +21,17 @@ const JobApplications = () => {
   const [applicants, setApplicants] = useState([]);
   const token = useSelector((state) => state.auth.token);
   const [loading, setloading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const applicantsPerPage = 10;
+
+  const indexOfLastApplicant = currentPage * applicantsPerPage;
+  const indexOfFirstApplicant = indexOfLastApplicant - applicantsPerPage;
+  const currentApplicants = applicants.slice(
+    indexOfFirstApplicant,
+    indexOfLastApplicant
+  );
+
+  const totalPages = Math.ceil(applicants.length / applicantsPerPage);
 
   useEffect(() => {
     const fetchApplicants = async () => {
@@ -38,11 +49,12 @@ const JobApplications = () => {
         setloading(false);
       }
     };
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     if (jobId && token) {
       fetchApplicants();
     }
-  }, [jobId, token]);
+  }, [jobId, token, currentPage]);
 
   const isSameDay = (d1, d2) =>
     d1.getFullYear() === d2.getFullYear() &&
@@ -180,7 +192,7 @@ const JobApplications = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {applicants.map((applicant) => (
+                  {currentApplicants.map((applicant) => (
                     <tr key={applicant.id} className="hover:bg-gray-50">
                       <td className="px-4 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -255,7 +267,7 @@ const JobApplications = () => {
               </table>
 
               <div className="md:hidden">
-                {applicants.map((applicant) => {
+                {currentApplicants.map((applicant) => {
                   <div
                     key={applicant._id}
                     className="border-b border-gray-200 p-4"
@@ -351,6 +363,47 @@ const JobApplications = () => {
               </div>
             </div>
           </div>
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6 space-x-2">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`px-3 py-1 border rounded ${
+                  currentPage === 1
+                    ? "bg-gray-200 cursor-not-allowed"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+              >
+                Previous
+              </button>
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`px-3 py-1 border rounded ${
+                    currentPage === index + 1
+                      ? "bg-blue-500 text-white"
+                      : "bg-white hover:bg-gray-100"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                className={`px-3 py-1 border rounded ${
+                  currentPage === totalPages
+                    ? "bg-gray-200 cursor-not-allowed"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -358,59 +411,3 @@ const JobApplications = () => {
 };
 
 export default JobApplications;
-
-// import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import axios from "axios";
-// import { useSelector } from "react-redux";
-
-// const JobApplicants = () => {
-// const { id: jobId } = useParams();
-// const [applicants, setApplicants] = useState([]);
-// const token = useSelector((state) => state.auth.token);
-
-// useEffect(() => {
-//   const fetchApplicants = async () => {
-//     try {
-//       const res = await axios.get(
-//         `http://localhost:8000/all-applicant/${jobId}`,
-//         {
-//           headers: { Authorization: `Bearer ${token}` },
-//         }
-//       );
-//       setApplicants(res.data.applicants);
-//     } catch (err) {
-//       console.error("Failed to fetch applicants:", err);
-//     }
-//   };
-//   if (jobId && token) {
-//     fetchApplicants();
-//   }
-// }, [jobId, token]);
-
-// if (applicants.length === 0) {
-//   return (
-//     <div className="max-w-6xl mx-auto p-6">
-//       <h2 className="text-2xl font-bold mb-6">Applicants</h2>
-//       <p>No applicants yet for this job.</p>
-//     </div>
-//   );
-// }
-
-//   return (
-//     <div className="max-w-6xl mx-auto p-6 space-y-4">
-//       <h2 className="text-2xl font-bold mb-6">Applicants</h2>
-//       {applicants.map((applicant) => (
-//         <div key={applicant._id} className="bg-white p-4 rounded-lg shadow">
-//           <h3 className="text-lg font-semibold">{applicant.applicantId?.name}</h3>
-//           <p className="text-gray-600">{applicant.applicantId?.email}</p>
-//           <p className="text-gray-600">{applicant.applicantId?.phone}</p>
-//           <p className="text-gray-600">Experience: {applicant.experience}</p>
-//           <p className="text-gray-600">Cover Letter: {applicant.coverLetter}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default JobApplicants;

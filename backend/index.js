@@ -5,6 +5,7 @@ import userRoutes from "./routes/authroutes.js";
 import userApply from "./routes/applicationroutes.js";
 import postJob from "./routes/jobPost.js";
 import employer from "./routes/employerroutes.js";
+import blog from "./routes/blogRoutes.js";
 import { v2 as cloudinary } from "cloudinary";
 import profile from "./routes/jobseekerroutes.js";
 import apllicant from "./routes/getapplicant.js";
@@ -44,6 +45,8 @@ app.use("/", formdata);
 
 app.use("/", interviewrouter);
 app.use("/", employer);
+
+app.use("/", blog);
 
 connectDB();
 app.listen(port, () => {

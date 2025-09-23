@@ -1,12 +1,42 @@
 import React, { useState } from "react";
 import { navItems } from "../../data/data";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CgMenu } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
 import img from "./../../assets/music.svg";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { logout } from "../../redux/slices/authslices/userslice";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const token = useSelector((state) => state.auth.token);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out of your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Logout",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logout());
+        navigate("/login");
+      }
+    });
+  };
+
+  function getProfilePath() {
+    if (user?.role === "employer") return "/employer-dashboard/profile";
+    if (user?.role === "job-seeker") return "/user-dashboard/profile";
+    if (user?.role === "admin") return "/admin-dashboard/profile";
+    return "/";
+  }
 
   return (
     <>
@@ -38,18 +68,37 @@ export default function Navbar() {
             </div>
 
             <div className="hidden lg:flex lg:items-center lg:space-x-4 ml-8">
-              <Link
-                to={"/chose-register"}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
-              >
-                Register
-              </Link>
-              <Link
-                to={"/login"}
-                className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-white rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 text-sm font-medium"
-              >
-                Login
-              </Link>
+              {token ? (
+                <>
+                  <Link
+                    to={getProfilePath()}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium cursor-pointer"
+                  >
+                    Go to Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={"/chose-register"}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                  >
+                    Register
+                  </Link>
+                  <Link
+                    to={"/login"}
+                    className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-white rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 text-sm font-medium"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </div>
 
             <div className="lg:hidden flex items-center">
@@ -67,7 +116,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu (shown when toggled) */}
         <div className={`lg:hidden ${isMobileMenuOpen ? "block" : "hidden"}`}>
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navItems.map((item, index) => (
@@ -81,18 +129,37 @@ export default function Navbar() {
             ))}
           </div>
           <div className="px-2 pt-2 pb-4 space-y-2">
-            <Link
-              to={"/chose-register"}
-              className="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
-            >
-              Register
-            </Link>
-            <Link
-              to={"/login"}
-              className="block w-full text-center px-4 py-2 border border-blue-600 text-blue-600 dark:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium"
-            >
-              Login
-            </Link>
+            {token ? (
+              <>
+                <Link
+                  to={getProfilePath()}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium cursor-pointer"
+                >
+                  Logout
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium cursor-pointer"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to={"/chose-register"}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                >
+                  Register
+                </Link>
+                <Link
+                  to={"/login"}
+                  className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-white rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 text-sm font-medium"
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

@@ -9,6 +9,7 @@ import {
   editadminprofile,
   ChangePassword,
   verifyOtp,
+  getdetails,
 } from "../controllers/authController.js";
 import {
   adminMiddleware,
@@ -59,4 +60,5 @@ router.patch(
 
 router.patch("/changepassword", protect, ChangePassword);
 
+router.get("/alldetails", protect, adminMiddleware, getdetails);
 export default router;

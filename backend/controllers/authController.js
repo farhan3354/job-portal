@@ -5,6 +5,7 @@ import { mailOptions, transporter } from "../helper/registeremail.js";
 import JobSeekerProfile from "../models/jobseeker.js";
 import Employer from "../models/employer.js";
 import AdminProfile from "../models/admin.js";
+import Job from "./../models/jobs.js";
 
 // export const registeruser = async (req, res) => {
 //   try {
@@ -399,5 +400,33 @@ export const ChangePassword = async (req, res) => {
   } catch (error) {
     console.error("Change password error:", error);
     return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// get all the details for the dashboard
+
+export const getdetails = async (req, res) => {
+  try {
+    const users = await JobSeekerProfile.find();
+    if (!users && users.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No user in the database" });
+    }
+    const employer = await Employer.find();
+    if (!employer && employer.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No user in the database" });
+    }
+    const jobs = await Job.find();
+    if (!jobs && jobs.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No user in the database" });
+    }
+    return res.status(200).json({ success: true, users, employer, jobs });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
 };

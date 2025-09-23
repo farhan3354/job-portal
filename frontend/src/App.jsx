@@ -48,6 +48,8 @@ import EditAdminProfile from "./component/adminDashoardComponents/EditAdminProfi
 import ChangePassword from "./component/adminDashoardComponents/ChangePassword.jsx";
 import OTPVerifyForm from "./component/Login/OtpVerify.jsx";
 import Blog from "./pages/Blog.jsx";
+import AddBlog from "./pages/AddBlog.jsx";
+import FindByIdBlog from "./component/FindByIdBlog.jsx";
 
 function App() {
   return (
@@ -66,6 +68,8 @@ function App() {
           <Route path="/verify-otp" element={<OTPVerifyForm />} />
           <Route path="contact" element={<Contact />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="add-blog" element={<AddBlog />} />
+          <Route path="blog/:id" element={<FindByIdBlog />} />
           <Route path="postformdata" element={<Post />} />
           <Route path="getformdata" element={<GetData />} />
           <Route path="*" element={<PageNotFound />} />

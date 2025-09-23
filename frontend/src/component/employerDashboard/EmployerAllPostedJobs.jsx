@@ -12,6 +12,8 @@ export default function EmployerAllPostedJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showOptions, setShowOptions] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 3;
 
   const fetchAllJobs = async () => {
     try {
@@ -100,6 +102,16 @@ export default function EmployerAllPostedJobs() {
 
   const activeJobs = jobs.filter((job) => job.status !== "Closed");
 
+  const totalPages = Math.ceil(activeJobs.length / jobsPerPage);
+  const startIndex = (currentPage - 1) * jobsPerPage;
+  const currentJobs = activeJobs.slice(startIndex, startIndex + jobsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="p-6 min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto">
@@ -115,7 +127,7 @@ export default function EmployerAllPostedJobs() {
         </div>
 
         <div className="grid gap-6">
-          {activeJobs.map((job) => (
+          {currentJobs.map((job) => (
             <div
               key={job._id}
               className="bg-white shadow-md rounded-xl p-5 flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-lg transition"
@@ -195,7 +207,39 @@ export default function EmployerAllPostedJobs() {
             </div>
           ))}
         </div>
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-10 space-x-2">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 border rounded disabled:opacity-50"
+            >
+              Prev
+            </button>
 
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`px-3 py-1 border rounded ${
+                  currentPage === page
+                    ? "bg-blue-600 text-white"
+                    : "hover:bg-gray-200"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 border rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        )}
         {jobs.length === 0 && (
           <div className="text-center py-12">
             <div className="text-4xl text-gray-400 mb-4">📋</div>

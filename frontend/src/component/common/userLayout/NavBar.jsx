@@ -22,12 +22,6 @@ export default function Navbar() {
       if (result.isConfirmed) {
         dispatch(logout());
         navigate("/login");
-        // Swal.fire({
-        //   title: "Logged Out!",
-        //   text: "You have been successfully logged out.",
-        //   icon: "success",
-        //   confirmButtonText: "OK",
-        // });
       }
     });
   };
