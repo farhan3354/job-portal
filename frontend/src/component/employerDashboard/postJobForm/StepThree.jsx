@@ -1,11 +1,10 @@
 import React from "react";
 
 export default function StepThree({ register, errors }) {
-
   return (
     <>
       <div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
           <div>
             <label className="block text-gray-700 mb-1">Location *</label>
             <input
@@ -22,8 +21,6 @@ export default function StepThree({ register, errors }) {
               </p>
             )}
           </div>
-
-          
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4">

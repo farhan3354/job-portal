@@ -33,6 +33,12 @@ const storage = new CloudinaryStorage({
         resource_type: "image",
         public_id: file.originalname.split(".")[0],
       };
+    } else if (file.fieldname === "blog") {
+      return {
+        folder: "images",
+        resource_type: "image",
+        public_id: file.originalname.split(".")[0],
+      };
     }
   },
 });
