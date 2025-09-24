@@ -26,6 +26,37 @@ export const mailOptions = (name, email, otp) => ({
       `,
 });
 
+// interviews
+
+export const interviewMailOptions = (
+  candidateName,
+  candidateEmail,
+  interviewername,
+  date,
+  time,
+  meetingurl,
+  notes
+) => ({
+  from: `"Job Portal" <${process.env.EMAIL_USER}>`,
+  to: candidateEmail,
+  subject: "Interview Scheduled - Job Portal",
+  html: `
+    <h2>Hello ${candidateName},</h2>
+    <p>We are pleased to inform you that your interview has been scheduled.</p>
+    <ul>
+      <li><strong>Date:</strong> ${date}</li>
+      <li><strong>Time:</strong> ${time}</li>
+      <li><strong>Interviewer Name:</strong> ${interviewername}</li>
+      <li><strong>Meeting Link:</strong> <a href="${meetingurl}" target="_blank">Join Meeting</a></li>
+    </ul>
+    <p><strong>Additional Notes:</strong></p>
+    <p>${notes}</p>
+    <br/>
+    <p>Best of luck for your interview!</p>
+    <p>– Job Portal Team</p>
+  `,
+});
+
 // Dynamic mail options
 // export const mailOptions = (email, name) => ({
 //   from: `"Your Website" <${process.env.EMAIL_USER}>`,

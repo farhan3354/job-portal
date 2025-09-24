@@ -3,6 +3,7 @@ import {
   protect,
   employerMiddleware,
   adminMiddleware,
+  jobSeekerMiddleware,
 } from "../middlewares/authMiddleware.js";
 import {
   createJob,
@@ -14,6 +15,7 @@ import {
   getalljob,
   changestatusjob,
   dashboardjob,
+  dashboardjobseeker,
 } from "../controllers/postJob.js";
 
 const router = express.Router();
@@ -45,5 +47,12 @@ router.put("/edit-job/:id", protect, employerMiddleware, editjob);
 router.put("/update-job-status/:id", protect, changestatusjob);
 
 router.get("/employerjob", protect, employerMiddleware, dashboardjob);
+
+router.get(
+  "/getjobsdashboard",
+  protect,
+  jobSeekerMiddleware,
+  dashboardjobseeker
+);
 
 export default router;
