@@ -1,4 +1,5 @@
 import Job from "../models/jobs.js";
+import Application from "./../models/application.js";
 
 //  create job
 
@@ -139,12 +140,13 @@ export const dashboardjob = async (req, res) => {
   try {
     const userid = req.user.id;
     const job = await Job.findOne({ postedBy: userid }).sort({ createdAt: -1 });
+    const applicant = await Application.find();
     if (!job) {
       return res
         .status(404)
         .json({ success: false, message: "No job is posted by this employer" });
     }
-    return res.status(200).json({ success: true, job });
+    return res.status(200).json({ success: true, job, applicant });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error" });
   }
@@ -260,6 +262,24 @@ export const changestatusjob = async (req, res) => {
     return res
       .status(200)
       .json({ success: true, message: "Status changed successfully" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+// jobs on the jobseeker dsahboard
+
+export const dashboardjobseeker = async (req, res) => {
+  try {
+    const jobs = await Job.find().sort({ createdAt: -1 }).limit(3);
+
+    if (jobs.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No jobs in the database" });
+    }
+
+    return res.status(200).json({ success: true, jobs });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error" });
   }

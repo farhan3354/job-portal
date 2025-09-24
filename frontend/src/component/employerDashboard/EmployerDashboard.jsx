@@ -1,6 +1,5 @@
 import React from "react";
 import { MdWorkOutline, MdPeople, MdOutlineBarChart } from "react-icons/md";
-import { FaUserTie } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -49,13 +48,12 @@ export default function EmployerDashboard() {
     fetchdatejob();
   }, [token]);
 
-  const applicants = [
-    { name: "Ali Khan", role: "Frontend Developer" },
-    { name: "Sara Ahmed", role: "UI/UX Designer" },
-  ];
+  
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+
+    <>
+ <div className="max-w-7xl mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-8">Employer Dashboard</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -101,25 +99,15 @@ export default function EmployerDashboard() {
         <div className="text-gray-500 text-sm">No recent job found.</div>
       )}
 
-      <div className="bg-white p-6 rounded-2xl shadow">
-        <h3 className="text-xl font-bold mb-4">Recent Applicants</h3>
-        <ul className="divide-y divide-gray-200">
-          {applicants.map((applicant, index) => (
-            <li key={index} className="py-3 flex items-center gap-4">
-              <FaUserTie className="text-2xl text-gray-500" />
-              <div>
-                <h4 className="font-semibold">{applicant.name}</h4>
-                <p className="text-gray-600 text-sm">
-                  Applied for {applicant.role}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      
     </div>
+
+    </>
+
+   
   );
 }
+
 
 // import React from "react";
 // import { MdWork, MdPeople, MdMessage } from "react-icons/md";

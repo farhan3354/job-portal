@@ -1,4 +1,6 @@
 import Interview from "../models/interviewModel.js";
+import User from "./../models/usermodel.js";
+import { transporter, interviewMailOptions } from "../helper/registeremail.js";
 
 export const postInterviewForm = async (req, res) => {
   try {
@@ -19,6 +21,13 @@ export const postInterviewForm = async (req, res) => {
         .json({ success: false, message: "All fields are required" });
     }
 
+    const user = await User.findById(candidateId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Candidate not found" });
+    }
+
     const interview = await Interview.create({
       candidateId,
       employerid: employerId,
@@ -29,6 +38,19 @@ export const postInterviewForm = async (req, res) => {
       notes,
     });
 
+    // Send email to candidate
+    await transporter.sendMail(
+      interviewMailOptions(
+        user.name || "Candidate",
+        user.email,
+        interviewername,
+        date,
+        time,
+        meetingurl,
+        notes
+      )
+    );
+
     return res.status(201).json({ success: true, data: interview });
   } catch (error) {
     console.error("Error creating interview:", error);
@@ -36,7 +58,45 @@ export const postInterviewForm = async (req, res) => {
   }
 };
 
+// export const postInterviewForm = async (req, res) => {
+//   try {
+//     const { id: candidateId } = req.params;
+//     const employerId = req?.user.id;
+//     const { date, time, interviewername, meetingurl, notes } = req.body;
+
+//     if (
+//       !candidateId ||
+//       !date ||
+//       !time ||
+//       !interviewername ||
+//       !meetingurl ||
+//       !notes
+//     ) {
+//       return res
+//         .status(400)
+//         .json({ success: false, message: "All fields are required" });
+//     }
+
+//     const interview = await Interview.create({
+//       candidateId,
+//       employerid: employerId,
+//       date,
+//       time,
+//       interviewername,
+//       meetingurl,
+//       notes,
+//     });
+
+//     return res.status(201).json({ success: true, data: interview });
+//   } catch (error) {
+//     console.error("Error creating interview:", error);
+//     return res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
+
 //  specific employer interviews
+
+
 export const getinterviewform = async (req, res) => {
   try {
     const employerid = req?.user.id;

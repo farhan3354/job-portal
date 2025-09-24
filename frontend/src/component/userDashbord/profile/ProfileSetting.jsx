@@ -26,7 +26,6 @@ export default function ProfileSetting() {
         const response = await axios.get(`http://localhost:8000/getprofile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("Fetched profile:", response.data.profile);
         setProfile(response.data.profile);
       } catch (error) {
         console.error("Error fetching profile:", error);

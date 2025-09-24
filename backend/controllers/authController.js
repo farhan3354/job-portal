@@ -407,26 +407,29 @@ export const ChangePassword = async (req, res) => {
 
 export const getdetails = async (req, res) => {
   try {
-    const users = await JobSeekerProfile.find();
-    if (!users && users.length === 0) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No user in the database" });
+    const users = await JobSeekerProfile.find().populate("userId");
+    const employer = await Employer.find().populate("userId");
+    const jobs = await Job.find().populate("postedBy");
+
+    if (users.length === 0 && employer.length === 0 && jobs.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No data found in the database",
+      });
     }
-    const employer = await Employer.find();
-    if (!employer && employer.length === 0) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No user in the database" });
-    }
-    const jobs = await Job.find();
-    if (!jobs && jobs.length === 0) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No user in the database" });
-    }
-    return res.status(200).json({ success: true, users, employer, jobs });
+
+    return res.status(200).json({
+      success: true,
+      users,
+      employer,
+      jobs,
+    });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Server Error" });
+    console.error("Error fetching details:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
   }
 };
