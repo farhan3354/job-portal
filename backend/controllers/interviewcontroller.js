@@ -38,7 +38,6 @@ export const postInterviewForm = async (req, res) => {
       notes,
     });
 
-    // Send email to candidate
     await transporter.sendMail(
       interviewMailOptions(
         user.name || "Candidate",
@@ -95,7 +94,6 @@ export const postInterviewForm = async (req, res) => {
 // };
 
 //  specific employer interviews
-
 
 export const getinterviewform = async (req, res) => {
   try {
