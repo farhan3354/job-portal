@@ -57,6 +57,24 @@ export const interviewMailOptions = (
   `,
 });
 
+export const applicationMailOptions = (
+  jobTitle,
+  seekerName,
+  employerEmail,
+  coverLetter
+) => ({
+  from: `"Job Portal" <${process.env.EMAIL_USER}>`,
+  to: employerEmail, // employer's email
+  subject: `New Job Application - ${jobTitle}`,
+  html: `
+    <h2>New Application for ${jobTitle}</h2>
+    <p><strong>Applicant:</strong> ${seekerName}</p>
+    <p><strong>Cover Letter:</strong></p>
+    <p>${coverLetter || "No cover letter provided."}</p>
+    <p>Log in to your dashboard to view full application details.</p>
+  `,
+});
+
 // Dynamic mail options
 // export const mailOptions = (email, name) => ({
 //   from: `"Your Website" <${process.env.EMAIL_USER}>`,
