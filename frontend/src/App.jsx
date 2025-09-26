@@ -68,7 +68,6 @@ function App() {
           <Route path="/verify-otp" element={<OTPVerifyForm />} />
           <Route path="contact" element={<Contact />} />
           <Route path="blog" element={<Blog />} />
-          <Route path="add-blog" element={<AddBlog />} />
           <Route path="blog/:id" element={<FindByIdBlog />} />
           <Route path="postformdata" element={<Post />} />
           <Route path="getformdata" element={<GetData />} />
@@ -128,6 +127,9 @@ function App() {
             <Route path="createprofile" element={<CreateAdminProfile />} />
             <Route path="editadmin" element={<EditAdminProfile />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="add-blog" element={<AddBlog />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="blog/:id" element={<FindByIdBlog />} />
           </Route>
         </Route>
       </Routes>

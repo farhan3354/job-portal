@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { RxDashboard } from "react-icons/rx";
 import { MdWorkOutline } from "react-icons/md";
 import { BsCardChecklist } from "react-icons/bs";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaPlus, FaCalendarPlus } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
-import { adminsidebarmenu } from './../../../data/data';
+import { adminsidebarmenu } from "./../../../data/data";
 import { CgMenu } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
 
@@ -17,6 +17,8 @@ export default function AdminSidebar() {
     BsCardChecklist: BsCardChecklist,
     FaUsers: FaUsers,
     CgProfile: CgProfile,
+    FaPlus: FaPlus,
+    FaCalendarPlus: FaCalendarPlus,
   };
 
   return (

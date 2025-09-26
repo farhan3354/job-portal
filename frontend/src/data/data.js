@@ -3,6 +3,7 @@ export const navItems = [
   { name: "About", path: "/about" },
   // { name: "Carrier", path: "/carrier" },
   { name: "Contact Us", path: "/contact" },
+  { name: "Blogs", path: "/blog" },
 ];
 
 export const stats = [
@@ -77,6 +78,8 @@ export const adminsidebarmenu = [
   },
   { title: "Jobs", icon: "MdWorkOutline", to: "/admin-dashboard/manage-jobs" },
   { title: "Profile", icon: "CgProfile", to: "/admin-dashboard/profile" },
+  { title: "Add Blog", icon: "FaPlus ", to: "/admin-dashboard/add-blog" },
+  { title: "Blogs", icon: "FaPlus ", to: "/admin-dashboard/blog" },
 ];
 
 export const statsofhome = [
