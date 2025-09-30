@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function EditBlog() {
@@ -14,6 +14,42 @@ export default function EditBlog() {
 
   const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
+  const { id } = useParams();
+
+  const [existingImage, setExistingImage] = useState(null);
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/blog/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.data.success) {
+          const blogData = response.data.blog;
+
+          // Set form fields
+          reset({
+            title: blogData.title,
+            content: blogData.content,
+            author: blogData.author,
+            category: blogData.category,
+          });
+
+          setExistingImage(blogData.image);
+        }
+      } catch (error) {
+        console.error("Failed to fetch blog data:", error);
+      }
+    };
+
+    fetchBlog();
+  }, [id, reset, token]);
 
   const onSubmit = async (data) => {
     try {
@@ -23,12 +59,12 @@ export default function EditBlog() {
       formData.append("author", data.author);
       formData.append("category", data.category);
 
-      if (data.blog[0]) {
+      if (data.blog && data.blog[0]) {
         formData.append("blog", data.blog[0]);
       }
 
-      const response = await axios.post(
-        "http://localhost:8000/blogs/create",
+      const response = await axios.put(
+        `http://localhost:8000/api/update/${id}`,
         formData,
         {
           headers: {
@@ -39,13 +75,13 @@ export default function EditBlog() {
       );
 
       if (response.data.success) {
-        alert("Blog created successfully!");
+        alert("Blog updated successfully!");
         reset();
         navigate("/blog");
       }
     } catch (error) {
-      console.error("Error creating blog:", error);
-      alert("Failed to create blog.");
+      console.error("Error updating blog:", error);
+      alert("Failed to update blog.");
     }
   };
 
@@ -130,14 +166,25 @@ export default function EditBlog() {
             )}
           </div>
 
+          {existingImage && (
+            <div className="mb-4">
+              <p className="text-gray-600 mb-1">Current Image:</p>
+              <img
+                src={existingImage}
+                alt="Blog"
+                className="w-40 h-40 object-cover rounded border"
+              />
+            </div>
+          )}
+
           <div>
             <label className="block font-medium text-gray-700 mb-2">
-              Blog Image
+              Blog Image (optional)
             </label>
             <input
               type="file"
               accept="image/*"
-              {...register("blog", { required: "Blog image is required" })}
+              {...register("blog")}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
             {errors.blog && (
