@@ -88,7 +88,7 @@ export const editblog = async (req, res) => {
       });
     }
 
-    let imageUrl = blog.image; 
+    let imageUrl = blog.image;
 
     if (req.file) {
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
