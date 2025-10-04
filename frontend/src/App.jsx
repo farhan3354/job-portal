@@ -52,6 +52,7 @@ import AddBlog from "./pages/AddBlog.jsx";
 import FindByIdBlog from "./component/FindByIdBlog.jsx";
 import BlogPage from "./pages/adminDashboardPages/BlogPage.jsx";
 import EditBlog from "./component/adminDashoardComponents/EditBlogs.jsx";
+import AdminQueries from "./component/adminDashoardComponents/AdminQuery.jsx";
 
 function App() {
   return (
@@ -133,6 +134,7 @@ function App() {
             <Route path="blog" element={<BlogPage />} />
             <Route path="blog/:id" element={<FindByIdBlog />} />
             <Route path="edit-blog/:id" element={<EditBlog />} />
+            <Route path="queries" element={<AdminQueries />} />
           </Route>
         </Route>
       </Routes>

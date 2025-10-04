@@ -1,5 +1,7 @@
 import React from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 export default function ContactForm() {
   const {
@@ -8,8 +10,34 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Login Data Submitted:", data);
+  const onSubmit = async (data) => {
+    try {
+      console.log("Submitting data:", data);
+
+      const response = await axios.post("http://localhost:8000/contact", data);
+
+      console.log("Server response:", response);
+
+      Swal.fire({
+        icon: "success",
+        title: "Message Sent!",
+        text: "Your contact form has been submitted successfully.",
+      });
+    } catch (error) {
+      if (error.response) {
+        console.error("Server error response:", error.response.data);
+      } else if (error.request) {
+        console.error("No response received from server:", error.request);
+      } else {
+        console.error("Error in request setup:", error.message);
+      }
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while submitting the form!",
+      });
+    }
   };
 
   return (
@@ -25,26 +53,31 @@ export default function ContactForm() {
 
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="fullName" className="block text-gray-700 mb-1">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-medium mb-1"
+            >
               Full Name
             </label>
             <input
               type="text"
-              id="fullName"
-              {...register("fullName", {
+              id="name"
+              {...register("name", {
                 required: "The Name is required",
               })}
               placeholder="Enter your name"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
             />
-            {errors.fullName && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.fullName.message}
-              </p>
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
             )}
           </div>
+
           <div>
-            <label htmlFor="email" className="block text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-medium mb-1"
+            >
               Email
             </label>
             <input
@@ -55,7 +88,7 @@ export default function ContactForm() {
               })}
               aria-invalid={errors.email ? "true" : "false"}
               placeholder="Enter your email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -63,21 +96,31 @@ export default function ContactForm() {
               </p>
             )}
           </div>
+
           <div>
-            <label htmlFor="message" className="block text-gray-700 mb-1">
+            <label
+              htmlFor="messages"
+              className="block text-gray-700 font-medium mb-1"
+            >
               Message
             </label>
             <textarea
-              id="message"
-              name="message"
+              id="messages"
+              {...register("message", { required: "The message is required" })}
               placeholder="Write your message here..."
               rows="4"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none resize-none"
             ></textarea>
+            {errors.messages && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.messages.message}
+              </p>
+            )}
           </div>
+
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 shadow"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Send Message
           </button>
