@@ -11,6 +11,7 @@ import profile from "./routes/jobseekerroutes.js";
 import apllicant from "./routes/getapplicant.js";
 import formdata from "./routes/testformroute.js";
 import interviewrouter from "./routes/interview.js";
+import query from "./routes/conactroutes.js";
 
 dotenv.config();
 import cors from "cors";
@@ -47,6 +48,8 @@ app.use("/", interviewrouter);
 app.use("/", employer);
 
 app.use("/", blog);
+
+app.use("/", query);
 
 connectDB();
 app.listen(port, () => {

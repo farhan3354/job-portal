@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RxDashboard } from "react-icons/rx";
 import { MdWorkOutline } from "react-icons/md";
 import { BsCardChecklist } from "react-icons/bs";
-import { FaUsers, FaPlus, FaCalendarPlus } from "react-icons/fa";
+import { FaUsers, FaPlus, FaCalendarPlus, FaCommentDots } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { adminsidebarmenu } from "./../../../data/data";
@@ -19,11 +19,11 @@ export default function AdminSidebar() {
     CgProfile: CgProfile,
     FaPlus: FaPlus,
     FaCalendarPlus: FaCalendarPlus,
+    FaCommentDots: FaCommentDots,
   };
 
   return (
     <>
-      {/* Mobile Menu Button */}
       <div className="lg:hidden">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -38,7 +38,6 @@ export default function AdminSidebar() {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
@@ -46,7 +45,6 @@ export default function AdminSidebar() {
         ></div>
       )}
 
-      {/* Sidebar - Mobile & Desktop */}
       <div
         className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 shadow-lg text-gray-800 transition-all duration-300 ease-in-out z-50
           ${isMobileMenuOpen ? "translate-x-0 w-64" : "-translate-x-full"} 

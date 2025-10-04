@@ -78,8 +78,9 @@ export const adminsidebarmenu = [
   },
   { title: "Jobs", icon: "MdWorkOutline", to: "/admin-dashboard/manage-jobs" },
   { title: "Profile", icon: "CgProfile", to: "/admin-dashboard/profile" },
-  { title: "Add Blog", icon: "FaPlus ", to: "/admin-dashboard/add-blog" },
-  { title: "Blogs", icon: "FaPlus ", to: "/admin-dashboard/blog" },
+  { title: "Add Blog", icon: "FaPlus", to: "/admin-dashboard/add-blog" },
+  { title: "Blogs", icon: "FaPlus", to: "/admin-dashboard/blog" },
+  { title: "Queries", icon: "FaCommentDots", to: "/admin-dashboard/queries" },
 ];
 
 export const statsofhome = [
