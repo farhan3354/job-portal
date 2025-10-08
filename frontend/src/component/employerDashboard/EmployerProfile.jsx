@@ -8,7 +8,11 @@ import {
   FaUsers,
   FaRegUserCircle,
   FaUserTimes,
-  FaPlus,FaEdit 
+  FaPlus,
+  FaLock,
+  FaEdit,
+  FaIndustry,
+  FaInfoCircle,
 } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
@@ -93,105 +97,159 @@ export default function EmployerProfile() {
   }
 
   return (
-    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen">
-      <div className="bg-white shadow-md rounded-2xl p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
-        <img
-          src={profile.companylogo || "https://via.placeholder.com/120"}
-          alt="Company Logo"
-          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-blue-500 object-cover"
-        />
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
-            {profile.companyName}
-          </h1>
+    <>
+      <div className="min-h-screen p-3 sm:p-4 lg:p-6">
+        <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
+          <div className="bg-white shadow-sm rounded-2xl p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-8">
+              <div className="flex-shrink-0">
+                <img
+                  src={profile.companylogo || "https://via.placeholder.com/120"}
+                  alt="Company Logo"
+                  className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 rounded-full border-4 border-blue-500 object-cover shadow-md"
+                />
+              </div>
+              <div className="flex-1 text-center lg:text-left space-y-2 sm:space-y-3">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
+                  {profile.companyName || "Company Name"}
+                </h1>
 
-          <p className="text-gray-500 flex items-center justify-center md:justify-start gap-2 mt-1 text-sm sm:text-base">
-            <FaEnvelope className="text-blue-500" /> {profile.userId?.email}
-          </p>
-          <p className="text-gray-500 flex items-center justify-center md:justify-start gap-2 text-sm sm:text-base">
-            <FaMapMarkerAlt className="text-blue-500" /> {profile.location}
-          </p>
-          <p className="text-gray-500 flex items-center justify-center md:justify-start gap-2 text-sm sm:text-base">
-            <FaRegUserCircle className="text-blue-500" /> {profile.userId?.name}
-          </p>
+                <div className="space-y-1 sm:space-y-2">
+                  <p className="text-gray-600 flex items-center justify-center lg:justify-start gap-2 text-sm sm:text-base">
+                    <FaEnvelope className="text-blue-500 flex-shrink-0" />
+                    <span className="truncate">
+                      {profile.userId?.email || "No email provided"}
+                    </span>
+                  </p>
+                  <p className="text-gray-600 flex items-center justify-center lg:justify-start gap-2 text-sm sm:text-base">
+                    <FaMapMarkerAlt className="text-blue-500 flex-shrink-0" />
+                    <span>{profile.location || "Location not specified"}</span>
+                  </p>
+                  <p className="text-gray-600 flex items-center justify-center lg:justify-start gap-2 text-sm sm:text-base">
+                    <FaRegUserCircle className="text-blue-500 flex-shrink-0" />
+                    <span>{profile.userId?.name || "Name not provided"}</span>
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto">
+                <Link
+                  to="/employer-dashboard/editprofile"
+                  className="inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5 text-sm sm:text-base whitespace-nowrap"
+                >
+                  <FaEdit className="mr-2 flex-shrink-0" />
+                  Edit Profile
+                </Link>
+                <Link
+                  to="/employer-dashboard/change-password"
+                  className="inline-flex items-center justify-center px-4 py-2.5 bg-gray-600 text-white font-medium rounded-xl hover:bg-gray-700 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5 text-sm sm:text-base whitespace-nowrap"
+                >
+                  <FaLock className="mr-2 flex-shrink-0" />
+                  Change Password
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white shadow-sm rounded-2xl p-4 sm:p-6 lg:p-8">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
+              <FaBuilding className="text-blue-500 mr-3" />
+              Company Information
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="bg-blue-50 rounded-xl p-4 sm:p-5 border border-blue-100">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <FaIndustry className="text-blue-600 text-lg" />
+                  </div>
+                  <div>
+                    <p className="text-xs sm:text-sm font-medium text-blue-900">
+                      Industry
+                    </p>
+                    <p className="text-sm sm:text-base font-semibold text-gray-900">
+                      {profile.industry || "Not specified"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-green-50 rounded-xl p-4 sm:p-5 border border-green-100">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                    <FaUsers className="text-green-600 text-lg" />
+                  </div>
+                  <div>
+                    <p className="text-xs sm:text-sm font-medium text-green-900">
+                      Company Size
+                    </p>
+                    <p className="text-sm sm:text-base font-semibold text-gray-900">
+                      {profile.companysize || "Not specified"} Employees
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-purple-50 rounded-xl p-4 sm:p-5 border border-purple-100 sm:col-span-2 lg:col-span-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <FaGlobe className="text-purple-600 text-lg" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-purple-900">
+                      Website
+                    </p>
+                    {profile.companyWebsite ? (
+                      <a
+                        href={profile.companyWebsite}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm sm:text-base font-semibold text-blue-600 hover:text-blue-800 truncate block hover:underline transition-colors"
+                      >
+                        {profile.companyWebsite}
+                      </a>
+                    ) : (
+                      <p className="text-sm sm:text-base text-gray-500">
+                        Not provided
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white shadow-sm rounded-2xl p-4 sm:p-6 lg:p-8">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
+              <FaInfoCircle className="text-blue-500 mr-3" />
+              About Us
+            </h2>
+
+            <div className="bg-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200">
+              <p className="text-gray-700 text-sm sm:text-base lg:text-lg leading-relaxed sm:leading-loose">
+                {profile.description ? (
+                  profile.description
+                ) : (
+                  <span className="text-gray-500 italic">
+                    No company description provided. Add a description to tell
+                    candidates more about your company.
+                  </span>
+                )}
+              </p>
+
+              {!profile.description && (
+                <div className="mt-4">
+                  <Link
+                    to="/employer-dashboard/editprofile"
+                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                  >
+                    <FaEdit className="mr-2" />
+                    Add Description
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        <Link
-          to={"/employer-dashboard/editprofile"}
-          className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 w-full md:w-auto"
-        >
-          Edit Profile
-        </Link>
-        <Link
-          to="/employer-dashboard/change-password"
-          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <FaEdit className="mr-2" />
-          Change Password
-        </Link>
       </div>
-
-      <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 mt-6">
-        <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">
-          Company Information
-        </h2>
-        <div className="space-y-3 text-sm sm:text-base">
-          <p className="flex items-center gap-2 text-gray-700">
-            <FaBuilding className="text-blue-500" /> Industry:{" "}
-            {profile.industry}
-          </p>
-          <p className="flex items-center gap-2 text-gray-700">
-            <FaUsers className="text-blue-500" /> Company Size:{" "}
-            {profile.companysize} Employees
-          </p>
-          <p className="flex items-center gap-2 text-gray-700">
-            <FaGlobe className="text-blue-500" /> Website:{" "}
-            <a
-              href={profile.companyWebsite}
-              className="text-blue-600 hover:underline"
-            >
-              {profile.companyWebsite}{" "}
-            </a>
-          </p>
-        </div>
-      </div>
-
-      <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 mt-6">
-        <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">
-          About Us
-        </h2>
-        <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-          {profile.description}
-        </p>
-      </div>
-    </div>
+    </>
   );
-}
-
-{
-  /* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-6">
-        <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 text-center">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-600">
-            Jobs Posted
-          </h3>
-          <p className="text-2xl sm:text-3xl font-bold text-blue-600 mt-2">
-            24
-          </p>
-        </div>
-        <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 text-center">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-600">
-            Active Jobs
-          </h3>
-          <p className="text-2xl sm:text-3xl font-bold text-green-600 mt-2">
-            5
-          </p>
-        </div>
-        <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 text-center">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-600">
-            Total Applicants
-          </h3>
-          <p className="text-2xl sm:text-3xl font-bold text-purple-600 mt-2">
-            128
-          </p>
-        </div>
-      </div> */
 }
