@@ -53,6 +53,7 @@ import FindByIdBlog from "./component/FindByIdBlog.jsx";
 import BlogPage from "./pages/adminDashboardPages/BlogPage.jsx";
 import EditBlog from "./component/adminDashoardComponents/EditBlogs.jsx";
 import AdminQueries from "./component/adminDashoardComponents/AdminQuery.jsx";
+import TaskInterview from "./pages/TaskInterview.jsx";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="task" element={<TaskInterview />} />
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
