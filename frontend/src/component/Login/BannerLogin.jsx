@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import Header1 from "./Header1";
 
-export default function Bannerlogin() {
+export default function BannerLogin() {
   const location = useLocation();
 
   return (

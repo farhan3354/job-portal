@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Bannerlogin from "../component/login/Bannerlogin";
+import BannerLogin from "../components/Login/BannerLogin";
 import RegisterForm from "../component/login/RegisterForm";
 
 export default function Register() {
@@ -11,14 +11,14 @@ export default function Register() {
       <div className="flex flex-col md:flex-row min-h-screen">
         {location.pathname === "/register/job-seeker" && (
           <>
-            <Bannerlogin />
+            <BannerLogin />
             <RegisterForm />
           </>
         )}
         {location.pathname === "/register/employer" && (
           <>
             <RegisterForm />
-            <Bannerlogin />
+            <BannerLogin />
           </>
         )}
       </div>
