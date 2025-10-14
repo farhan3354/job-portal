@@ -26,8 +26,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://rentubuy.com",
-      "https://www.rentubuy.com",
+      "https://jobzy-git-main-farhans-projects-541bb7ad.vercel.app/",
+      "https://jobzy-seven.vercel.app/"
+      ,
     ],
     credentials: true,
   })
