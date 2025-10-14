@@ -12,53 +12,46 @@ import apllicant from "./routes/getapplicant.js";
 import formdata from "./routes/testformroute.js";
 import interviewrouter from "./routes/interview.js";
 import query from "./routes/conactroutes.js";
-import cors from "cors";
 
 dotenv.config();
-
-// ✅ Connect to MongoDB once on cold start
-connectDB();
+import cors from "cors";
 
 const app = express();
-
-// ✅ Allow frontend access (Vercel will handle domain)
+const port = process.env.PORT || 4000;
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://rentubuy.com",
-      "https://www.rentubuy.com",
-    ],
+    origin: "http://localhost:5173",
+    optionsSuccessStatus: 200,
     credentials: true,
   })
 );
 
 app.use(express.json());
 
-// ✅ Cloudinary Config
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// ✅ Routes
 app.use("/", userRoutes);
+
 app.use("/", postJob);
 app.use("/", userApply);
 app.use("/", profile);
+
 app.use("/", apllicant);
+
 app.use("/", formdata);
+
 app.use("/", interviewrouter);
 app.use("/", employer);
+
 app.use("/", blog);
+
 app.use("/", query);
 
-// ✅ Root route for testing
-app.get("/", (req, res) => {
-  res.status(200).send("Backend is live ✅ - Rentubuy API");
+connectDB();
+app.listen(port, () => {
+  console.log("Server started on port", port);
 });
-
-// ❌ REMOVE app.listen()
-// ✅ EXPORT app for Vercel
-export default app;

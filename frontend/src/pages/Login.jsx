@@ -1,5 +1,5 @@
 import React from "react";
-import BannerLogin from "../components/Login/BannerLogin";
+import BannerLogin from "../component/Login/BannerLogin";
 import LoginForm from "../component/login/LoginForm";
 
 export default function Login() {
