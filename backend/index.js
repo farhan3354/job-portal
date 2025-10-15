@@ -26,9 +26,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://jobzy-git-main-farhans-projects-541bb7ad.vercel.app/",
-      "https://jobzy-seven.vercel.app/"
-      ,
+      "https://jobzy-git-main-farhans-projects-541bb7ad.vercel.app",
+      "https://jobzy-seven.vercel.app",
     ],
     credentials: true,
   })
@@ -62,4 +61,7 @@ app.get("/", (req, res) => {
 
 // ❌ REMOVE app.listen()
 // ✅ EXPORT app for Vercel
+import serverless from "serverless-http";
+export const handler = serverless(app);
+
 export default app;
