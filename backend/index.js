@@ -36,14 +36,12 @@ app.use(
 
 app.use(express.json());
 
-// ✅ Cloudinary Config
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// ✅ Routes
 app.use("/", userRoutes);
 app.use("/", postJob);
 app.use("/", userApply);
@@ -55,7 +53,6 @@ app.use("/", employer);
 app.use("/", blog);
 app.use("/", query);
 
-// ✅ Root route for testing
 app.get("/", (req, res) => {
   res.status(200).send("Backend is live ✅ - Rentubuy API");
 });
