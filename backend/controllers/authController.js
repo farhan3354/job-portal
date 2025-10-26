@@ -7,40 +7,6 @@ import Employer from "../models/employer.js";
 import AdminProfile from "../models/admin.js";
 import Job from "./../models/jobs.js";
 
-// export const registeruser = async (req, res) => {
-//   try {
-//     const { role, name, email, phone, password } = req.body;
-
-//     if (!role || !name || !email || !phone || !password) {
-//       return res.status(400).json({ message: "All the fields are required" });
-//     }
-
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-//       return res.status(409).json({ message: "User already exists" });
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     const user = await User.create({
-//       role,
-//       name,
-//       email,
-//       phone,
-//       password: hashedPassword,
-//     });
-//     await transporter.sendMail(mailOptions(email, name));
-
-//     return res.status(201).json({
-//       message:
-//         "Registration email sent successfully . User registered successfully",
-//       user,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 export const registeruser = async (req, res) => {
   try {
     const { role, name, email, phone, password } = req.body;
@@ -159,6 +125,77 @@ export const loginuser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const resendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ message: "User is already verified" });
+    }
+
+    // Generate new OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpires = Date.now() + 5 * 60 * 1000; // 5 minutes
+
+    // Update user with new OTP
+    user.otp = otp;
+    user.otpExpires = otpExpires;
+    await user.save();
+
+    // Send new OTP email
+    await transporter.sendMail(mailOptions(user.name, email, otp));
+
+    return res.status(200).json({
+      message: "New OTP sent to your email. Please verify your account.",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// export const registeruser = async (req, res) => {
+//   try {
+//     const { role, name, email, phone, password } = req.body;
+
+//     if (!role || !name || !email || !phone || !password) {
+//       return res.status(400).json({ message: "All the fields are required" });
+//     }
+
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(409).json({ message: "User already exists" });
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     const user = await User.create({
+//       role,
+//       name,
+//       email,
+//       phone,
+//       password: hashedPassword,
+//     });
+//     await transporter.sendMail(mailOptions(email, name));
+
+//     return res.status(201).json({
+//       message:
+//         "Registration email sent successfully . User registered successfully",
+//       user,
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 // export const loginuser = async (req, res) => {
 //   try {

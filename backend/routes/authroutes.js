@@ -10,6 +10,7 @@ import {
   ChangePassword,
   verifyOtp,
   getdetails,
+  resendOtp,
 } from "../controllers/authController.js";
 import {
   adminMiddleware,
@@ -23,6 +24,7 @@ const router = express.Router();
 router.post("/register", registeruser);
 
 router.post("/verify-otp", verifyOtp);
+router.post("/resend-otp", resendOtp);
 
 router.post("/login", loginuser);
 
