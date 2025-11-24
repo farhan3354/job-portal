@@ -27,6 +27,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://www.jobzyworld.com/",
+      "www.jobzyworld.com/",
       "https://jobzy-git-main-farhans-projects-541bb7ad.vercel.app",
       "https://jobzy-seven.vercel.app",
       "https://jobzy.marotix.com",
