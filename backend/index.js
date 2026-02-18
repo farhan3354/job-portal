@@ -60,7 +60,6 @@ app.get("/", (req, res) => {
 });
 
 // ❌ REMOVE app.listen()
-// ✅ EXPORT app for Vercel
 import serverless from "serverless-http";
 export const handler = serverless(app);
 
