@@ -12,28 +12,28 @@ import apllicant from "./routes/getapplicant.js";
 import formdata from "./routes/testformroute.js";
 import interviewrouter from "./routes/interview.js";
 import query from "./routes/conactroutes.js";
-
-dotenv.config();
 import cors from "cors";
 
+dotenv.config();
+
+// ✅ Connect to MongoDB once on cold start
+connectDB();
+
 const app = express();
-const port = process.env.PORT || 4000;
+
+// ✅ Allow frontend access (Vercel will handle domain)
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowed = [
-        "https://jobzy-seven.vercel.app",
-        "http://localhost:5173",
-      ];
-      if (!origin || allowed.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    optionsSuccessStatus: 200,
+    origin: [
+      "http://localhost:5173",
+      "https://www.jobzyworld.com",
+      "https://jobzy-git-main-farhans-projects-541bb7ad.vercel.app",
+      "https://jobzy-seven.vercel.app",
+      "https://jobzy.marotix.com",
+      "https://www.jobzyworld.com",
+    ],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -45,23 +45,23 @@ cloudinary.config({
 });
 
 app.use("/", userRoutes);
-
 app.use("/", postJob);
 app.use("/", userApply);
 app.use("/", profile);
-
 app.use("/", apllicant);
-
 app.use("/", formdata);
-
 app.use("/", interviewrouter);
 app.use("/", employer);
-
 app.use("/", blog);
-
 app.use("/", query);
 
-connectDB();
-app.listen(port, () => {
-  console.log("Server started on port", port);
+app.get("/", (req, res) => {
+  res.status(200).send("Backend is live ✅ - Rentubuy API");
 });
+
+// ❌ REMOVE app.listen()
+// ✅ EXPORT app for Vercel
+import serverless from "serverless-http";
+export const handler = serverless(app);
+
+export default app;
