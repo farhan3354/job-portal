@@ -43,8 +43,6 @@ const storage = new CloudinaryStorage({
   },
 });
 
-export const upload = multer({ storage });
-
 // const storage = new CloudinaryStorage({
 //   cloudinary,
 //   params: {
@@ -62,3 +60,5 @@ export const upload = multer({ storage });
 //     public_id: file.originalname.split(".")[0],
 //   }),
 // });
+
+export const upload = multer({ storage });

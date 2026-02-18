@@ -10,8 +10,7 @@ import {
   ChangePassword,
   verifyOtp,
   getdetails,
-  forgotPassword,
-  resetPassword,
+  resendOtp,
 } from "../controllers/authController.js";
 import {
   adminMiddleware,
@@ -25,7 +24,7 @@ const router = express.Router();
 router.post("/register", registeruser);
 
 router.post("/verify-otp", verifyOtp);
-router.post("/resend-otp", verifyOtp);
+router.post("/resend-otp", resendOtp);
 
 router.post("/login", loginuser);
 
@@ -64,7 +63,4 @@ router.patch(
 router.patch("/changepassword", protect, ChangePassword);
 
 router.get("/alldetails", protect, adminMiddleware, getdetails);
-
-router.post("/forgot-password", forgotPassword);
-router.post("/reset-password", resetPassword);
 export default router;
