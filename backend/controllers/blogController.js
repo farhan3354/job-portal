@@ -35,13 +35,7 @@ export const getblog = async (req, res) => {
   try {
     const blog = await Blog.find();
 
-    if (!blog || blog.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No data in database" });
-    }
-
-    return res.status(200).json({ success: true, blog });
+    return res.status(200).json({ success: true, blog: blog || [] });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error" });
   }
@@ -106,7 +100,7 @@ export const editblog = async (req, res) => {
         category,
         image: imageUrl,
       },
-      { new: true }
+      { new: true },
     );
 
     return res.status(200).json({

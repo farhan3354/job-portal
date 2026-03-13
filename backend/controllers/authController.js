@@ -208,15 +208,8 @@ export const loginuser = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const profile = await JobSeekerProfile.find().populate("userId");
-    // const users = await User.find({role: "job-seeker"});
 
-    if (profile.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No jobseekers found" });
-    }
-
-    return res.status(200).json({ success: true, profile });
+    return res.status(200).json({ success: true, profile: profile || [] });
   } catch (error) {
     return res
       .status(500)
@@ -227,13 +220,8 @@ export const getUsers = async (req, res) => {
 export const getemployer = async (req, res) => {
   try {
     const employer = await Employer.find().populate("userId");
-    if (employer.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No jobseekers found" });
-    }
 
-    return res.status(200).json({ success: true, employer });
+    return res.status(200).json({ success: true, employer: employer || [] });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error" });
   }

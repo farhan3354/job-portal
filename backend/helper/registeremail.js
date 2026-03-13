@@ -47,7 +47,7 @@ export const interviewMailOptions = (
   date,
   time,
   meetingurl,
-  notes,
+  notes
 ) => ({
   from: `"Job Portal" <${process.env.EMAIL_USER}>`,
   to: candidateEmail,
@@ -73,7 +73,7 @@ export const applicationMailOptions = (
   jobTitle,
   seekerName,
   employerEmail,
-  coverLetter,
+  coverLetter
 ) => ({
   from: `"Job Portal" <${process.env.EMAIL_USER}>`,
   to: employerEmail, // employer's email

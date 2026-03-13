@@ -39,9 +39,23 @@ const storage = new CloudinaryStorage({
         resource_type: "image",
         public_id: file.originalname.split(".")[0],
       };
+    } else if (file.fieldname === "video") {
+      return {
+        folder: "videos",
+        resource_type: "video",
+        public_id: file.originalname.split(".")[0],
+      };
+    } else if (file.fieldname === "thumbnail") {
+      return {
+        folder: "images",
+        resource_type: "image",
+        public_id: file.originalname.split(".")[0],
+      };
     }
   },
 });
+
+export const upload = multer({ storage });
 
 // const storage = new CloudinaryStorage({
 //   cloudinary,
@@ -60,5 +74,3 @@ const storage = new CloudinaryStorage({
 //     public_id: file.originalname.split(".")[0],
 //   }),
 // });
-
-export const upload = multer({ storage });

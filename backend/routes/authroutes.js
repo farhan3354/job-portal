@@ -47,7 +47,7 @@ router.post(
   protect,
   adminMiddleware,
   upload.single("profileImage"),
-  createrofile,
+  createrofile
 );
 
 // Get profile by userId
@@ -58,7 +58,7 @@ router.patch(
   protect,
   adminMiddleware,
   upload.single("profileImage"),
-  editadminprofile,
+  editadminprofile
 );
 
 router.patch("/changepassword", protect, ChangePassword);

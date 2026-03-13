@@ -1,4 +1,4 @@
-import Interview from "../models/interviewmodel.js";
+import Interview from "../models/interviewModel.js";
 import User from "./../models/usermodel.js";
 import { transporter, interviewMailOptions } from "../helper/registeremail.js";
 
@@ -46,8 +46,8 @@ export const postInterviewForm = async (req, res) => {
         date,
         time,
         meetingurl,
-        notes
-      )
+        notes,
+      ),
     );
 
     return res.status(201).json({ success: true, data: interview });
@@ -105,14 +105,9 @@ export const getinterviewform = async (req, res) => {
     }
     const intervi = await Interview.find({ employerid }).populate(
       "candidateId",
-      "name email"
+      "name email",
     );
-    if (!intervi || intervi.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Data is not found in the database" });
-    }
-    return res.status(200).json({ success: true, intervi });
+    return res.status(200).json({ success: true, intervi: intervi || [] });
   } catch (error) {
     return res.status(200).json({ message: "Server Error" });
   }
@@ -185,7 +180,7 @@ export const Editinterview = async (req, res) => {
         meetingurl,
         notes,
       },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedInterview) {

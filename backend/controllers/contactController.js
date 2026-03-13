@@ -33,12 +33,7 @@ export const sendQuery = async (req, res) => {
 export const getQuery = async (req, res) => {
   try {
     const messa = await ContactModel.find();
-    if (!messa || messa.length === 0) {
-      return res
-        .status(409)
-        .json({ success: false, message: "No data in the  database" });
-    }
-    return res.status(200).json({ success: true, messa });
+    return res.status(200).json({ success: true, messa: messa || [] });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error" });
   }

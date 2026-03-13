@@ -149,8 +149,8 @@ export const updateProfile = async (req, res) => {
     }
 
     // const resumeUrl = req.file?.path || existingProfile.seekerresumeUrl;
-    const profileImageUrl = req.files?.profileImage?.[0]?.path || null;
-    const resumeUrl = req.files?.resume?.[0]?.path || null;
+    const profileImageUrl = req.files?.profileImage?.[0]?.path || existingProfile.profileImage;
+    const resumeUrl = req.files?.resume?.[0]?.path || existingProfile.seekerresumeUrl;
 
     const updatedProfile = await JobSeekerProfile.findByIdAndUpdate(
       profileId,
@@ -289,6 +289,7 @@ export const getProfileScore = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
 // export const createProfile = async (req, res) => {
 //   try {
 //     const userId = req.user.id;

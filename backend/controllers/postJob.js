@@ -18,6 +18,11 @@ export const createJob = async (req, res) => {
       applicationDeadline,
       contactEmail,
       contactPhone,
+      experienceLevel,
+      numberOfOpenings,
+      hiringTimeline,
+      schedule,
+      benefits,
     } = req.body;
 
     if (
@@ -31,7 +36,9 @@ export const createJob = async (req, res) => {
       !salary ||
       !skills ||
       !applicationDeadline ||
-      !contactEmail
+      !contactEmail ||
+      !experienceLevel ||
+      !numberOfOpenings
     ) {
       return res
         .status(400)
@@ -51,6 +58,11 @@ export const createJob = async (req, res) => {
       applicationDeadline,
       contactEmail,
       contactPhone,
+      experienceLevel,
+      numberOfOpenings,
+      hiringTimeline,
+      schedule,
+      benefits,
       status: "Active",
       postedBy: req.user.id,
     });
@@ -70,11 +82,9 @@ export const getalljobs = async (req, res) => {
   try {
     const jobs = await Job.find();
 
-    if (!jobs || jobs.length === 0) {
-      return res.status(400).json({ message: "No jobs in the database" });
-    }
-
-    return res.status(200).json({ message: "Jobs fetched successfully", jobs });
+    return res
+      .status(200)
+      .json({ message: "Jobs fetched successfully", jobs: jobs || [] });
   } catch (error) {
     return res.status(500).json({ message: "Failed to get jobs" });
   }
@@ -86,11 +96,9 @@ export const getalljob = async (req, res) => {
   try {
     const jobs = await Job.find().populate("postedBy");
 
-    if (!jobs || jobs.length === 0) {
-      return res.status(400).json({ message: "No jobs in the database" });
-    }
-
-    return res.status(200).json({ message: "Jobs fetched successfully", jobs });
+    return res
+      .status(200)
+      .json({ message: "Jobs fetched successfully", jobs: jobs || [] });
   } catch (error) {
     return res.status(500).json({ message: "Failed to get jobs" });
   }
@@ -205,6 +213,11 @@ export const editjob = async (req, res) => {
       applicationDeadline,
       contactEmail,
       contactPhone,
+      experienceLevel,
+      numberOfOpenings,
+      hiringTimeline,
+      schedule,
+      benefits,
       status,
     } = req.body;
 
@@ -223,11 +236,16 @@ export const editjob = async (req, res) => {
         applicationDeadline,
         contactEmail,
         contactPhone,
+        experienceLevel,
+        numberOfOpenings,
+        hiringTimeline,
+        schedule,
+        benefits,
         status,
       },
       {
         new: true,
-      }
+      },
     );
 
     return res.status(200).json({
@@ -273,13 +291,7 @@ export const dashboardjobseeker = async (req, res) => {
   try {
     const jobs = await Job.find().sort({ createdAt: -1 }).limit(3);
 
-    if (jobs.length === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "No jobs in the database" });
-    }
-
-    return res.status(200).json({ success: true, jobs });
+    return res.status(200).json({ success: true, jobs: jobs || [] });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error" });
   }

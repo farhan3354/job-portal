@@ -13,6 +13,7 @@ import formdata from "./routes/testformroute.js";
 import interviewrouter from "./routes/interview.js";
 import query from "./routes/conactroutes.js";
 import cors from "cors";
+import videoRoutes from "./routes/videoRoutes.js";
 
 dotenv.config();
 
@@ -33,7 +34,7 @@ app.use(
       "https://www.jobzyworld.com",
     ],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -54,6 +55,7 @@ app.use("/", interviewrouter);
 app.use("/", employer);
 app.use("/", blog);
 app.use("/", query);
+app.use("/", videoRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Backend is live ✅ - Rentubuy API");
