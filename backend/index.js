@@ -15,7 +15,7 @@ import query from "./routes/conactroutes.js";
 import cors from "cors";
 import videoRoutes from "./routes/videoRoutes.js";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 // ✅ Connect to MongoDB once on cold start
 connectDB();

@@ -13,7 +13,7 @@ import formdata from "./routes/testformroute.js";
 import interviewrouter from "./routes/interview.js";
 import query from "./routes/conactroutes.js";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 import cors from "cors";
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(
     origin: "http://localhost:5173",
     optionsSuccessStatus: 200,
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
