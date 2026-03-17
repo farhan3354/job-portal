@@ -3,7 +3,7 @@ import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 
-dotenv.config({ quiet: true });
+dotenv.config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

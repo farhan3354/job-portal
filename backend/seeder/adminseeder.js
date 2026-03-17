@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import connectDB from "../config/db.js";
 import User from "../models/usermodel.js";
 import dotenv from "dotenv";
-dotenv.config({ quiet: true });
+dotenv.config();
 
 const AdminSeeder = async () => {
   try {

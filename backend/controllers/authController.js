@@ -47,7 +47,18 @@ import Job from "./../models/jobs.js";
 
 export const registeruser = async (req, res) => {
   try {
-    const { role, name, email, phone, password } = req.body;
+    const { 
+      role, 
+      name, 
+      email, 
+      phone, 
+      password, 
+      isFreelancer, 
+      freelanceService, 
+      freelanceRate, 
+      freelanceRateType, 
+      payeeMethod 
+    } = req.body;
 
     if (!role || !name || !email || !phone || !password) {
       return res.status(400).json({ message: "All the fields are required" });
@@ -78,6 +89,11 @@ export const registeruser = async (req, res) => {
       password: hashedPassword,
       otp,
       otpExpires,
+      isFreelancer: isFreelancer || false,
+      freelanceService,
+      freelanceRate,
+      freelanceRateType,
+      payeeMethod,
     });
 
     await transporter.sendMail(mailOptions(name, email, otp));
@@ -484,5 +500,15 @@ export const resetPassword = async (req, res) => {
     res.status(200).json({ message: "Password reset successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+// Get all freelancers
+export const getFreelancers = async (req, res) => {
+  try {
+    const freelancers = await User.find({ isFreelancer: true }).select("-password -otp -otpExpires");
+    res.status(200).json({ success: true, freelancers });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };

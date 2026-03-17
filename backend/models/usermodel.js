@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema(
     otpExpires: { type: Date },
     resetPasswordOTP: { type: String },
     resetPasswordOTPExpires: { type: Date },
+    isFreelancer: { type: Boolean, default: false },
+    freelanceService: { 
+      type: String, 
+      enum: ["Software Development", "Computer Advisory", "Accounting", "Labour Work"] 
+    },
+    freelanceRate: { type: Number },
+    freelanceRateType: { type: String, enum: ["Hour", "Day"] },
+    payeeMethod: { type: String, default: "PayPal" },
   },
   { timestamps: true }
 );

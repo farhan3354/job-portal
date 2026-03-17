@@ -12,6 +12,7 @@ import {
   getdetails,
   forgotPassword,
   resetPassword,
+  getFreelancers,
 } from "../controllers/authController.js";
 import {
   adminMiddleware,
@@ -67,4 +68,5 @@ router.get("/alldetails", protect, adminMiddleware, getdetails);
 
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
+router.get("/get-freelancers", getFreelancers);
 export default router;

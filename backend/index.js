@@ -17,9 +17,6 @@ import videoRoutes from "./routes/videoRoutes.js";
 
 dotenv.config({ quiet: true });
 
-// ✅ Connect to MongoDB once on cold start
-connectDB();
-
 const app = express();
 
 // ✅ Allow frontend access (Vercel will handle domain)
@@ -31,13 +28,25 @@ app.use(
       "https://jobzy-git-main-farhans-projects-541bb7ad.vercel.app",
       "https://jobzy-seven.vercel.app",
       "https://jobzy.marotix.com",
-      "https://www.jobzyworld.com",
     ],
     credentials: true,
   }),
 );
 
 app.use(express.json());
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    return res.status(503).json({
+      success: false,
+      message: "Database connection is unavailable",
+      error: error.message,
+    });
+  }
+});
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

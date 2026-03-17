@@ -1,4 +1,4 @@
-import Interview from "../models/interviewmodel.js";
+import Interview from "../models/interviewModel.js";
 import User from "./../models/usermodel.js";
 import { transporter, interviewMailOptions } from "../helper/registeremail.js";
 
