@@ -42,6 +42,22 @@ const jobSchema = new mongoose.Schema(
         ref: "Application",
       },
     ],
+    jobType: {
+      type: String,
+      enum: ["Simple", "Freelance"],
+      default: "Simple",
+      required: true,
+    },
+    priceType: {
+      type: String,
+      enum: ["Fixed", "Task-based"],
+    },
+    price: {
+      type: Number,
+    },
+    duration: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

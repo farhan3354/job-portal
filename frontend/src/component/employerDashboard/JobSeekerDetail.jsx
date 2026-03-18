@@ -256,6 +256,7 @@ const JobSeekerDetail = () => {
   const [loading, setloading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [application, setApplication] = useState(null);
+  const [updating, setUpdating] = useState(false);
   const token = useSelector((state) => state.auth.token);
 
   const getApplicant = async () => {
@@ -276,9 +277,27 @@ const JobSeekerDetail = () => {
     }
   };
 
+  const handleStatusUpdate = async (newStatus) => {
+    if (!application?._id) return;
+    setUpdating(true);
+    try {
+      await axios.put(
+        `http://localhost:8000/application/status/${application._id}`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setApplication((prev) => ({ ...prev, status: newStatus }));
+    } catch (error) {
+      console.error("Error updating status:", error);
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   useEffect(() => {
     getApplicant();
   }, [id]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -286,13 +305,12 @@ const JobSeekerDetail = () => {
       </div>
     );
   }
+
   if (!profile) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">
-            Applicant Not Found
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900">Applicant Not Found</h1>
           <button
             onClick={() => navigate("/employer-dashboard")}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
@@ -304,53 +322,51 @@ const JobSeekerDetail = () => {
     );
   }
 
+  const statusColors = {
+    Pending: "bg-yellow-100 text-yellow-800",
+    Reviewed: "bg-blue-100 text-blue-800",
+    Interviewing: "bg-indigo-100 text-indigo-800",
+    Shortlisted: "bg-purple-100 text-purple-800",
+    Accepted: "bg-green-100 text-green-800",
+    Rejected: "bg-red-100 text-red-800",
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="mb-6">
+        <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center text-blue-600 hover:text-blue-800 mb-4 transition-colors duration-200"
+            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200"
           >
             <FiArrowLeft className="mr-2" /> Back to Applications
           </button>
 
-          {/* <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {profile?.userId?.name}
-              </h1>
-              <p className="text-lg text-gray-600 mt-1">{profile.headline}</p>
-
-              {application && (
-                <div className="mt-3 flex items-center gap-3">
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
-                      application.status
-                    )}`}
-                  >
-                    {application.status}
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    Applied on{" "}
-                    {new Date(application.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-              )}
+          {application && (
+            <div className="flex items-center gap-3 bg-white p-2 rounded-xl shadow-sm border border-gray-100">
+              <span className="text-sm font-semibold text-gray-500 ml-2">Status:</span>
+              <select
+                value={application.status}
+                onChange={(e) => handleStatusUpdate(e.target.value)}
+                disabled={updating}
+                className={`text-sm font-bold py-1.5 px-3 rounded-lg border-none focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer ${
+                  statusColors[application.status] || "bg-gray-100"
+                }`}
+              >
+                <option value="Pending">Pending</option>
+                <option value="Reviewed">Reviewed</option>
+                <option value="Interviewing">Interviewing</option>
+                <option value="Shortlisted">Shortlisted</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+              {updating && <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mr-2"></div>}
             </div>
-
-            <button
-              onClick={handleDownload}
-              className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md"
-            >
-              <FiDownload className="mr-2" />
-              Download CV
-            </button>
-          </div> */}
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* ... existing profile display logic ... */}
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white rounded-xl shadow-sm p-6">
               <div className="flex justify-center mb-4">
@@ -538,9 +554,7 @@ const JobSeekerDetail = () => {
               <div className="bg-gray-50 p-4 rounded-lg">
                 {profile.seekerresumeUrl ? (
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-700">
-                      View candidate's resume
-                    </span>
+                    <span className="text-gray-700">View candidate's resume</span>
                     <a
                       href={profile.seekerresumeUrl}
                       target="_blank"
@@ -583,5 +597,6 @@ const JobSeekerDetail = () => {
     </div>
   );
 };
+
 
 export default JobSeekerDetail;

@@ -23,6 +23,10 @@ export const createJob = async (req, res) => {
       hiringTimeline,
       schedule,
       benefits,
+      jobType,
+      priceType,
+      price,
+      duration,
     } = req.body;
 
     if (
@@ -63,6 +67,10 @@ export const createJob = async (req, res) => {
       hiringTimeline,
       schedule,
       benefits,
+      jobType,
+      priceType,
+      price,
+      duration,
       status: "Active",
       postedBy: req.user.id,
     });
@@ -219,6 +227,10 @@ export const editjob = async (req, res) => {
       schedule,
       benefits,
       status,
+      jobType,
+      priceType,
+      price,
+      duration,
     } = req.body;
 
     const editemployerjob = await Job.findByIdAndUpdate(
@@ -242,6 +254,10 @@ export const editjob = async (req, res) => {
         schedule,
         benefits,
         status,
+        jobType,
+        priceType,
+        price,
+        duration,
       },
       {
         new: true,

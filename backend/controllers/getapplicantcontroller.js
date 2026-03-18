@@ -58,3 +58,31 @@ export const applicant = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const updateApplicationStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const application = await Application.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!application) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Application not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Status updated successfully",
+      application,
+    });
+  } catch (error) {
+    console.error("Error updating application status:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};

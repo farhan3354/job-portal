@@ -4,6 +4,31 @@ export default function StepOne({ register, errors }) {
   return (
     <>
       <div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Job Type *</label>
+          <div className="flex space-x-4">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                value="Simple"
+                {...register("jobType")}
+                className="form-radio text-blue-600"
+                defaultChecked
+              />
+              <span>Simple Job</span>
+            </label>
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                value="Freelance"
+                {...register("jobType")}
+                className="form-radio text-green-600"
+              />
+              <span>Freelance / Fixed Task</span>
+            </label>
+          </div>
+        </div>
+
         <div>
           <label className="block text-gray-700 mb-1">Job Title *</label>
           <input

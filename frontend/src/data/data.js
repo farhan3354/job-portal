@@ -36,6 +36,11 @@ export const menuItems = [
     icon: "MdWork",
   },
   {
+    title: "Freelance Jobs",
+    icon: "MdWork",
+    to: "/user-dashboard/freelance-jobs",
+  },
+  {
     title: "Profile",
     icon: "IoIosContact",
     to: "/user-dashboard/profile",

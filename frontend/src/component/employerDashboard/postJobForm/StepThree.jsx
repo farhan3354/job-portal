@@ -1,9 +1,52 @@
 import React from "react";
 
-export default function StepThree({ register, errors }) {
+export default function StepThree({ register, errors, watch }) {
+  const jobType = watch("jobType");
+
   return (
     <>
-      <div>
+      <div className="space-y-4">
+        {jobType === "Freelance" && (
+          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-gray-700 mb-1">Project Duration *</label>
+              <select
+                {...register("projectDuration", { required: jobType === "Freelance" })}
+                className="w-full border rounded-lg px-3 py-2"
+              >
+                <option value="Less than 1 month">Less than 1 month</option>
+                <option value="1-3 months">1-3 months</option>
+                <option value="3-6 months">3-6 months</option>
+                <option value="More than 6 months">More than 6 months</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-gray-700 mb-1">Project Scope *</label>
+              <select
+                {...register("projectScope", { required: jobType === "Freelance" })}
+                className="w-full border rounded-lg px-3 py-2"
+              >
+                <option value="Small">Small (Quick task)</option>
+                <option value="Medium">Medium (Defined project)</option>
+                <option value="Large">Large (Complex project)</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        <div>
+          <label className="block text-gray-700 mb-1">Desired Experience Level *</label>
+          <select
+            {...register("experienceLevel", { required: "Experience level is required" })}
+            className="w-full border rounded-lg px-3 py-2"
+          >
+            <option value="Entry">Entry Level</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Expert">Expert / Specialist</option>
+          </select>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
           <div>
             <label className="block text-gray-700 mb-1">Location *</label>
@@ -23,29 +66,21 @@ export default function StepThree({ register, errors }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
-          <div>
-            <label className="block text-gray-700 mb-1">Salary Range *</label>
-            <input
-              type="text"
-              {...register("salary", {
-                required: "Salary range is required",
-                pattern: {
-                  value: /^\$?[0-9,]+(?: - \$?[0-9,]+)?$/,
-                  message:
-                    "Please enter a valid salary range (e.g. $50,000 - $70,000)",
-                },
-              })}
-              placeholder="e.g. $50,000 - $70,000"
-              className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
-            />
-            {errors.salary && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.salary.message}
-              </p>
-            )}
+        {jobType !== "Freelance" && (
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+            <div>
+              <label className="block text-gray-700 mb-1">Salary Range *</label>
+              <input
+                type="text"
+                {...register("salary", {
+                  required: jobType !== "Freelance",
+                })}
+                placeholder="e.g. $50,000 - $70,000"
+                className="w-full border rounded-lg px-3 py-2 focus:ring focus:ring-blue-300"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
           <div>

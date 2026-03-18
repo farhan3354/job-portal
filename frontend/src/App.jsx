@@ -13,6 +13,7 @@ import Job from "./pages/userDashboardPages/Job.jsx";
 import ApplyJob from "./pages/userDashboardPages/ApplyJob.jsx";
 import Profile from "./pages/userDashboardPages/Profile.jsx";
 import Appliedjob from "./pages/userDashboardPages/AppliedJob.jsx";
+import FreelancerJobs from "./pages/userDashboardPages/FreelancerJobs.jsx";
 import EmployerLayout from "./component/common/employerLayout/EmployerLayout.jsx";
 import EmployerHome from "./pages/employerDashboardPages/EmployerHome.jsx";
 import PostJob from "./pages/employerDashboardPages/PostJob.jsx";
@@ -82,6 +83,7 @@ function App() {
           <Route path="/user-dashboard" element={<UserLayout />}>
             <Route index element={<Userdashboard />} />
             <Route path="jobs" element={<Job />} />
+            <Route path="freelance-jobs" element={<FreelancerJobs />} />
             <Route path="apply/:id" element={<ApplyJob />} />
             <Route path="applied" element={<Appliedjob />} />
             <Route path="profile" element={<Profile />} />

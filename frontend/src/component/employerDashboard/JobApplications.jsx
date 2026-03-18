@@ -238,8 +238,13 @@ const JobApplications = () => {
                           : ""
                       }
                       ${
-                        applicant.status === "Interview"
-                          ? "bg-yellow-100 text-yellow-800"
+                        applicant.status === "Interview" || applicant.status === "Interviewing"
+                          ? "bg-indigo-100 text-indigo-800"
+                          : ""
+                      }
+                      ${
+                        applicant.status === "Shortlisted"
+                          ? "bg-purple-100 text-purple-800"
                           : ""
                       }
                       ${
@@ -311,8 +316,13 @@ const JobApplications = () => {
                       : ""
                   }
                   ${
-                    applicant.status === "Interview"
-                      ? "bg-yellow-100 text-yellow-800"
+                    applicant.status === "Interview" || applicant.status === "Interviewing"
+                      ? "bg-indigo-100 text-indigo-800"
+                      : ""
+                  }
+                  ${
+                    applicant.status === "Shortlisted"
+                      ? "bg-purple-100 text-purple-800"
                       : ""
                   }
                   ${

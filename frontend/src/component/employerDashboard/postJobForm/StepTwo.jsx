@@ -1,10 +1,64 @@
 import React from "react";
 import { industries, employmentTypes } from "../../../data/data";
 
-export default function StepTwo({ register, errors }) {
+export default function StepTwo({ register, errors, watch }) {
+  const jobType = watch("jobType");
+  const freelanceType = watch("freelanceType");
+
   return (
     <>
-      <div>
+      <div className="space-y-4">
+        {jobType === "Freelance" && (
+          <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+            <h3 className="font-semibold text-green-800 mb-3">Freelance Budgeting</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-700 mb-1">Budget Type *</label>
+                <select
+                  {...register("freelanceType", { required: jobType === "Freelance" })}
+                  className="w-full border rounded-lg px-3 py-2"
+                >
+                  <option value="Fixed">Fixed Price</option>
+                  <option value="Hourly">Hourly Rate</option>
+                </select>
+              </div>
+
+              {freelanceType === "Fixed" ? (
+                <div>
+                  <label className="block text-gray-700 mb-1">Total Budget ($) *</label>
+                  <input
+                    type="number"
+                    {...register("budget", { required: freelanceType === "Fixed" })}
+                    placeholder="e.g. 500"
+                    className="w-full border rounded-lg px-3 py-2"
+                  />
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-gray-700 mb-1">Min ($/hr) *</label>
+                    <input
+                      type="number"
+                      {...register("hourlyRange.min", { required: freelanceType === "Hourly" })}
+                      placeholder="20"
+                      className="w-full border rounded-lg px-3 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 mb-1">Max ($/hr) *</label>
+                    <input
+                      type="number"
+                      {...register("hourlyRange.max", { required: freelanceType === "Hourly" })}
+                      placeholder="40"
+                      className="w-full border rounded-lg px-3 py-2"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         <div>
           <label className="block text-gray-700 mb-1">
             Requirements & Qualifications *

@@ -13,25 +13,46 @@ export default function EmployerPostJob() {
     register,
     handleSubmit,
     trigger,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      jobType: "Simple",
+      freelanceType: "Fixed",
+    }
+  });
 
   const navigate = useNavigate();
   const [count, setCount] = useState(1);
   const token = useSelector((state) => state.auth.token);
+  const jobType = watch("jobType");
 
   const onSubmit = async (data) => {
     const formattedData = {
       ...data,
-      requirements: data.requirements
-        .split("\n")
-        .map((r) => r.trim())
-        .filter((r) => r !== ""),
-      skills: data.skills
-        .split(",")
-        .map((s) => s.trim())
-        .filter((s) => s !== ""),
+      requirements: typeof data.requirements === "string" 
+        ? data.requirements.split("\n").map((r) => r.trim()).filter((r) => r !== "")
+        : data.requirements,
+      skills: typeof data.skills === "string"
+        ? data.skills.split(",").map((s) => s.trim()).filter((s) => s !== "")
+        : data.skills,
     };
+
+    // Clean up data based on jobType
+    if (formattedData.jobType === "Simple") {
+      delete formattedData.freelanceType;
+      delete formattedData.budget;
+      delete formattedData.hourlyRange;
+      delete formattedData.projectDuration;
+      delete formattedData.projectScope;
+    } else {
+      delete formattedData.salary;
+      if (formattedData.freelanceType === "Fixed") {
+        delete formattedData.hourlyRange;
+      } else {
+        delete formattedData.budget;
+      }
+    }
 
     try {
       const response = await axios.post(
@@ -58,7 +79,7 @@ export default function EmployerPostJob() {
       console.error(error);
       Swal.fire({
         title: "Error",
-        text: error.response?.formattedData?.message || "Something went wrong",
+        text: error.response?.data?.message || "Something went wrong",
         icon: "error",
       });
     }
@@ -70,9 +91,18 @@ export default function EmployerPostJob() {
     let valid = false;
 
     if (count === 1) {
-      valid = await trigger(["jobTitle", "companyName", "jobDescription"]);
+      valid = await trigger(["jobTitle", "companyName", "jobDescription", "jobType"]);
     } else if (count === 2) {
-      valid = await trigger(["requirements", "experienceLevel", "industry"]);
+      const fieldsToValidate = ["requirements", "industry", "skills"];
+      if (jobType === "Freelance") {
+        fieldsToValidate.push("freelanceType");
+        if (watch("freelanceType") === "Fixed") {
+          fieldsToValidate.push("budget");
+        } else {
+          fieldsToValidate.push("hourlyRange.min", "hourlyRange.max");
+        }
+      }
+      valid = await trigger(fieldsToValidate);
     } else {
       valid = true;
     }
@@ -86,12 +116,24 @@ export default function EmployerPostJob() {
 
   return (
     <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-2xl font-semibold mb-6">Post a Job</h2>
+      <h2 className="text-2xl font-semibold mb-6">Post a New Job</h2>
+      
+      {/* Step Indicator */}
+      <div className="flex items-center mb-8">
+        {[1, 2, 3].map((step) => (
+          <React.Fragment key={step}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${count >= step ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
+              {step}
+            </div>
+            {step < 3 && <div className={`flex-1 h-1 mx-2 ${count > step ? 'bg-blue-600' : 'bg-gray-200'}`}></div>}
+          </React.Fragment>
+        ))}
+      </div>
 
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-        {count === 1 && <StepOne register={register} errors={errors} />}
-        {count === 2 && <StepTwo register={register} errors={errors} />}
-        {count === 3 && <StepThree register={register} errors={errors} />}
+        {count === 1 && <StepOne register={register} errors={errors} watch={watch} />}
+        {count === 2 && <StepTwo register={register} errors={errors} watch={watch} />}
+        {count === 3 && <StepThree register={register} errors={errors} watch={watch} />}
 
         <div className="flex justify-between pt-4">
           {count > 1 && (
